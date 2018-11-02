@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--==================== COLOR PALETTE ==================== -->
+    <color name="white">@android:color/white</color>
+    <color name="black">@android:color/black</color>
+
+    <!--BLUE COLORS-->
+    <color name="blue">#3fa6cb</color>
+    <color name="blue_dark">#004A73</color>
+
+    <!--RUBY COLORS-->
+    <color name="ruby">#D81B60</color>
+    <color name="ruby_dark">#880E4F</color>
+
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/blue_dark</color>
+    <color name="colorAccent">@color/ruby</color>
 </resources>
