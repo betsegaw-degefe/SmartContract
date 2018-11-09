@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/transactionType"
+        style="@style/label.blue"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="car transaction" />
+
+    <View
+        android:id="@+id/viewHorizontalPartition"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/transactionType"
+        android:layout_marginTop="8dp"
+        android:background="@color/ruby"
+        app:layout_constraintStart_toStartOf="@+id/transactionType"
+        app:layout_constraintTop_toBottomOf="@+id/transactionType" />
+
+    <ImageView
+        android:id="@+id/contractItemIcon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/viewHorizontalPartition"
+        app:layout_constraintTop_toBottomOf="@+id/transactionType"
+        app:srcCompat="@drawable/ic_lnr_frame_contract" />
+
+    <TextView
+        android:id="@+id/transactionFrom"
+        style="@style/label.black.large"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/contractItemIcon"
+        app:layout_constraintTop_toBottomOf="@+id/viewHorizontalPartition"
+        tools:text="Bereket G/dingil" />
+
+    <ImageView
+        android:id="@+id/downWardIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/transactionTo"
+        app:layout_constraintEnd_toEndOf="@+id/transactionFrom"
+        app:layout_constraintStart_toStartOf="@+id/transactionFrom"
+        app:layout_constraintTop_toBottomOf="@+id/transactionFrom"
+        app:srcCompat="@drawable/ic_down_arrow" />
+
+    <TextView
+        android:id="@+id/transactionTo"
+        style="@style/label.black.large"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toEndOf="@+id/contractItemIcon"
+        app:layout_constraintTop_toBottomOf="@+id/downWardIcon"
+        tools:text="Betsegaw Degefe" />
+
+    <TextView
+        android:id="@+id/transactionTimeStamp"
+        style="@style/label.blue"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transactionTo"
+        tools:text="Friday, 09-Nov-18 07:25:53" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -56,7 +56,7 @@
     </style>
     <!--large label-->
     <style name="label.large">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!--blue label-->
@@ -65,7 +65,7 @@
     </style>
     <!--large blue label-->
     <style name="label.blue.large">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!--orange label-->
@@ -74,7 +74,17 @@
     </style>
     <!--large orange label-->
     <style name="label.ruby.large">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--black label-->
+    <style name="label.black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--large black label-->
+    <style name="label.black.large">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
