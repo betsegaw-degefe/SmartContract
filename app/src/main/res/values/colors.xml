@@ -12,6 +12,10 @@
     <color name="ruby">#D81B60</color>
     <color name="ruby_dark">#880E4F</color>
 
+    <!--white color-->
+    <color name="white_background">#e0f3fa</color>
+
+
     <color name="colorPrimary">@color/blue</color>
     <color name="colorPrimaryDark">@color/blue_dark</color>
     <color name="colorAccent">@color/ruby</color>

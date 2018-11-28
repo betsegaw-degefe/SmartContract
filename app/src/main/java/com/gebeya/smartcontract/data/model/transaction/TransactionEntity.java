@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.model.transaction;
+package com.gebeya.smartcontract.data.model.transaction;
 
 import android.support.annotation.Nullable;
 

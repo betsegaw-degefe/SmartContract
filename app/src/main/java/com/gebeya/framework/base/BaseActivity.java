@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.gebeya.framework.utils.Util;
 
+import butterknife.ButterKnife;
+
 /**
  * This class acts as the base Activity for all our other Activity classes.
  * It contains common functionality across all Activities, such as logging of
@@ -19,6 +21,15 @@ public class BaseActivity extends AppCompatActivity {
      * This is where you would also specify what UI to display, using the
      * setContentView() method
      */
+
+    /**
+     * Convenience method to automatically invoke ButterKnife to create all the UI
+     * bindings associated with the given Activity.
+     * This method should be called in onCreate() above.
+     */
+    protected void bind() {
+        ButterKnife.bind(this);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

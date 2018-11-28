@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Smart Contract</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="defaultFont"></string>
+
+    <!--==================== TAB NAMES ==================== -->
+    <string name="about_us">About us</string>
+    <string name="my_asset">My Asset</string>
+    <string name="public_ledger">Public Ledger</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_public_ledger">PublicLedgerActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
