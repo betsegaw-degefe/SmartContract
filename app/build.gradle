@@ -26,6 +26,9 @@ dependencies {
     implementation "${support}.constraint:constraint-layout:$constraintLayoutVersion"
     implementation "$support:design:$appcompatVersion"
     implementation "$support:support-v4:$supportV4"
+    implementation "$support:recyclerview-v7:$appcompatVersion"
+
+    //TEST IMPLEMENTATION
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -38,9 +41,11 @@ dependencies {
     implementation 'agency.tango.android:avatar-view-picasso:0.0.2'
     //for loading images using Glide
     implementation 'agency.tango.android:avatar-view-glide:0.0.2'
-    //RETROFIT REST CLIENT
+
+    // NETWORKING
+    implementation "$okhttp3:okhttp:$okhttp3Version"
+    implementation "$gson:gson:$gsonVersion"
     implementation "$retrofit:retrofit:$retrofitVersion"
     implementation "$retrofit:converter-gson:$retrofitVersion"
-    //OKHTTP
-    implementation "$okhttp3:okhttp:$okhttp3Version"
+
 }

@@ -1,5 +1,6 @@
 package com.gebeya.framework.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 public class Util {
@@ -7,7 +8,7 @@ public class Util {
      * Used as the global TAG throughout the application to log and filter out
      * the output only with the provided TAG.
      */
-    private static final String TAG = "TAG-SMART-CONTRACT-DEBUG";
+    private static final String TAG = "TAG-SMART-CONTRACT";
 
     /**
      * Send a simple debug message to the log using the Debug level.
@@ -36,4 +37,8 @@ public class Util {
             Log.d(TAG, output);
         }
     }
+
+    /*public static boolean connected(Context context) {
+        Net`
+    }*/
 }

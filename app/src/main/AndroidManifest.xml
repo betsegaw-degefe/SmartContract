@@ -29,7 +29,9 @@
         <activity
             android:name=".publicLedger.PublicLedgerActivity"
             android:label="@string/title_activity_public_ledger"
-            android:theme="@style/base_theme.NoActionBar" />
+            android:theme="@style/base_theme.NoActionBar" >
+
+        </activity>
         <activity android:name=".enterPhoneNumber.EnterPhoneNumberActivity"></activity>
     </application>
 

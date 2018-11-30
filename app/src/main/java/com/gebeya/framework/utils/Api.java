@@ -1,5 +1,8 @@
 package com.gebeya.framework.utils;
 
+import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
+import com.gebeya.smartcontract.data.remote.RetrofitClient;
+
 public final class Api {
     /**
      * Represents operations to be performed on the remote REST API.
@@ -8,9 +11,11 @@ public final class Api {
      * Base endpoint for the entire API.
      * This endpoint should return the status of the API itself.
      */
-    public static final String BASE_URL = "https://smart-contract-app.herokuapp.com";
+    public static final String BASE_URL = "https://smart-contract-app.herokuapp.com/";
 
 
-    public static final String STATUS_SUCCESS = "running";
+    public static PublicLedgerService getPublicLedgerService() {
+        return RetrofitClient.getClient(BASE_URL).create(PublicLedgerService.class);
+    }
 
 }

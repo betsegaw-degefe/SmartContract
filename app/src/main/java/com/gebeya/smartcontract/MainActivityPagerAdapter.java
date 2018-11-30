@@ -13,7 +13,6 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
     public MainActivityPagerAdapter(FragmentManager manager,List<Fragment> fragments) {
         super(manager);
         this.mFragments = fragments;
-
     }
 
     @Override
@@ -32,9 +31,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-
-        //return MainActivity.PAGE_COUNT;
-        return mFragments.size();
+        return MainActivity.PAGE_COUNT;
     }
 
     @Override

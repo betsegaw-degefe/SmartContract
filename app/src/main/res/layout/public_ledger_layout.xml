@@ -44,7 +44,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/contractItemIcon"
         app:layout_constraintTop_toBottomOf="@+id/viewHorizontalPartition"
-        tools:text="Bereket G/dingil" />
+        tools:text="Bereket G/dingil"/>
 
     <ImageView
         android:id="@+id/downWardIcon"

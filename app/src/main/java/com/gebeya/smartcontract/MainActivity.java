@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.mainTabs)
     TabLayout mTabLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +43,11 @@ public class MainActivity extends BaseActivity {
               R.drawable.ic_my_assets,
               R.drawable.ic_notification
         };
+
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new PublicLedgerFragment());
         fragments.add(new PublicLedgerFragment());
         fragments.add(new PublicLedgerFragment());
-
 
         MainActivityPagerAdapter mAdapter =
               new MainActivityPagerAdapter(getSupportFragmentManager(), fragments);
@@ -59,6 +58,9 @@ public class MainActivity extends BaseActivity {
 
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        int count = mTabLayout.getTabCount();
+
         mTabLayout.getTabAt(0).setIcon(tabIcons[0]);
         mTabLayout.getTabAt(1).setIcon(tabIcons[1]);
         mTabLayout.getTabAt(2).setIcon(tabIcons[2]);
@@ -84,4 +86,5 @@ public class MainActivity extends BaseActivity {
         });
 
     }
+
 }
