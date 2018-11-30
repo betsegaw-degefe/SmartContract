@@ -1,0 +1,50 @@
+# Android CircleCI configuration file
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-27-alpha
+    environment:
+      _JAVA_OPTIONS: "-Xmx2048m"
+    steps:
+    # STEP 1
+      # Restore any Gradle build cache (if any). This helps in speeding up the build.
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    # STEP 2
+      # Download any missing Android dependencies, such as any libraries we have added.
+      - run:
+          name: Downloading dependencies
+          command: ./gradlew androidDependencies
+    # STEP 3
+      # After downloading, save the data to the Gradle build cache (so that future
+      # builds are faster (see STEP 1 above).
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    # STEP 4
+      # Assemble a debug build using the Gradle Wrapper (gradlew) built-in tool
+      # This generates an APK file, just like selecting 'Build > Make Project' in Android Studio.
+      - run:
+          name: Assembling debug build
+          command: ./gradlew assembleDebug --info
+    # STEP 5
+      # Copy the generated APK file (if any) and store it in a special folder called apks/
+      - store_artifacts:
+          path: app/build/outputs/apk/debug/app-debug.apk
+          destination: apks/app-debug.apk
+    # STEP 6
+      # Run any unit tests that you might have inside your project and store the results and reports
+      # in the 'reports' and 'test-results' folders
+      - run:
+          name: Running unit tests
+          command: ./gradlew testDebugUnitTest --stacktrace --info
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
+          destination: test-results
