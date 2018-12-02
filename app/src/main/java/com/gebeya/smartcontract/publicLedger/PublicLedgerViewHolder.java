@@ -13,6 +13,9 @@ import butterknife.ButterKnife;
 
 public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    @BindView(R.id.transactionType)
+    TextView mType;
+
     @BindView(R.id.transactionFrom)
     TextView mFrom;
 
@@ -38,6 +41,11 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     public void onClick(View v) {
         int position = getAdapterPosition();
         mCallback.onSelected(position);
+    }
+
+    public void setType(String type) {
+        if (!type.isEmpty())
+            mType.setText(type);
     }
 
     public void setFrom(String from) {

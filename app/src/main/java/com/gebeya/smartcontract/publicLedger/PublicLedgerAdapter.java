@@ -1,12 +1,15 @@
 package com.gebeya.smartcontract.publicLedger;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.model.Transaction;
 
@@ -37,14 +40,26 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
         return new PublicLedgerViewHolder(itemView, mCallback);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull PublicLedgerViewHolder publicLedgerViewHolder, int i) {
 
+
         final Transaction transaction = mTransactions.get(i);
 
-        publicLedgerViewHolder.setFrom(transaction.getFrom().getFirstName());
-        publicLedgerViewHolder.setTo(transaction.getTo().getFirstName());
-        publicLedgerViewHolder.setCreatedAt(transaction.getCreatedAt());
+        if (transaction.getCar() != null) {
+            publicLedgerViewHolder.setType("Car Transaction");
+        } else if (transaction.getHouse() != null) {
+            publicLedgerViewHolder.setType("House Transaction");
+        }
+
+        publicLedgerViewHolder.setFrom(transaction.getFrom().getPublicId());
+        publicLedgerViewHolder.setTo(transaction.getTo().getPublicId());
+
+        DateFormatter dateFormatter = new DateFormatter();
+
+        publicLedgerViewHolder.setCreatedAt(dateFormatter.DateFormatter(transaction.getCreatedAt()));
+
     }
 
     @Override

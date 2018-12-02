@@ -4,29 +4,47 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.gebeya.smartcontract.publicLedger.PublicLedgerFragment;
+
 import java.util.List;
 
 public class MainActivityPagerAdapter extends FragmentPagerAdapter {
 
     List<Fragment> mFragments;
+    private int numOfTabs;
 
-    public MainActivityPagerAdapter(FragmentManager manager,List<Fragment> fragments) {
+
+    public MainActivityPagerAdapter(FragmentManager manager,int numOfTabs) {
         super(manager);
-        this.mFragments = fragments;
+        //this.mFragments = fragments;
+        this.numOfTabs = numOfTabs;
     }
 
     @Override
     public Fragment getItem(int i) {
-        /*switch (i){
+
+        switch (i) {
             case 0:
-                return MainActivityFragment.newInstance(i);
+                return new PublicLedgerFragment();
             case 1:
-                return MainActivityFragment.newInstance(i);
+                return new PublicLedgerFragment();
+            case 2:
+                return new PublicLedgerFragment();
             default:
-                return MainActivityFragment.newInstance(i);
+                return null;
+        }
+
+        /*//int fragment = mFragments.get(i);
+        switch (i){
+            case 0:
+                return MainActivityFragment.newInstance(R.layout.fragment_public_ledger);
+            case 1:
+                return MainActivityFragment.newInstance(R.layout.fragment_public_ledger);
+            default:
+                return MainActivityFragment.newInstance(R.layout.fragment_public_ledger);
         }*/
 
-       return mFragments.get(i);
+       //return mFragments.get(i);
     }
 
     @Override

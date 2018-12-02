@@ -44,22 +44,20 @@ public class MainActivity extends BaseActivity {
               R.drawable.ic_notification
         };
 
-        List<Fragment> fragments = new ArrayList<>();
+        /*List<Fragment> fragments = new ArrayList<>();
         fragments.add(new PublicLedgerFragment());
         fragments.add(new PublicLedgerFragment());
-        fragments.add(new PublicLedgerFragment());
+        fragments.add(new PublicLedgerFragment());*/
 
         MainActivityPagerAdapter mAdapter =
-              new MainActivityPagerAdapter(getSupportFragmentManager(), fragments);
+              new MainActivityPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
 
         mViewPager.setAdapter(mAdapter);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        int count = mTabLayout.getTabCount();
 
         mTabLayout.getTabAt(0).setIcon(tabIcons[0]);
         mTabLayout.getTabAt(1).setIcon(tabIcons[1]);
@@ -84,6 +82,8 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
     }
 

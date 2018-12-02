@@ -36,7 +36,7 @@ public class Transaction {
         return car;
     }
 
-    public void setCarId(Car car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 
@@ -64,11 +64,11 @@ public class Transaction {
         this.createdAt = createdAt;
     }
 
-    public House getHouseId() {
+    public House getHouse() {
         return house;
     }
 
-    public void setHouseId(House house) {
+    public void setHouse(House house) {
         this.house = house;
     }
 }

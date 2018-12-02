@@ -42,10 +42,15 @@ public class MainActivityFragment extends BaseFragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        inflate(R.layout.fragment_main, container);
+      /*  inflate(R.layout.fragment_main, container);
 
         mTextView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-        return root;
+        return root;*/
+
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+        textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+        return rootView;
 
     }
 }
