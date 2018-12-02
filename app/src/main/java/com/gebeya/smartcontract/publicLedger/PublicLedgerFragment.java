@@ -17,6 +17,7 @@ import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.model.PublicLedgerResponse;
 import com.gebeya.smartcontract.data.model.Transaction;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,11 +32,11 @@ import retrofit2.Response;
 
 public class PublicLedgerFragment extends BaseFragment {
 
-//    @BindView(R.id.ledgerToolbar)
-//    Toolbar mToolbar;
-
     @BindView(R.id.publicLedgerRecyclerView)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.progress_view)
+    CircularProgressView progressView;
 
     private RecyclerView.LayoutManager mLayoutManager;
     private PublicLedgerService mPublicLedgerService;
@@ -85,6 +86,7 @@ public class PublicLedgerFragment extends BaseFragment {
                     List<Transaction> transactions = ledgerResponse.getData();
                     d("Transactions loaded: " + transactions.size());
                     mPublicLedgerAdapter.updateTransactions(response.body().getData());
+                    progressView.setVisibility(View.GONE);
                 } else {
                     e("Response was not successful");
                     int statusCode  = response.code();

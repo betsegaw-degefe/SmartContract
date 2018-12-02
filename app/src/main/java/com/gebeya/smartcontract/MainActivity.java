@@ -1,18 +1,15 @@
 package com.gebeya.smartcontract;
 
 import android.graphics.PorterDuff;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.gebeya.framework.base.BaseActivity;
-import com.gebeya.smartcontract.publicLedger.PublicLedgerFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import butterknife.BindView;
 
@@ -29,6 +26,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.mainTabs)
     TabLayout mTabLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +41,6 @@ public class MainActivity extends BaseActivity {
               R.drawable.ic_my_assets,
               R.drawable.ic_notification
         };
-
-        /*List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new PublicLedgerFragment());
-        fragments.add(new PublicLedgerFragment());
-        fragments.add(new PublicLedgerFragment());*/
 
         MainActivityPagerAdapter mAdapter =
               new MainActivityPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
@@ -84,6 +77,7 @@ public class MainActivity extends BaseActivity {
         });
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
 
     }
 

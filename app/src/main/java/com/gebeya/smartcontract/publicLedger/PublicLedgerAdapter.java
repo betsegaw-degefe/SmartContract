@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.model.Transaction;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHolder> {
 
@@ -21,6 +24,9 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     private LayoutInflater inflater;
     private PublicLedgerCallback mCallback;
     private Context mContext;
+
+    @BindView(R.id.progress_view)
+    CircularProgressView progressView;
 
     public PublicLedgerAdapter(Context context, List<Transaction> transactions, PublicLedgerCallback callback) {
         this.mCallback = callback;
@@ -70,6 +76,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     public void updateTransactions(List<Transaction> transactions) {
         mTransactions = transactions;
         notifyDataSetChanged();
+
     }
 
     private Transaction getTransaction(int adapterPosition) {

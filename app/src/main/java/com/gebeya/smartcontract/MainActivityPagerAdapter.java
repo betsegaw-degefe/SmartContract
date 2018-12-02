@@ -10,13 +10,11 @@ import java.util.List;
 
 public class MainActivityPagerAdapter extends FragmentPagerAdapter {
 
-    List<Fragment> mFragments;
     private int numOfTabs;
 
 
     public MainActivityPagerAdapter(FragmentManager manager,int numOfTabs) {
         super(manager);
-        //this.mFragments = fragments;
         this.numOfTabs = numOfTabs;
     }
 
@@ -34,17 +32,6 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
                 return null;
         }
 
-        /*//int fragment = mFragments.get(i);
-        switch (i){
-            case 0:
-                return MainActivityFragment.newInstance(R.layout.fragment_public_ledger);
-            case 1:
-                return MainActivityFragment.newInstance(R.layout.fragment_public_ledger);
-            default:
-                return MainActivityFragment.newInstance(R.layout.fragment_public_ledger);
-        }*/
-
-       //return mFragments.get(i);
     }
 
     @Override
