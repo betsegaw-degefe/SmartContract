@@ -11,29 +11,24 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.model.Transaction;
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.gebeya.smartcontract.data.dto.TransactionDTO;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHolder> {
 
-    private List<Transaction> mTransactions;
+    private List<TransactionDTO> mTransactions;
     private LayoutInflater inflater;
     private PublicLedgerCallback mCallback;
     private Context mContext;
 
-    @BindView(R.id.progress_view)
-    CircularProgressView progressView;
 
-    public PublicLedgerAdapter(Context context, List<Transaction> transactions, PublicLedgerCallback callback) {
+    public PublicLedgerAdapter(Context context,
+                               List<TransactionDTO> transactions,
+                               PublicLedgerCallback callback) {
         this.mCallback = callback;
-        //this.inflater = inflater;
         this.mTransactions = transactions;
         this.mContext = context;
-
     }
 
     @NonNull
@@ -50,8 +45,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     @Override
     public void onBindViewHolder(@NonNull PublicLedgerViewHolder publicLedgerViewHolder, int i) {
 
-
-        final Transaction transaction = mTransactions.get(i);
+        TransactionDTO transaction = mTransactions.get(i);
 
         if (transaction.getCar() != null) {
             publicLedgerViewHolder.setType("Car Transaction");
@@ -73,13 +67,14 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
         return mTransactions.size();
     }
 
-    public void updateTransactions(List<Transaction> transactions) {
+    public void updateTransactions(List<TransactionDTO> transactions) {
         mTransactions = transactions;
         notifyDataSetChanged();
 
     }
 
-    private Transaction getTransaction(int adapterPosition) {
+    private TransactionDTO getTransaction(int adapterPosition) {
         return mTransactions.get(adapterPosition);
     }
+
 }

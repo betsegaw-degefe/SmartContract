@@ -28,7 +28,8 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     private Context mContext;
     private PublicLedgerCallback mCallback;
 
-    public PublicLedgerViewHolder(@NonNull View itemView, PublicLedgerCallback callback) {
+    public PublicLedgerViewHolder(@NonNull View itemView,
+                                  PublicLedgerCallback callback) {
         super(itemView);
 
         this.mCallback = callback;

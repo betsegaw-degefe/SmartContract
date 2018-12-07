@@ -111,7 +111,7 @@ public class BaseFragment extends Fragment {
 
     /**
      * Invoked when the the Fragment is being detached from the Activity host, such as during the
-     * remove() Transaction or replace() Transaction. Invoked after the onDestroy() callback.
+     * remove() TransactionDTO or replace() TransactionDTO. Invoked after the onDestroy() callback.
      */
     @Override
     public void onDetach() {

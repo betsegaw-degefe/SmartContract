@@ -1,88 +1,66 @@
 package com.gebeya.smartcontract.data.model;
 
+import android.support.annotation.Nullable;
+
+import com.gebeya.smartcontract.data.dto.CarDTO;
+
 import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class Car {
-
-    @SerializedName("year_of_manufactured")
-    @Expose
-    private Integer yearOfManufactured;
-    @SerializedName("pictures")
-    @Expose
-    private List<List<String>> pictures = null;
-    @SerializedName("_id")
-    @Expose
     private String id;
-    @SerializedName("owner")
-    @Expose
+    private Integer yearOfManufactured;
+    private List<List<String>> pictures = null;
     private String owner;
-    @SerializedName("brand")
-    @Expose
     private String brand;
-    @SerializedName("Model")
-    @Expose
     private String model;
-    @SerializedName("created_at")
-    @Expose
+    private String createdAt;
 
-    private String updatedAt;
+    public Car(CarDTO carDTO) {
 
+        this.id = carDTO.getId();
+        this.yearOfManufactured = carDTO.getYearOfManufactured();
+        this.pictures = carDTO.getPictures();
+        this.owner = carDTO.getOwner();
+        this.brand = carDTO.getBrand();
+        this.model = carDTO.getModel();
+        this.createdAt = carDTO.getCreatedAt();
+    }
 
     public Integer getYearOfManufactured() {
         return yearOfManufactured;
-    }
-
-    public void setYearOfManufactured(Integer yearOfManufactured) {
-        this.yearOfManufactured = yearOfManufactured;
     }
 
     public List<List<String>> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<List<String>> pictures) {
-        this.pictures = pictures;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
     public String getBrand() {
         return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Car) {
+            Car other = (Car)obj;
+            return other.getId().equals(id);
+        }
+        return false;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

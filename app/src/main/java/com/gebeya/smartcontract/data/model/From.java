@@ -1,64 +1,50 @@
 package com.gebeya.smartcontract.data.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.Nullable;
+
+import com.gebeya.smartcontract.data.dto.FromDTO;
 
 public class From {
-
-    @SerializedName("_id")
-    @Expose
     private String id;
-    @SerializedName("firstName")
-    @Expose
     private String firstName;
-    @SerializedName("lastName")
-    @Expose
     private String lastName;
-    @SerializedName("public_id")
-    @Expose
     private String publicId;
-    @SerializedName("created_at")
-    @Expose
     private String createdAt;
 
+    public From(FromDTO fromDTO) {
+        this.id = fromDTO.getId();
+        this.firstName = fromDTO.getFirstName();
+        this.lastName = fromDTO.getLastName();
+        this.publicId = fromDTO.getPublicId();
+        this.createdAt = fromDTO.getCreatedAt();
+    }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getPublicId() {
         return publicId;
     }
 
-    public void setPublicId(String publicId) {
-        this.publicId = publicId;
-    }
-
     public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof From) {
+            From other = (From) obj;
+            return other.getId().equals(id);
+        }
+        return false;
     }
 }

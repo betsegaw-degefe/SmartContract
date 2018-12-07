@@ -1,74 +1,57 @@
 package com.gebeya.smartcontract.data.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.gebeya.smartcontract.data.dto.CarDTO;
+import com.gebeya.smartcontract.data.dto.FromDTO;
+import com.gebeya.smartcontract.data.dto.HouseDTO;
+import com.gebeya.smartcontract.data.dto.ToDTO;
+import com.gebeya.smartcontract.data.dto.TransactionDTO;
 
 public class Transaction {
-    @SerializedName("_id")
-    @Expose
     private String id;
-    @SerializedName("carId")
-    @Expose
-    private Car car;
-    @SerializedName("to")
-    @Expose
-    private To to;
-    @SerializedName("from")
-    @Expose
-    private From from;
-    @SerializedName("created_at")
-    @Expose
+    private CarDTO car;
+    private ToDTO to;
+    private FromDTO from;
     private String createdAt;
+    private HouseDTO house;
 
-    @SerializedName("houseId")
-    @Expose
-    private House house;
+    public Transaction(TransactionDTO transactionDTO) {
+        this.id = transactionDTO.getId();
+        //this.car = transactionDTO.getCar();
+        this.to = transactionDTO.getTo();
+        this.from = transactionDTO.getFrom();
+        this.createdAt = transactionDTO.getCreatedAt();
+        this.house = transactionDTO.getHouse();
+    }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Car getCar() {
+    public CarDTO getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public To getTo() {
+    public ToDTO getTo() {
         return to;
     }
 
-    public void setTo(To to) {
-        this.to = to;
-    }
-
-    public From getFrom() {
+    public FromDTO getFrom() {
         return from;
-    }
-
-    public void setFrom(From from) {
-        this.from = from;
     }
 
     public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public House getHouse() {
+    public HouseDTO getHouse() {
         return house;
     }
 
-    public void setHouse(House house) {
-        this.house = house;
+    public void setCar(CarDTO car) {
+        this.car = car;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

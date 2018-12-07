@@ -5,27 +5,22 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.textclassifier.TextLinks;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.model.PublicLedgerResponse;
-import com.gebeya.smartcontract.data.model.Transaction;
+import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
+import com.gebeya.smartcontract.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +30,7 @@ public class PublicLedgerFragment extends BaseFragment {
     @BindView(R.id.publicLedgerRecyclerView)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.progress_view)
+    @BindView(R.id.progress_view_public_ledger)
     CircularProgressView progressView;
 
     private RecyclerView.LayoutManager mLayoutManager;
@@ -57,7 +52,7 @@ public class PublicLedgerFragment extends BaseFragment {
         inflate(R.layout.fragment_public_ledger, container);
 
         mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
-              new ArrayList<Transaction>(0),
+              new ArrayList<TransactionDTO>(0),
               new PublicLedgerCallback() {
                   @Override
                   public void onSelected(int position) {
@@ -76,14 +71,15 @@ public class PublicLedgerFragment extends BaseFragment {
 
 
     private void loadPublicLedger() {
-        mPublicLedgerService.getLedger().enqueue(new Callback<PublicLedgerResponse>() {
+        mPublicLedgerService.getLedger().enqueue(new Callback<PublicLedgerResponseDTO>() {
+
             @Override
-            public void onResponse(Call<PublicLedgerResponse> call,
-                                   Response<PublicLedgerResponse> response) {
+            public void onResponse(Call<PublicLedgerResponseDTO> call,
+                                   Response<PublicLedgerResponseDTO> response) {
                 if(response.isSuccessful()){
-                    d("Public Ledger Activity transactions are loaded from API");
-                    PublicLedgerResponse ledgerResponse = response.body();
-                    List<Transaction> transactions = ledgerResponse.getData();
+                    d("Public Ledger Activity transaction are loaded from API");
+                    PublicLedgerResponseDTO ledgerResponse = response.body();
+                    List<TransactionDTO> transactions = ledgerResponse.getData();
                     d("Transactions loaded: " + transactions.size());
                     mPublicLedgerAdapter.updateTransactions(response.body().getData());
                     progressView.setVisibility(View.GONE);
@@ -95,11 +91,10 @@ public class PublicLedgerFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<PublicLedgerResponse> call, Throwable t) {
+            public void onFailure(Call<PublicLedgerResponseDTO> call, Throwable t) {
                 d("Public Ledger Fragment error loading from API");
                 t.printStackTrace();
             }
         });
     }
-
 }

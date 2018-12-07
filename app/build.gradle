@@ -47,4 +47,6 @@ dependencies {
     implementation "$retrofit:converter-gson:$retrofitVersion"
     implementation 'joda-time:joda-time:2.10.1'
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+    implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+
 }

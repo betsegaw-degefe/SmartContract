@@ -1,21 +1,20 @@
 package com.gebeya.smartcontract.data.model;
 
+import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
+import com.gebeya.smartcontract.data.dto.TransactionDTO;
 
 import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
-public class PublicLedgerResponse {
+public class PublicLedgerResponse  {
 
-    @SerializedName("data")
-    @Expose
-    private List<Transaction> data = null;
+    private List<Transaction> mdata = null;
+
 
     public List<Transaction> getData() {
-        return data;
+        return mdata;
     }
 
     public void setData(List<Transaction> data) {
-        this.data = data;
+        this.mdata = data;
     }
 }
