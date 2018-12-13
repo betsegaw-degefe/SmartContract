@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/publicLedgerSwipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white_background">
-
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/publicLedgerRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:scrollbars="vertical"
             tools:listitem="@layout/public_ledger_layout" />
 
-    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
-        <com.github.rahatarmanahmed.cpv.CircularProgressView
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <com.github.rahatarmanahmed.cpv.CircularProgressView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progress_view_public_ledger"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            app:cpv_color="@color/colorAccent"
             app:cpv_animAutostart="true"
+            app:cpv_color="@color/colorAccent"
             app:cpv_indeterminate="true" />
     </LinearLayout>
 </RelativeLayout>

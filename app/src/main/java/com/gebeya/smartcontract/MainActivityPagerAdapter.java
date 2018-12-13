@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.gebeya.smartcontract.myAsset.MyAssetFragment;
 import com.gebeya.smartcontract.publicLedger.PublicLedgerFragment;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new PublicLedgerFragment();
             case 1:
-                return new PublicLedgerFragment();
+                return new MyAssetFragment();
             case 2:
                 return new PublicLedgerFragment();
             default:

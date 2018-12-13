@@ -1,8 +1,10 @@
 package com.gebeya.smartcontract.publicLedger;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +35,10 @@ public class PublicLedgerFragment extends BaseFragment {
     @BindView(R.id.progress_view_public_ledger)
     CircularProgressView progressView;
 
+    //Bind with the swipe refresh container
+    @BindView(R.id.publicLedgerSwipeContainer)
+    SwipeRefreshLayout swipeContainer;
+
     private RecyclerView.LayoutManager mLayoutManager;
     private PublicLedgerService mPublicLedgerService;
     private PublicLedgerAdapter mPublicLedgerAdapter;
@@ -44,6 +50,7 @@ public class PublicLedgerFragment extends BaseFragment {
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,6 +73,16 @@ public class PublicLedgerFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
 
         loadPublicLedger();
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadPublicLedger();
+            }
+        });
+
+        swipeContainer.setColorSchemeColors(R.color.colorPrimary,
+              R.color.ruby);
         return root;
     }
 
@@ -76,7 +93,7 @@ public class PublicLedgerFragment extends BaseFragment {
             @Override
             public void onResponse(Call<PublicLedgerResponseDTO> call,
                                    Response<PublicLedgerResponseDTO> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     d("Public Ledger Activity transaction are loaded from API");
                     PublicLedgerResponseDTO ledgerResponse = response.body();
                     List<TransactionDTO> transactions = ledgerResponse.getData();
@@ -85,9 +102,10 @@ public class PublicLedgerFragment extends BaseFragment {
                     progressView.setVisibility(View.GONE);
                 } else {
                     e("Response was not successful");
-                    int statusCode  = response.code();
+                    int statusCode = response.code();
                     e("Response code: " + statusCode);
                 }
+                swipeContainer.setRefreshing(false);
             }
 
             @Override

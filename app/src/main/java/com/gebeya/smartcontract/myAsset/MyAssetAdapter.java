@@ -8,14 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.data.dto.UserResponseDTO;
 
 public class MyAssetAdapter extends RecyclerView.Adapter<MyAssetViewHolder> {
 
     private LayoutInflater inflater;
+    private UserResponseDTO mUserResponseDTO;
     private MyAssetCallback mCallback;
+    private Context mContext;
 
-    public MyAssetAdapter(Context context) {
-        this.inflater = inflater;
+    public MyAssetAdapter(Context context,
+                          UserResponseDTO userResponseDTO
+                          ) {
+        this.mContext = context;
+        this.mUserResponseDTO = userResponseDTO;
+     //   this.mCallback = callback;
     }
 
     @NonNull
