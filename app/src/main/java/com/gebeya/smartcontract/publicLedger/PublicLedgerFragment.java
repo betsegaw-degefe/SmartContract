@@ -81,8 +81,10 @@ public class PublicLedgerFragment extends BaseFragment {
             }
         });
 
-        swipeContainer.setColorSchemeColors(R.color.colorPrimary,
-              R.color.ruby);
+        swipeContainer.setColorSchemeResources(
+              R.color.colorPrimary,
+              R.color.colorPrimaryDark,
+              R.color.ruby_dark);
         return root;
     }
 
@@ -100,12 +102,12 @@ public class PublicLedgerFragment extends BaseFragment {
                     d("Transactions loaded: " + transactions.size());
                     mPublicLedgerAdapter.updateTransactions(response.body().getData());
                     progressView.setVisibility(View.GONE);
+                    swipeContainer.setRefreshing(false);
                 } else {
                     e("Response was not successful");
                     int statusCode = response.code();
                     e("Response code: " + statusCode);
                 }
-                swipeContainer.setRefreshing(false);
             }
 
             @Override

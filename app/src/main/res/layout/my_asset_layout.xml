@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
+    android:layout_marginTop="8dp"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -93,7 +94,7 @@
             <TextView
                 style="@style/label.blue.large"
                 android:layout_marginTop="8dp"
-                android:text="Asset Registered" />
+                android:text="Date of Registered" />
 
             <TextView
                 android:id="@+id/assetRegistered"

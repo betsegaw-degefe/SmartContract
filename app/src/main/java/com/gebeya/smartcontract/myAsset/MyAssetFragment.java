@@ -3,6 +3,7 @@ package com.gebeya.smartcontract.myAsset;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,6 +39,9 @@ public class MyAssetFragment extends BaseFragment {
     @BindView(R.id.pvMyAsset)
     CircularProgressView progressView;
 
+    @BindView(R.id.myAssetSwipeContainer)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAssetService mMyAssetService;
     private MyAssetAdapter mMyAssetAdapter;
@@ -69,6 +73,17 @@ public class MyAssetFragment extends BaseFragment {
 
         loadMyAsset();
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadMyAsset();
+            }
+        });
+
+        mSwipeRefreshLayout.setColorSchemeResources(
+              R.color.colorPrimary,
+              R.color.colorPrimaryDark,
+              R.color.ruby_dark);
 
         return root;
     }
@@ -88,7 +103,7 @@ public class MyAssetFragment extends BaseFragment {
                           UserResponseDTO userResponseDTO = response.body();
 
                           String token = userResponseDTO.getToken();
-                          String bearerToken = "Bearer "+token;
+                          String bearerToken = "Bearer " + token;
                           mMyAssetService.getMyAsset(bearerToken, CONTENT_TYPE,
                                 "5bf505d1e0029e364679fab0")
                                 .enqueue(new Callback<MyAssetResponseDTO>() {
@@ -101,6 +116,7 @@ public class MyAssetFragment extends BaseFragment {
                                             d("Assets loaded: " + carList.size());
                                             mMyAssetAdapter.updateMyAssetCar(response.body().getData());
                                             progressView.setVisibility(View.GONE);
+                                            mSwipeRefreshLayout.setRefreshing(false);
                                         } else {
                                             e("Response was not successful");
                                             int statusCode = response.code();

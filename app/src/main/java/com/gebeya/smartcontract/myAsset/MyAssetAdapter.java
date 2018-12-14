@@ -1,12 +1,15 @@
 package com.gebeya.smartcontract.myAsset;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.CarDTO;
 import com.gebeya.smartcontract.data.dto.TransactionDTO;
@@ -42,13 +45,17 @@ public class MyAssetAdapter extends RecyclerView.Adapter<MyAssetViewHolder> {
         return new MyAssetViewHolder(itemView, mCallback);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull MyAssetViewHolder myAssetViewHolder, int position) {
         CarDTO car = mCars.get(position);
 
         myAssetViewHolder.setAssetSpecification(car.getBrand());
-        myAssetViewHolder.setAssetRegistered(car.getCreatedAt());
-        myAssetViewHolder.setAssetType(car.getModel());
+        myAssetViewHolder.setAssetType(car.getModel() + ", " + car.getYearOfManufactured());
+
+        DateFormatter dateFormatter = new DateFormatter();
+
+        myAssetViewHolder.setAssetRegistered(dateFormatter.DateFormatter(car.getCreatedAt()));
     }
 
     @Override
