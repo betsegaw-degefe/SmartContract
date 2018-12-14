@@ -12,7 +12,6 @@ import retrofit2.http.POST;
 public interface UserService {
     @POST("users/login")
     Call<UserResponseDTO> getUser(
-          @Header("Authorization") String token,
           @Header("Content-Type") String type,
           @Body LoginRequest loginRequest
     );

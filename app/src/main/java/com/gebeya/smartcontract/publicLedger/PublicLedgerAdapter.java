@@ -22,7 +22,9 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     private PublicLedgerCallback mCallback;
     private Context mContext;
 
-
+    /**
+     *  Passing data to the constructor
+     */
     public PublicLedgerAdapter(Context context,
                                List<TransactionDTO> transactions,
                                PublicLedgerCallback callback) {
@@ -31,6 +33,9 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
         this.mContext = context;
     }
 
+    /**
+     * Inflate the row layout from xml when needed
+     */
     @NonNull
     @Override
     public PublicLedgerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
@@ -41,11 +46,17 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
         return new PublicLedgerViewHolder(itemView, mCallback);
     }
 
+
+    /**
+     * binds the data to the TextView in each row
+     * @param publicLedgerViewHolder
+     * @param position
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(@NonNull PublicLedgerViewHolder publicLedgerViewHolder, int i) {
+    public void onBindViewHolder(@NonNull PublicLedgerViewHolder publicLedgerViewHolder, int position) {
 
-        TransactionDTO transaction = mTransactions.get(i);
+        TransactionDTO transaction = mTransactions.get(position);
 
         if (transaction.getCar() != null) {
             publicLedgerViewHolder.setType("Car Transaction");
@@ -62,11 +73,19 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
 
     }
 
+    /**
+     * Total number of transaction.
+     * @return mTransactions.size()
+     */
     @Override
     public int getItemCount() {
         return mTransactions.size();
     }
 
+    /**
+     * get the transaction from the API and update the transaction view.
+     * @param transactions
+     */
     public void updateTransactions(List<TransactionDTO> transactions) {
         mTransactions = transactions;
         notifyDataSetChanged();

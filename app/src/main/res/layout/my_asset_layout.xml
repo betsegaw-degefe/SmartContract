@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -49,17 +50,14 @@
 
             <TextView
                 style="@style/label.blue.large"
-                android:layout_gravity="start"
                 android:layout_marginTop="8dp"
-                android:text="Brand:" />
+                android:text="Brand" />
 
             <TextView
                 android:id="@+id/tvAssetSpecification"
                 style="@style/label.black.large"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 tools:text="Mercedes Benze" />
         </LinearLayout>
 
@@ -71,17 +69,16 @@
 
             <TextView
                 style="@style/label.blue.large"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
                 android:layout_marginTop="8dp"
-                android:text="Model: " />
+                android:text="Model" />
 
             <TextView
                 android:id="@+id/assetType"
                 style="@style/label.black.large"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_gravity="end"
                 tools:text="A 45 AMG, 2012" />
         </LinearLayout>
 
@@ -89,22 +86,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llAssetSpecification"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="24dp"
+            android:gravity="start"
+            android:layout_marginTop="8dp"
             android:orientation="vertical">
 
             <TextView
                 style="@style/label.blue.large"
-                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                android:text="Asset Regestered: " />
+                android:text="Asset Registered" />
 
             <TextView
                 android:id="@+id/assetRegistered"
                 style="@style/label.black.large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
                 android:layout_marginTop="8dp"
                 tools:text="09-Nov-18 07:25:53" />
         </LinearLayout>

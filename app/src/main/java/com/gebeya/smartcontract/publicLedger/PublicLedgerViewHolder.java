@@ -28,6 +28,12 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     private Context mContext;
     private PublicLedgerCallback mCallback;
 
+    /**
+     * stores and recycles views as they are scrolled off screen
+     * @param itemView : View
+     * @param callback: publicLedgerCallback
+     */
+
     public PublicLedgerViewHolder(@NonNull View itemView,
                                   PublicLedgerCallback callback) {
         super(itemView);
@@ -38,6 +44,11 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
         itemView.setOnClickListener(this);
     }
 
+    /**
+     * when a single ledger click, set the position of the item to the
+     * public ledger callback
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
