@@ -8,11 +8,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gebeya.smartcontract.R;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.gebeya.smartcontract.R.color.colorAccent;
 
 public class MyAssetViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener {
@@ -28,6 +31,9 @@ public class MyAssetViewHolder extends RecyclerView.ViewHolder
 
     @BindView(R.id.myAssetViewPager)
     ViewPager mViewPager;
+
+    @BindView(R.id.indicator)
+    CirclePageIndicator indicator;
 
     private MyAssetCallback mCallback;
     private Context mContext;
@@ -74,6 +80,8 @@ public class MyAssetViewHolder extends RecyclerView.ViewHolder
             }
             slidingImageAdapter adapter = new slidingImageAdapter(mContext, url);
             mViewPager.setAdapter(adapter);
+            indicator.setViewPager(mViewPager);
+
         }
 
     }

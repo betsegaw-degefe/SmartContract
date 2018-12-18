@@ -5,25 +5,14 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.gebeya.smartcontract.R;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
-import butterknife.BindView;
 
 public class slidingImageAdapter extends PagerAdapter {
 
-    @BindView(R.id.myAssetImage)
-    ImageView imageView;
-
-    private ArrayList<Integer> mIMAGES;
-    private LayoutInflater inflater;
     private Context mContext;
     private String[] mImageUrls;
 
