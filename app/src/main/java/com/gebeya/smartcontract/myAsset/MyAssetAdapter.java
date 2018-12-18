@@ -52,6 +52,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<MyAssetViewHolder> {
 
         myAssetViewHolder.setAssetSpecification(car.getBrand());
         myAssetViewHolder.setAssetType(car.getModel() + ", " + car.getYearOfManufactured());
+        myAssetViewHolder.setAssetPictures(car.getPictures());
 
         DateFormatter dateFormatter = new DateFormatter();
 
@@ -67,7 +68,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<MyAssetViewHolder> {
     /**
      * get the Car Assets from the API and update the transaction view.
      *
-     * @param cars
+     * @param cars users specific car loaded from api using retrofit.
      */
     public void updateMyAssetCar(List<CarDTO> cars) {
         mCars = cars;

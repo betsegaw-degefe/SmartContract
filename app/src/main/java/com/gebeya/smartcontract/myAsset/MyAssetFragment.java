@@ -88,6 +88,7 @@ public class MyAssetFragment extends BaseFragment {
         return root;
     }
 
+
     private void loadMyAsset() {
 
         LoginRequest loginRequest = new LoginRequest("0922847962", "P@ssW0rd");
