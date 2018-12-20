@@ -12,7 +12,7 @@
     <FrameLayout
         android:id="@+id/myAssetImageContainer"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
@@ -22,7 +22,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/myAssetViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <com.viewpagerindicator.CirclePageIndicator
             android:id="@+id/indicator"

@@ -15,7 +15,7 @@ public class Car {
     private String model;
     private String createdAt;
 
-    public Car(CarDTO carDTO) {
+    /*public Car(CarDTO carDTO) {
 
         this.id = carDTO.getId();
         this.yearOfManufactured = carDTO.getYearOfManufactured();
@@ -24,7 +24,7 @@ public class Car {
         this.brand = carDTO.getBrand();
         this.model = carDTO.getModel();
         this.createdAt = carDTO.getCreatedAt();
-    }
+    }*/
 
     public Integer getYearOfManufactured() {
         return yearOfManufactured;

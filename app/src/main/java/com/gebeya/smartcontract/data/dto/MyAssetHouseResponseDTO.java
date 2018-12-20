@@ -5,16 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MyAssetResponseDTO {
+public class MyAssetHouseResponseDTO {
+
     @SerializedName("data")
     @Expose
-    public List<CarDTO> data = null;
+    private List<HouseDTO> data = null;
 
-    public List<CarDTO> getData() {
+
+    public List<HouseDTO> getHouseData() {
         return data;
     }
 
-    public void setData(List<CarDTO> data) {
+    public void setHouseData(List<HouseDTO> data) {
         this.data = data;
     }
+
 }

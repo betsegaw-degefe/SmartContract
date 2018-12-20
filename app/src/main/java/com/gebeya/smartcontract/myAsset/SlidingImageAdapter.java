@@ -11,13 +11,13 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-public class slidingImageAdapter extends PagerAdapter {
+public class SlidingImageAdapter extends PagerAdapter {
 
     private Context mContext;
     private String[] mImageUrls;
 
 
-    public slidingImageAdapter(Context context, String[] imageUrls) {
+    public SlidingImageAdapter(Context context, String[] imageUrls) {
         this.mContext = context;
         this.mImageUrls = imageUrls;
     }
