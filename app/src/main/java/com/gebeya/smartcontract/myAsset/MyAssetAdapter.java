@@ -28,6 +28,8 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private MyAssetCallback mCallback;
     private Context mContext;
     private int counter = 0;
+    private int carPosition = 0;
+    private int layoutCounter = 0;
 
 
     public MyAssetAdapter(Context context,
@@ -46,10 +48,13 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Context context = viewGroup.getContext();
         inflater = LayoutInflater.from(context);
         final View itemView;
+        //viewGroup.getLayoutMode();
 
-        if (viewType < mCars.size()) {
+        if (!mCars.equals(null) && layoutCounter < mCars.size()) {
             itemView = inflater.inflate(R.layout.my_asset_layout,
                   viewGroup, false);
+            layoutCounter++;
+
             return new MyAssetCarViewHolder(itemView, mCallback);
         } else {
             itemView = inflater.inflate(R.layout.my_asset_house_layout,
@@ -62,7 +67,8 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyAssetCarViewHolder) {
             MyAssetCarViewHolder myAssetCarViewHolder = (MyAssetCarViewHolder) holder;
-            CarDTO car = mCars.get(position);
+            int i = layoutCounter-1;
+            CarDTO car = mCars.get(i);
 
             myAssetCarViewHolder.setAssetSpecification(car.getBrand());
             myAssetCarViewHolder.setAssetType(car.getModel() + ", " + car
@@ -73,6 +79,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             myAssetCarViewHolder.setAssetRegistered(dateFormatter
                   .DateFormatter(car.getCreatedAt()));
+            carPosition++;
         } else if (holder instanceof MyAssetHouseViewHolder) {
             MyAssetHouseViewHolder myAssetHouseViewHolder = (MyAssetHouseViewHolder) holder;
             if (counter < mHouse.size()) {

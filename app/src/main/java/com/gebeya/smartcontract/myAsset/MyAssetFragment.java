@@ -117,7 +117,7 @@ public class MyAssetFragment extends BaseFragment {
                            */
                           mMyAssetCarService.getMyCarAsset(bearerToken, CONTENT_TYPE,
                                 "5bf505d1e0029e364679fab0")
-                                .enqueue(new Callback<MyAssetCarResponseDTO>() {
+                                .enqueue(new Callback<MyAssetCarResponseDTO>(){
                                     @Override
                                     public void onResponse(Call<MyAssetCarResponseDTO> call,
                                                            Response<MyAssetCarResponseDTO> response) {
@@ -141,7 +141,7 @@ public class MyAssetFragment extends BaseFragment {
                                     }
                                 });
                           /**
-                           * Loading specific user house asset from getHouseAssetsofAUser api end point.
+                           * Loading specific user's house asset from getHouseAssetsofAUser api end point.
                            */
                           mMyAssetHouseService.getMyHouseAsset(bearerToken, CONTENT_TYPE,
                                 "5bf505d1e0029e364679fab0").enqueue(new Callback<MyAssetHouseResponseDTO>() {
