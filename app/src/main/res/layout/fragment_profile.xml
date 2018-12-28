@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#ABC">
+
+                <ImageView
+                    android:id="@+id/profileBackgroundImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="fitXY" />
+
+                <com.alexzh.circleimageview.CircleImageView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+
+                    />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:padding="16dp"
+                    android:text="Personal Information"
+                    android:textColor="#a2a1b8"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="First Name"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="end"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="Betsegaw" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="start"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Last Name"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="end"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="Degefe" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="start"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Phone Number"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profilePhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="end"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="+251910104285" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="start"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Public ID"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profilePublicId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="end"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="RW8JDKF28000" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="start"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Registered"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileRegistered"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="end"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="09-Nov-18 07:25:53" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

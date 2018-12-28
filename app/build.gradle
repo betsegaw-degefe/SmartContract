@@ -29,7 +29,7 @@ dependencies {
     implementation "$support:recyclerview-v7:$appcompatVersion"
     //TEST IMPLEMENTATION
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // UI DATA BINDING
     implementation "$butterknife:$butterknifeVersion"
