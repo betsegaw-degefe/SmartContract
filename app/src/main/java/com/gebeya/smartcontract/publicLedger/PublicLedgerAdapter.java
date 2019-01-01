@@ -23,7 +23,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     private Context mContext;
 
     /**
-     *  Passing data to the constructor
+     * Passing data to the constructor
      */
     public PublicLedgerAdapter(Context context,
                                List<TransactionDTO> transactions,
@@ -49,6 +49,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
 
     /**
      * binds the data to the TextView in each row
+     *
      * @param publicLedgerViewHolder
      * @param position
      */
@@ -64,17 +65,20 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
             publicLedgerViewHolder.setType("House Transaction");
         }
 
-        publicLedgerViewHolder.setFrom(transaction.getFrom().getPublicId());
-        publicLedgerViewHolder.setTo(transaction.getTo().getPublicId());
+        if (transaction.getFrom() != null &&
+              transaction.getTo() != null &&
+              transaction.getCreatedAt() != null) {
 
-        DateFormatter dateFormatter = new DateFormatter();
-
-        publicLedgerViewHolder.setCreatedAt(dateFormatter.DateFormatter(transaction.getCreatedAt()));
-
+            publicLedgerViewHolder.setFrom(transaction.getFrom().getPublicId());
+            publicLedgerViewHolder.setTo(transaction.getTo().getPublicId());
+            DateFormatter dateFormatter = new DateFormatter();
+            publicLedgerViewHolder.setCreatedAt(dateFormatter.DateFormatter(transaction.getCreatedAt()));
+        }
     }
 
     /**
      * Total number of transaction.
+     *
      * @return mTransactions.size()
      */
     @Override
@@ -84,6 +88,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
 
     /**
      * get the transaction from the API and update the transaction view.
+     *
      * @param transactions
      */
     public void updateTransactions(List<TransactionDTO> transactions) {

@@ -54,9 +54,10 @@ public class MyAssetFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMyAssetCarService = Api.getMyAssetCarService();
-        mUserService = Api.getUserService();
-        mMyAssetHouseService = Api.getMyAssetHouseService();
+
+        // Create the retrofit client service.
+        createService();
+
     }
 
     @Nullable
@@ -67,6 +68,8 @@ public class MyAssetFragment extends BaseFragment {
 
         inflate(R.layout.fragment_my_asset, container);
 
+
+        // Initializing the adapter.
         mMyAssetAdapter = new MyAssetAdapter(getActivity(),
               new ArrayList<CarDTO>(0),
               new ArrayList<HouseDTO>(0),
@@ -77,6 +80,7 @@ public class MyAssetFragment extends BaseFragment {
         mRecyclerView.setAdapter(mMyAssetAdapter);
         mRecyclerView.setHasFixedSize(true);
 
+        // Load assets from the server.
         loadMyAsset();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -94,7 +98,19 @@ public class MyAssetFragment extends BaseFragment {
         return root;
     }
 
+    /**
+     * Create the retrofit client service.
+     */
+    private void createService() {
+        mMyAssetCarService = Api.getMyAssetCarService();
+        mUserService = Api.getUserService();
+        mMyAssetHouseService = Api.getMyAssetHouseService();
+    }
 
+
+    /**
+     * Load assets from the server.
+     */
     private void loadMyAsset() {
 
         LoginRequest loginRequest = new LoginRequest("0922847962", "P@ssW0rd");

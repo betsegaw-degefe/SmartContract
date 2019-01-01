@@ -38,6 +38,12 @@
     <style name="button.dark.blue">
         <item name="android:background">@drawable/button_blue_background</item>
     </style>
+
+    <!--ruby button-->
+    <style name="button.ruby">
+        <item name="android:background">@color/ruby</item>
+    </style>
+
     <!--ruby dark button-->
     <style name="button.dark.ruby">
         <item name="android:background">@color/ruby_dark</item>

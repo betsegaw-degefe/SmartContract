@@ -5,6 +5,7 @@ import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.data.remote.RetrofitClient;
+import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 
 public final class Api {
     /**
@@ -32,5 +33,10 @@ public final class Api {
     public static MyAssetHouseService getMyAssetHouseService(){
         return RetrofitClient.getClient(BASE_URL).create(MyAssetHouseService.class);
     }
+
+    public static SendPhoneNumberService sendPhoneNumberService(){
+        return RetrofitClient.getClient(BASE_URL).create(SendPhoneNumberService.class);
+    }
+
 
 }
