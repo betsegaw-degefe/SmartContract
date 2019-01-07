@@ -14,7 +14,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/base_theme.no_toolbar"></activity>
+            android:theme="@style/base_theme.no_toolbar" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -22,18 +22,20 @@
 
         <activity
             android:name=".sendPhoneNumber.SendPhoneNumberActivity"
-            android:theme="@style/base_theme.no_toolbar.fullscreen">
-
-        </activity>
-        <activity
-            android:name=".signUp.SignUpActivity"
-            android:theme="@style/base_theme.no_toolbar.fullscreen">
+            android:theme="@style/base_theme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".signUp.SignUpActivity"
+            android:theme="@style/base_theme.NoActionBar" />
+        <activity
+            android:name=".login.loginActivity"
+            android:theme="@style/base_theme.NoActionBar" />
+        <activity android:name=".notification.NotificationActivity"></activity>
     </application>
 
 </manifest>

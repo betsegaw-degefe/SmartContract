@@ -10,17 +10,22 @@ import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.model.SendPhoneNumberModel;
 import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 import com.gebeya.smartcontract.signUp.SignUpActivity;
+import com.hbb20.CountryCodePicker;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import customfonts.EditText_SFUI_Regular;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SendPhoneNumberActivity extends BaseActivity {
 
-    @BindView(R.id.etPhoneNumber)
-    EditText mPhoneNumber;
+    @BindView(R.id.ccp)
+    CountryCodePicker ccp;
+
+    @BindView(R.id.sendPhoneNumber)
+    EditText sendPhoneNumber;
 
     private SendPhoneNumberService mSendPhoneNumberService;
     private String phoneNumber;
@@ -33,13 +38,27 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
         // Initialize an instance of the SendPhoneNumberService interface
         mSendPhoneNumberService = Api.sendPhoneNumberService();
+
+        // Attach CarrierNumber editText to Country code picker.
+        ccp.registerCarrierNumberEditText(sendPhoneNumber);
+
+        ccp.setNumberAutoFormattingEnabled(true);
+
+
     }
 
     @OnClick(R.id.submitPhoneNumber)
     public void submitPhoneNumber() {
 
-        // Get the phone number from the text field.
-        phoneNumber = mPhoneNumber.getText().toString().trim();
+
+        // Get the full phone number with country code from the text field.
+        phoneNumber = ccp.getFullNumber();
+
+        // Get the country code only.
+        String countryCode = ccp.getSelectedCountryCode();
+
+        // Trim the the first country code.
+        phoneNumber = phoneNumber.replace(countryCode,"");
 
         mSendPhoneNumberService.sendPhoneNumber("application/json",
               phoneNumber)
