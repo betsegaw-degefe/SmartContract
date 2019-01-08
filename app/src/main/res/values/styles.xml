@@ -67,7 +67,7 @@
     </style>
     <!--large label-->
     <style name="label.large">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!--blue label-->

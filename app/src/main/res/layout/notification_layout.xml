@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:background="@color/white"
+    android:padding="2dp">
+
+    <LinearLayout
+        android:id="@+id/notificationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/contractItemIcon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/ic_contract" />
+
+            <LinearLayout
+                android:id="@+id/llNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/contractItemIcon"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/notificationTitle"
+                    style="@style/label.large"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="4dp"
+                    tools:text="Notification Title" />
+
+                <TextView
+                    android:id="@+id/notificationDescription"
+                    style="@style/label.black.large"
+                    android:layout_marginStart="8dp"
+                    tools:text="Notification Description" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/notificationTimeStamp"
+                style="@style/label.blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/contractItemIcon"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/contractItemIcon"
+                tools:text="09-Nov-18 07:25:53" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

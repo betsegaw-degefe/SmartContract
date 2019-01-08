@@ -58,19 +58,6 @@
                     android:textSize="17sp" />
 
                 <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/publicId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/rect_gray"
-                    android:hint="Passport Number"
-                    android:inputType="textEmailAddress"
-                    android:padding="15dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHint="#c6c6c6"
-                    android:textSize="17sp" />
-
-                <customfonts.EditText_Roboto_Regular
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -138,8 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:padding="15dp"
                 android:text="SIGN UP"
