@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/notificationToolbar"
+        android:icon="@drawable/ic_alarm_bell"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="300"
+        android:title="Notification">
+    </item>
+    <item
+        android:id="@+id/searchToolBar"
+        app:showAsAction="never"
+        android:orderInCategory="300"
+        android:title="Search">
+    </item>
+    <item
+        android:id="@+id/signOutToolBar"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        app:showAsAction="never"
+        android:orderInCategory="300"
+        android:title="Sign out">
+    </item>
+</menu>

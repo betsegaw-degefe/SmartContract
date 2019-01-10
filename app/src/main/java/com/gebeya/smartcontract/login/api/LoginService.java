@@ -1,5 +1,6 @@
 package com.gebeya.smartcontract.login.api;
 
+import com.gebeya.smartcontract.data.dto.UserResponseDTO;
 import com.gebeya.smartcontract.data.model.LoginModel;
 
 import retrofit2.Call;
@@ -10,7 +11,7 @@ import retrofit2.http.POST;
 public interface LoginService {
     @POST("/users/login")
     @FormUrlEncoded()
-    Call<LoginModel> loginSubmit(
+    Call<UserResponseDTO> loginSubmit(
           @Field("Content-Type") String type,
           @Field("phoneNo") String phoneNo,
           @Field("password") String password

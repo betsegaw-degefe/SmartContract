@@ -44,6 +44,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
         // Attach CarrierNumber editText to Country code picker.
         ccp.registerCarrierNumberEditText(sendPhoneNumber);
 
+        // Enabling auto format in the text field.
         ccp.setNumberAutoFormattingEnabled(true);
 
 
@@ -96,12 +97,9 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
             // Passing the phone number to signUp activity
             Intent intent = new Intent(this, SignUpActivity.class);
-            //Bundle extras = new Bundle();
-
-            //intent.putString(KEY, phoneNumber);
             intent.putExtra("PHONE_NUMBER", phoneNumber);
-
             startActivity(intent);
+
             this.finish();
         } else {
             toast(Message);

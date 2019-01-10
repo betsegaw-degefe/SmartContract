@@ -2,12 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="base_theme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
 
     <!--theme that hides the toolbar, but still keeping the status bar visible-->
     <style name="base_theme.no_toolbar">
@@ -65,6 +63,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <!--large label-->
     <style name="label.large">
         <item name="android:textSize">18sp</item>
@@ -79,13 +78,33 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <!--orange label-->
+    <!--ruby label-->
     <style name="label.ruby">
         <item name="android:textColor">@color/ruby</item>
     </style>
-    <!--large orange label-->
+    <!--large ruby label-->
     <style name="label.ruby.large">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--black label-->
+    <style name="label.green">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <!--black label-->
+    <style name="label.green.large">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--green label-->
+    <style name="label.green_black">
+        <item name="android:textColor">@color/green_dark</item>
+    </style>
+
+    <!--large green label-->
+    <style name="label.green_black.large">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!--black label-->
@@ -107,7 +126,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="base_theme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="base_theme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="base_theme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

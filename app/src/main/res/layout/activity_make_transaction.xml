@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="25dp"
+            android:src="@drawable/smart_contract_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/rect_gray"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_iconfinder_artboard_12_2993437" />
+
+            <customfonts.EditText_SFUI_Regular
+                android:id="@+id/idAssetTransfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="#00000000"
+                android:hint="Asset receiver ID"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:textColorHint="#c6c6c6" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <customfonts.Button_sfuitext_regular
+                android:id="@+id/submitAssetTransfer"
+                style="@style/button.dark.blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                android:text="SUBMIT"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/transferFailure"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/submitAssetTransfer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_fail" />
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/failureMessage"
+                style="@style/label.ruby.large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transferFailure"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="5dp"
+                android:text="Failed"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/transferSuccess"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/submitAssetTransfer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_success" />
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/successMessage"
+                style="@style/label.green.large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transferFailure"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="5dp"
+                android:text="Successful"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

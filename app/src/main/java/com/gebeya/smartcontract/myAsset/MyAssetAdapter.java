@@ -35,11 +35,13 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public MyAssetAdapter(Context context,
                           List<CarDTO> cars,
                           List<HouseDTO> houses,
-                          UserResponseDTO userResponseDTO) {
+                          UserResponseDTO userResponseDTO,
+                          MyAssetCallback callback) {
         this.mContext = context;
         this.mCars = cars;
         this.mHouse = houses;
         this.mUserResponseDTO = userResponseDTO;
+        this.mCallback = callback;
     }
 
     @NonNull
@@ -51,13 +53,13 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //viewGroup.getLayoutMode();
 
         if (!mCars.equals(null) && layoutCounter < mCars.size()) {
-            itemView = inflater.inflate(R.layout.my_asset_layout,
+            itemView = inflater.inflate(R.layout.my_car_asset_layout,
                   viewGroup, false);
             layoutCounter++;
 
             return new MyAssetCarViewHolder(itemView, mCallback);
         } else {
-            itemView = inflater.inflate(R.layout.my_asset_house_layout,
+            itemView = inflater.inflate(R.layout.my_house_asset_layout,
                   viewGroup, false);
             return new MyAssetHouseViewHolder(itemView, mCallback);
         }
@@ -70,12 +72,14 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             int i = layoutCounter-1;
             CarDTO car = mCars.get(i);
 
+            myAssetCarViewHolder.setAssetId(car.getId());
             myAssetCarViewHolder.setAssetSpecification(car.getBrand());
             myAssetCarViewHolder.setAssetType(car.getModel() + ", " + car
                   .getYearOfManufactured());
             myAssetCarViewHolder.setAssetPictures(car.getPictures());
 
             DateFormatter dateFormatter = new DateFormatter();
+
 
             myAssetCarViewHolder.setAssetRegistered(dateFormatter
                   .DateFormatter(car.getCreatedAt()));
@@ -84,6 +88,8 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             MyAssetHouseViewHolder myAssetHouseViewHolder = (MyAssetHouseViewHolder) holder;
             if (counter < mHouse.size()) {
                 HouseDTO house = mHouse.get(counter);
+
+                myAssetHouseViewHolder.setAssetID(house.getId());
                 myAssetHouseViewHolder.setHousePictures(house.getPictures());
 
                 myAssetHouseViewHolder.setLocation(house.getGeoLocation());

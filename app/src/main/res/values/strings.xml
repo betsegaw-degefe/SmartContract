@@ -8,8 +8,16 @@
     <string name="my_asset">My Asset</string>
     <string name="public_ledger">Public Ledger</string>
 
+    <!--==================== Toolbar NAMES ==================== -->
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="signUp">Sign UP</string>
+    <string name="makeTransaction">Make Asset Transfer</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_public_ledger">PublicLedgerActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_main2_activityfortest">Main2Activityfortest</string>
 </resources>

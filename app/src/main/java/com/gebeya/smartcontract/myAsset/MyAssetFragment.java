@@ -1,5 +1,6 @@
 package com.gebeya.smartcontract.myAsset;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,12 +23,15 @@ import com.gebeya.smartcontract.data.model.LoginRequest;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
+import com.gebeya.smartcontract.publicLedger.PublicLedgerCallback;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.Optional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,7 +77,18 @@ public class MyAssetFragment extends BaseFragment {
         mMyAssetAdapter = new MyAssetAdapter(getActivity(),
               new ArrayList<CarDTO>(0),
               new ArrayList<HouseDTO>(0),
-              new UserResponseDTO());
+              new UserResponseDTO(),
+              new MyAssetCallback() {
+                  @Override
+                  public void onSelected(int position, String id) {
+                      toast("Selected position is: " + id);
+                      // start make transaction activity.
+                      Intent intent = new Intent(getActivity(), MakeTransactionActivity.class);
+                      intent.putExtra("ASSET_ID", id);
+
+                      startActivity(intent);
+                  }
+              });
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -133,7 +148,7 @@ public class MyAssetFragment extends BaseFragment {
                            */
                           mMyAssetCarService.getMyCarAsset(bearerToken, CONTENT_TYPE,
                                 "5bf505d1e0029e364679fab0")
-                                .enqueue(new Callback<MyAssetCarResponseDTO>(){
+                                .enqueue(new Callback<MyAssetCarResponseDTO>() {
                                     @Override
                                     public void onResponse(Call<MyAssetCarResponseDTO> call,
                                                            Response<MyAssetCarResponseDTO> response) {
@@ -199,4 +214,5 @@ public class MyAssetFragment extends BaseFragment {
                   }
               });
     }
+
 }

@@ -2,6 +2,7 @@ package com.gebeya.framework.utils;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.smartcontract.login.api.LoginService;
+import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
@@ -49,5 +50,8 @@ public final class Api {
         return RetrofitClient.getClient(BASE_URL).create(LoginService.class);
     }
 
+    public static MakeTransactionService makeTransactionService(){
+        return RetrofitClient.getClient(BASE_URL).create(MakeTransactionService.class);
+    }
 
 }

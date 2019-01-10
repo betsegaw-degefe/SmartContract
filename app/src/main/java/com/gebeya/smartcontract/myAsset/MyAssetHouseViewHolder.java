@@ -54,6 +54,7 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
 
     private MyAssetCallback mCallback;
     private Context mContext;
+    private String assetId;
 
     public MyAssetHouseViewHolder(@NonNull View itemView, MyAssetCallback callback) {
         super(itemView);
@@ -67,7 +68,7 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        mCallback.onSelected(position);
+        mCallback.onSelected(position, assetId);
     }
 
     /**
@@ -121,5 +122,9 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
             houseImageIndicator.setViewPager(mHouseViewPager);
 
         }
+    }
+
+    public void setAssetID(String id) {
+        this.assetId = id;
     }
 }

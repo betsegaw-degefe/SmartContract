@@ -45,6 +45,7 @@ public class MyAssetCarViewHolder extends RecyclerView.ViewHolder
 
     private MyAssetCallback mCallback;
     private Context mContext;
+    private String assetId;
 
     public MyAssetCarViewHolder(@NonNull View itemView, MyAssetCallback callback) {
         super(itemView);
@@ -59,7 +60,7 @@ public class MyAssetCarViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        mCallback.onSelected(position);
+        mCallback.onSelected(position, assetId);
     }
 
     public void setAssetSpecification(String specification) {
@@ -75,6 +76,10 @@ public class MyAssetCarViewHolder extends RecyclerView.ViewHolder
     public void setAssetRegistered(String registered) {
         if (!registered.isEmpty())
             assetRegistered.setText(registered);
+    }
+
+    public void setAssetId(String id) {
+        this.assetId = id;
     }
 
     /**

@@ -15,6 +15,9 @@
     <!--white color-->
     <color name="white_background">#e0f3fa</color>
 
+    <!--Green color-->
+    <color name="green">#00FF00</color>
+    <color name="green_dark">#006400</color>
 
     <color name="colorPrimary">@color/blue</color>
     <color name="colorPrimaryDark">@color/blue_dark</color>

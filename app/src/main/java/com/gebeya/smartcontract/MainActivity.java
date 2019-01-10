@@ -1,17 +1,25 @@
 package com.gebeya.smartcontract;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.gebeya.framework.base.BaseActivity;
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.gebeya.smartcontract.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.login.LoginActivity;
+
+import java.util.Objects;
 
 import butterknife.BindView;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 
 public class MainActivity extends BaseActivity {
 
@@ -26,6 +34,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.mainTabs)
     TabLayout mTabLayout;
 
+    BoxStore userBox;
+    Box<UserLoginData> box;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,17 @@ public class MainActivity extends BaseActivity {
         bind();
 
         setSupportActionBar(mToolbar);
+
+        // Display icon in the toolbar
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        //getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+
+        // Retrieve the Box for the UserLogin
+        userBox = ((App) getApplication()).getStore();
+        box = userBox.boxFor(UserLoginData.class);
+
 
         // tab icons
         int[] tabIcons = {
@@ -81,4 +102,38 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // if Sign out selected
+        if (id == R.id.signOutToolBar) {
+            toast("Sign out menu");
+            // Toast.makeText(getApplicationContext(), "Setting Menu", Toast.LENGTH_SHORT).show();
+            box.removeAll();
+            startActivity(new Intent(this, LoginActivity.class));
+            return true;
+        }
+        // If search option selected
+        else if (id == R.id.searchToolBar) {
+            toast("Search tool bar selected");
+            //Toast.makeText(getApplicationContext(), "Search Menu", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        // If notification option selected.
+        else if (id == R.id.notificationToolbar) {
+            toast("Notification tool bar selected");
+            //Toast.makeText(getApplicationContext(), "User Menu", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

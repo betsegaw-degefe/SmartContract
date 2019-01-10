@@ -48,13 +48,11 @@ public class SignUpActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up);
         bind();
         Intent intent = getIntent();
-        //Bundle extras = getIntent().getExtras();
 
         Bundle extras = intent.getExtras();
 
         if (extras!= null) {
-            //phoneNo
-            //phoneNo = intent.getStringExtra("KEY");
+
             phoneNo = intent.getExtras().getString("PHONE_NUMBER");
             toast(phoneNo);
         }

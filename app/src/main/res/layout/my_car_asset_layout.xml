@@ -85,6 +85,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llcarRegisteredDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llAssetSpecification"
@@ -106,6 +107,14 @@
                 android:layout_marginTop="8dp"
                 tools:text="09-Nov-18 07:25:53" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/assetTransferIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/llcarRegisteredDate"
+            app:srcCompat="@drawable/ic_iconfinder_rounded_06_2024632"/>
     </RelativeLayout>
 
 </LinearLayout>
