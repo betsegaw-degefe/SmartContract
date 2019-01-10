@@ -13,19 +13,26 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
+import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.data.dto.TransactionDTO;
+import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
 
 public class PublicLedgerFragment extends BaseFragment {
 
@@ -43,10 +50,19 @@ public class PublicLedgerFragment extends BaseFragment {
     private PublicLedgerService mPublicLedgerService;
     private PublicLedgerAdapter mPublicLedgerAdapter;
 
+    BoxStore userBox;
+    Box<UserLoginData> box;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Create the retrofit client service for the public ledger.
         mPublicLedgerService = Api.getPublicLedgerService();
+
+        // Retrieve the Box for the UserLogin
+        userBox = ((App) Objects.requireNonNull(getActivity()).getApplicationContext()).getStore();
+        box = userBox.boxFor(UserLoginData.class);
     }
 
 
@@ -90,7 +106,15 @@ public class PublicLedgerFragment extends BaseFragment {
 
 
     private void loadPublicLedger() {
-        mPublicLedgerService.getLedger().enqueue(new Callback<PublicLedgerResponseDTO>() {
+
+        // loads User token from objectBox
+        List<UserLoginData> users = box.getAll();
+        String token = users.get(0).getToken();
+        String bearerToken = "Bearer " + token;
+
+        mPublicLedgerService.getLedger(bearerToken,
+              CONTENT_TYPE
+        ).enqueue(new Callback<PublicLedgerResponseDTO>() {
 
             @Override
             public void onResponse(Call<PublicLedgerResponseDTO> call,
@@ -107,6 +131,8 @@ public class PublicLedgerFragment extends BaseFragment {
                     e("Response was not successful");
                     int statusCode = response.code();
                     e("Response code: " + statusCode);
+                    progressView.setVisibility(View.GONE);
+                    swipeContainer.setRefreshing(false);
                 }
             }
 
@@ -114,6 +140,8 @@ public class PublicLedgerFragment extends BaseFragment {
             public void onFailure(Call<PublicLedgerResponseDTO> call, Throwable t) {
                 d("Public Ledger Fragment error loading from API");
                 t.printStackTrace();
+                progressView.setVisibility(View.GONE);
+                swipeContainer.setRefreshing(false);
             }
         });
     }

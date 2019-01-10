@@ -86,7 +86,7 @@ public class MakeTransactionActivity extends BaseActivity {
 
 
         // loads User
-        List<UserLoginData> user = (List<UserLoginData>) box.getAll();
+        List<UserLoginData> user = box.getAll();
         mFrom = user.get(0).getUserId();
     }
 

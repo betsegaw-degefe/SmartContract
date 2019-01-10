@@ -34,6 +34,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setTheme(R.style.base_theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_phone_number_layout);
         bind();

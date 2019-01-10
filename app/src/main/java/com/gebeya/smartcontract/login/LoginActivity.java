@@ -15,8 +15,11 @@ import com.gebeya.smartcontract.data.model.LoginModel;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.api.LoginService;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import customfonts.Button_sfuitext_regular;
 import customfonts.EditText_SFUI_Regular;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -33,6 +36,9 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.loginPassword)
     EditText_SFUI_Regular loginPassword;
+
+    @BindView(R.id.logInButton)
+    Button_sfuitext_regular loginButton;
 
     private String phoneNumber;
     private String password;
@@ -56,8 +62,10 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.logInButton)
     public void submitLogin() {
-        phoneNumber = loginPhoneNumber.getText().toString().trim();
-        password = loginPassword.getText().toString().trim();
+        phoneNumber = Objects.requireNonNull(loginPhoneNumber.getText()).toString().trim();
+        password = Objects.requireNonNull(loginPassword.getText()).toString().trim();
+        // disable the login button
+        loginButton.setEnabled(false);
         toast(phoneNumber);
 
         mLoginService.loginSubmit(

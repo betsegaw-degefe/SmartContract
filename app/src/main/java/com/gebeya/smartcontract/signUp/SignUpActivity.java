@@ -47,6 +47,8 @@ public class SignUpActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         bind();
+
+        // Extracting the phone number which is passed from sendPhoneNumberActivity.
         Intent intent = getIntent();
 
         Bundle extras = intent.getExtras();

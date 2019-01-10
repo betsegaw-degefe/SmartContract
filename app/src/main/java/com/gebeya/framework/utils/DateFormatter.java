@@ -15,7 +15,8 @@ public class DateFormatter {
         Date mDate = null;
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm", Locale.ENGLISH);
+        //SimpleDateFormat outputFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
         try {
             mDate = inputFormat.parse(date);
         } catch (ParseException e) {

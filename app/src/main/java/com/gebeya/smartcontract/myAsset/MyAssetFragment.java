@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
+import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.CarDTO;
 import com.gebeya.smartcontract.data.dto.HouseDTO;
@@ -20,6 +21,7 @@ import com.gebeya.smartcontract.data.dto.MyAssetCarResponseDTO;
 import com.gebeya.smartcontract.data.dto.MyAssetHouseResponseDTO;
 import com.gebeya.smartcontract.data.dto.UserResponseDTO;
 import com.gebeya.smartcontract.data.model.LoginRequest;
+import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
@@ -28,10 +30,13 @@ import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Optional;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,9 +60,16 @@ public class MyAssetFragment extends BaseFragment {
     private MyAssetAdapter mMyAssetAdapter;
     private UserService mUserService;
 
+    BoxStore userBox;
+    Box<UserLoginData> box;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Retrieve the Box for the UserLogin.
+        userBox = ((App) Objects.requireNonNull(getActivity()).getApplicationContext()).getStore();
+        box = userBox.boxFor(UserLoginData.class);
 
         // Create the retrofit client service.
         createService();
@@ -128,91 +140,74 @@ public class MyAssetFragment extends BaseFragment {
      */
     private void loadMyAsset() {
 
-        LoginRequest loginRequest = new LoginRequest("0922847962", "P@ssW0rd");
+        // loads User from objectBox
+        List<UserLoginData> users = box.getAll();
+        String token = users.get(0).getToken();
+        String bearerToken = "Bearer " + token;
+        String userId = users.get(0).getUserId();
 
-        mUserService.getUser("application/json",
-              loginRequest)
-              .enqueue(new Callback<UserResponseDTO>() {
+        /**
+         * Loading specific user car asset from getCarAsset of a user api end point.
+         */
+        mMyAssetCarService.getMyCarAsset(bearerToken,
+              CONTENT_TYPE,
+              userId).enqueue(new Callback<MyAssetCarResponseDTO>() {
 
-                  @Override
-                  public void onResponse(Call<UserResponseDTO> call,
-                                         Response<UserResponseDTO> response) {
-                      if (response.isSuccessful()) {
-                          d("My assets are loaded from API");
-                          UserResponseDTO userResponseDTO = response.body();
+            @Override
+            public void onResponse(Call<MyAssetCarResponseDTO> call,
+                                   Response<MyAssetCarResponseDTO> response) {
+                if (response.isSuccessful()) {
+                    MyAssetCarResponseDTO myAssetResponseDTO = response.body();
+                    List<CarDTO> carList = myAssetResponseDTO.getData();
+                    d("----------------------------Assets loaded: " + carList.size());
+                    mMyAssetAdapter.updateMyAssetCar(response.body().getData());
+                } else {
+                    e("Response was not successful");
+                    int statusCode = response.code();
+                    e("Response code: " + statusCode);
+                }
+            }
 
-                          String token = userResponseDTO.getToken();
-                          String bearerToken = "Bearer " + token;
-                          /**
-                           * Loading specific user car asset from getCarAssetsofAUser api end point.
-                           */
-                          mMyAssetCarService.getMyCarAsset(bearerToken, CONTENT_TYPE,
-                                "5bf505d1e0029e364679fab0")
-                                .enqueue(new Callback<MyAssetCarResponseDTO>() {
-                                    @Override
-                                    public void onResponse(Call<MyAssetCarResponseDTO> call,
-                                                           Response<MyAssetCarResponseDTO> response) {
-                                        if (response.isSuccessful()) {
-                                            MyAssetCarResponseDTO myAssetResponseDTO = response.body();
-                                            List<CarDTO> carList = myAssetResponseDTO.getData();
-                                            d("----------------------------Assets loaded: " + carList.size());
-                                            mMyAssetAdapter.updateMyAssetCar(response.body().getData());
-                                        } else {
-                                            e("Response was not successful");
-                                            int statusCode = response.code();
-                                            e("Response code: " + statusCode);
-                                        }
-                                    }
+            @Override
+            public void onFailure(Call<MyAssetCarResponseDTO> call,
+                                  Throwable t) {
+                d("My assets Fragment error loading from API");
+                t.printStackTrace();
+            }
+        });
+        /**
+         * Loading specific user's house asset from getHouseAssets of a user api end point.
+         */
+        mMyAssetHouseService.getMyHouseAsset(
+              bearerToken, CONTENT_TYPE,
+              userId).enqueue(new Callback<MyAssetHouseResponseDTO>() {
+            @Override
+            public void onResponse(Call<MyAssetHouseResponseDTO> call,
+                                   Response<MyAssetHouseResponseDTO> response) {
+                if (response.isSuccessful()) {
+                    MyAssetHouseResponseDTO myAssetHouseResponseDTO = response.body();
+                    List<HouseDTO> houseList = myAssetHouseResponseDTO.getHouseData();
+                    d("------------House assets loaded: " + houseList.size());
+                    mMyAssetAdapter.updateMyAssetHouse(response.body().getHouseData());
+                    progressView.setVisibility(View.GONE);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                } else {
+                    e("Response was not successful");
+                    int statusCode = response.code();
+                    e("Response code: " + statusCode);
+                    progressView.setVisibility(View.GONE);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }
 
-                                    @Override
-                                    public void onFailure(Call<MyAssetCarResponseDTO> call,
-                                                          Throwable t) {
-                                        d("My assets Fragment error loading from API");
-                                        t.printStackTrace();
-                                    }
-                                });
-                          /**
-                           * Loading specific user's house asset from getHouseAssetsofAUser api end point.
-                           */
-                          mMyAssetHouseService.getMyHouseAsset(bearerToken, CONTENT_TYPE,
-                                "5bf505d1e0029e364679fab0").enqueue(new Callback<MyAssetHouseResponseDTO>() {
-                              @Override
-                              public void onResponse(Call<MyAssetHouseResponseDTO> call,
-                                                     Response<MyAssetHouseResponseDTO> response) {
-                                  if (response.isSuccessful()) {
-                                      MyAssetHouseResponseDTO myAssetHouseResponseDTO = response.body();
-                                      List<HouseDTO> houseList = myAssetHouseResponseDTO.getHouseData();
-                                      d("------------House assets loaded: " + houseList.size());
-                                      mMyAssetAdapter.updateMyAssetHouse(response.body().getHouseData());
-                                      progressView.setVisibility(View.GONE);
-                                      mSwipeRefreshLayout.setRefreshing(false);
-                                  } else {
-                                      e("Response was not successful");
-                                      int statusCode = response.code();
-                                      e("Response code: " + statusCode);
-                                  }
-                              }
-
-                              @Override
-                              public void onFailure(Call<MyAssetHouseResponseDTO> call,
-                                                    Throwable t) {
-                                  d("My assets Fragment error loading from API");
-                                  t.printStackTrace();
-                              }
-                          });
-                      } else {
-                          e("Response was not successful");
-                          int statusCode = response.code();
-                          e("Response code: " + statusCode);
-                      }
-                  }
-
-                  @Override
-                  public void onFailure(Call<UserResponseDTO> call, Throwable t) {
-                      d("My assets Fragment error loading from API");
-                      t.printStackTrace();
-                  }
-              });
+            @Override
+            public void onFailure(Call<MyAssetHouseResponseDTO> call,
+                                  Throwable t) {
+                d("My assets Fragment error loading from API");
+                t.printStackTrace();
+                progressView.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
-
 }
