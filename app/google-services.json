@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "104707713133",
+    "firebase_url": "https://smartcontract-725fe.firebaseio.com",
+    "project_id": "smartcontract-725fe",
+    "storage_bucket": "smartcontract-725fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104707713133:android:a2d48647fab12cfe",
+        "android_client_info": {
+          "package_name": "com.gebeya.smartcontract"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104707713133-6l9790kq5ihe72cs61c4fasm0rvsnscs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaKNRgAOd3HgKvdPRgwWGILB3_041c5PE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
