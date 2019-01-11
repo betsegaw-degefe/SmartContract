@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
+import com.gebeya.framework.utils.CheckInternetConnecction;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.CarDTO;
@@ -59,6 +60,7 @@ public class MyAssetFragment extends BaseFragment {
     private MyAssetHouseService mMyAssetHouseService;
     private MyAssetAdapter mMyAssetAdapter;
     private UserService mUserService;
+    private boolean isConnected;
 
     BoxStore userBox;
     Box<UserLoginData> box;
@@ -107,13 +109,30 @@ public class MyAssetFragment extends BaseFragment {
         mRecyclerView.setAdapter(mMyAssetAdapter);
         mRecyclerView.setHasFixedSize(true);
 
+        // Check connection.
+        isConnected = new CheckInternetConnecction().CheckInternetConnecction(getContext());
+
         // Load assets from the server.
-        loadMyAsset();
+        if (isConnected) {
+            loadMyAsset();
+        } else {
+            toast("No Internet Connection");
+            progressView.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadMyAsset();
+                // Load assets from the server.
+                if (isConnected) {
+                    loadMyAsset();
+                } else {
+                    toast("No Internet Connection");
+                    progressView.setVisibility(View.GONE);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 

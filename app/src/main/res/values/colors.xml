@@ -7,6 +7,7 @@
     <!--BLUE COLORS-->
     <color name="blue">#3fa6cb</color>
     <color name="blue_dark">#004A73</color>
+    <color name="light_blue_100">#f0f2f3</color>
 
     <!--RUBY COLORS-->
     <color name="ruby">#D81B60</color>
@@ -22,4 +23,6 @@
     <color name="colorPrimary">@color/blue</color>
     <color name="colorPrimaryDark">@color/blue_dark</color>
     <color name="colorAccent">@color/ruby</color>
+
+    li
 </resources>

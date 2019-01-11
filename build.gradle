@@ -3,6 +3,7 @@
 buildscript {
 
     ext.objectboxVersion = '2.3.1'
+    ext.googleservicesVersion = '4.2.0'
 
     repositories {
         google()
@@ -11,6 +12,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        classpath "com.google.gms:google-services:$googleservicesVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

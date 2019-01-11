@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
+import com.gebeya.framework.utils.CheckInternetConnecction;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
@@ -49,6 +50,7 @@ public class PublicLedgerFragment extends BaseFragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private PublicLedgerService mPublicLedgerService;
     private PublicLedgerAdapter mPublicLedgerAdapter;
+    private boolean isConnected;
 
     BoxStore userBox;
     Box<UserLoginData> box;
@@ -88,12 +90,27 @@ public class PublicLedgerFragment extends BaseFragment {
         mRecyclerView.setAdapter(mPublicLedgerAdapter);
         mRecyclerView.setHasFixedSize(true);
 
-        loadPublicLedger();
+        // Check connection.
+        isConnected = new CheckInternetConnecction().CheckInternetConnecction(getContext());
+
+        if (isConnected) {
+            loadPublicLedger();
+        } else {
+            toast("No Internet Connection");
+            progressView.setVisibility(View.GONE);
+            swipeContainer.setRefreshing(false);
+        }
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadPublicLedger();
+                if (isConnected) {
+                    loadPublicLedger();
+                } else {
+                    toast("No Internet Connection");
+                    progressView.setVisibility(View.GONE);
+                    swipeContainer.setRefreshing(false);
+                }
             }
         });
 

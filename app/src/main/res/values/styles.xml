@@ -37,6 +37,12 @@
     <style name="button.dark">
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <!--dark disable-->
+    <style name="button.disable">
+        <item name="android:background">@color/light_blue_100</item>
+    </style>
+
     <!--blue dark button-->
     <style name="button.dark.blue">
         <item name="android:background">@drawable/button_blue_background</item>

@@ -1,5 +1,6 @@
 package com.gebeya.smartcontract.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -28,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
+import static com.gebeya.smartcontract.R.color.light_blue_100;
 
 public class LoginActivity extends BaseActivity {
 
@@ -39,9 +41,6 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.logInButton)
     Button_sfuitext_regular loginButton;
-
-    private String phoneNumber;
-    private String password;
 
     private LoginService mLoginService;
     private Box<UserLoginData> mUserBox;
@@ -62,10 +61,11 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.logInButton)
     public void submitLogin() {
-        phoneNumber = Objects.requireNonNull(loginPhoneNumber.getText()).toString().trim();
-        password = Objects.requireNonNull(loginPassword.getText()).toString().trim();
+        String phoneNumber = Objects.requireNonNull(loginPhoneNumber.getText()).toString().trim();
+        String password = Objects.requireNonNull(loginPassword.getText()).toString().trim();
         // disable the login button
         loginButton.setEnabled(false);
+        //loginButton.styl
         toast(phoneNumber);
 
         mLoginService.loginSubmit(

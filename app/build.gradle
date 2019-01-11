@@ -20,23 +20,19 @@ android {
     }
 
     lintOptions {
-        checkReleaseBuilds false
+       checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
-        abortOnError false
+        //abortOnError false
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    // SUPPORT LIBRARIES
-    implementation "$support:appcompat-v7:$appcompatVersion"
-    implementation "${support}.constraint:constraint-layout:$constraintLayoutVersion"
-    implementation "$support:design:$appcompatVersion"
-    implementation "$support:support-v4:$supportV4"
-    implementation "$support:recyclerview-v7:$appcompatVersion"
+
+
     //TEST IMPLEMENTATION
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //implementation "${support}.constraint:constraint-layout:1.1.3"
     testImplementation 'junit:junit:4.12'
     //androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -58,7 +54,18 @@ dependencies {
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.hbb20:ccp:2.1.2'
+    implementation 'com.hbb20:ccp:2.2.3'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
+    // SUPPORT LIBRARIES
+    implementation "$support:appcompat-v7:$appcompatVersion"
+    implementation "${support}.constraint:constraint-layout:1.1.3"
+    implementation "$support:design:$appcompatVersion"
+    implementation "$support:support-v4:$appcompatVersion"
+    implementation "$support:recyclerview-v7:$appcompatVersion"
+    implementation "$support:support-annotations:$appcompatVersion"
+
 }
 
 apply plugin: 'io.objectbox'
+apply plugin: 'com.google.gms.google-services'
