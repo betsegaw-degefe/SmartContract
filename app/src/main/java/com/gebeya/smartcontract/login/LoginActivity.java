@@ -3,12 +3,18 @@ package com.gebeya.smartcontract.login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
+import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.data.dto.UserDTO;
 import com.gebeya.smartcontract.data.dto.UserResponseDTO;
@@ -45,6 +51,9 @@ public class LoginActivity extends BaseActivity {
     private LoginService mLoginService;
     private Box<UserLoginData> mUserBox;
 
+    Animation shake;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +66,28 @@ public class LoginActivity extends BaseActivity {
 
         mLoginService = Api.loginService();
 
+        // create instance of animation for editText
+        shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.shake);
+
     }
 
     @OnClick(R.id.logInButton)
     public void submitLogin() {
         String phoneNumber = Objects.requireNonNull(loginPhoneNumber.getText()).toString().trim();
+
+        if (TextUtils.isEmpty(phoneNumber)) {
+            loginPhoneNumber.setError(getString(R.string.login_phone_number_hint));
+            loginPhoneNumber.startAnimation(shake);
+            return;
+        }
         String password = Objects.requireNonNull(loginPassword.getText()).toString().trim();
+        if (TextUtils.isEmpty(password)) {
+            loginPassword.setError(getString(R.string.login_password_hint));
+            loginPassword.startAnimation(shake);
+            return;
+        }
         // disable the login button
         loginButton.setEnabled(false);
-        //loginButton.styl
         toast(phoneNumber);
 
         mLoginService.loginSubmit(
@@ -77,18 +99,23 @@ public class LoginActivity extends BaseActivity {
             public void onResponse(Call<UserResponseDTO> call,
                                    Response<UserResponseDTO> response) {
 
-                UserResponseDTO userResponse = response.body();
-                assert userResponse != null;
-                UserDTO user = userResponse.getUser();
-                String token = userResponse.getToken();
+                if (response.isSuccessful()) {
 
-                // Send the user information to the object box to save on the user phone.
-                setUserLogin(user,token);
+                    UserResponseDTO userResponse = response.body();
+                    assert userResponse != null;
+                    UserDTO user = userResponse.getUser();
+                    String token = userResponse.getToken();
 
-
-                int statusCode = response.code();
-                String statusMessage = response.message();
-                statusShow(statusCode, statusMessage);
+                    // Send the user information to the object box to save on the user phone.
+                    setUserLogin(user, token);
+                    //int statusCode = response.code();
+                    //String statusMessage = response.message();
+                    openActivity();
+                } else {
+                    ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                    String errorMessage = errorResponse.getMessage();
+                    setError(errorMessage);
+                }
             }
 
             @Override
@@ -98,15 +125,26 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void statusShow(int code, String Message) {
-        String statusCode = Integer.toString(code);
+    private void openActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        this.finish();
+    }
 
-        if (code == 200) {
-            startActivity(new Intent(this, MainActivity.class));
-            this.finish();
-        } else {
-            toast(Message);
+    private void setError(String message) {
+
+        // Check User name
+        if (message.equals("User Does Not Exists")) {
+            loginPhoneNumber.setError(message);
+            loginButton.setEnabled(true);
+            loginPhoneNumber.startAnimation(shake);
         }
+        // Check password
+        else if (message.equals("Password is Incorrect")) {
+            loginPassword.setError(message);
+            loginButton.setEnabled(true);
+            loginPassword.startAnimation(shake);
+        }
+
     }
 
     private void setUserLogin(UserDTO user, String token) {
