@@ -98,6 +98,11 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <!--large ruby label-->
+    <style name="label.ruby.medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <!--black label-->
     <style name="label.green">
         <item name="android:textColor">@color/green</item>

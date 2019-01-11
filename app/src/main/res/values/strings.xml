@@ -17,6 +17,12 @@
     <!--ERRORS-->
     <string name="login_phone_number_hint">Please enter phone number</string>
     <string name="login_password_hint">Please enter password</string>
+    <string name="sign_up_first_name_hint">Please enter first name</string>
+    <string name="sign_up_last_name_hint">Please enter last name</string>
+    <string name="sign_up_password_hint">Please enter password</string>
+    <string name="sign_up_verification_code_hint">Please enter verification code</string>
+    <string name="send_phone_number_length">Please check phone number length</string>
+    <string name="send_phone_number_start">Phone number start from 9</string>
 
 
 

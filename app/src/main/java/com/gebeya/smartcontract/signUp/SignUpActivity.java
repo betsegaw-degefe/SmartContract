@@ -2,6 +2,9 @@ package com.gebeya.smartcontract.signUp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
@@ -35,6 +38,8 @@ public class SignUpActivity extends BaseActivity {
     @BindView(R.id.verificationCode)
     EditText_Roboto_Regular mVerificationCode;
 
+    Animation shake;
+
     private SignUpService mSignUpService;
     private String firstName;
     private String lastName;
@@ -53,7 +58,7 @@ public class SignUpActivity extends BaseActivity {
 
         Bundle extras = intent.getExtras();
 
-        if (extras!= null) {
+        if (extras != null) {
 
             phoneNo = intent.getExtras().getString("PHONE_NUMBER");
             toast(phoneNo);
@@ -62,15 +67,42 @@ public class SignUpActivity extends BaseActivity {
         // Initialize an instance of the SendPhoneNumberService interface
         mSignUpService = Api.signUpService();
 
+        // create instance of animation for editText
+        shake = AnimationUtils.loadAnimation(SignUpActivity.this, R.anim.shake);
+
     }
 
     @OnClick(R.id.signUpButton)
     public void submitSignUp() {
         firstName = mFirstName.getText().toString().trim();
+        if (TextUtils.isEmpty(firstName)) {
+            mFirstName.setError(getString(R.string.sign_up_first_name_hint));
+            // shake the phone number edit text.
+            mFirstName.startAnimation(shake);
+            return;
+        }
         lastName = mLastName.getText().toString().trim();
+        if (TextUtils.isEmpty(lastName)) {
+            mLastName.setError(getString(R.string.sign_up_last_name_hint));
+            // shake the phone number edit text.
+            mLastName.startAnimation(shake);
+            return;
+        }
         password = mPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(password)) {
+            mPassword.setError(getString(R.string.sign_up_password_hint));
+            // shake the phone number edit text.
+            mPassword.startAnimation(shake);
+            return;
+        }
         verificationCode = mVerificationCode.getText().toString().trim();
-        toast(phoneNo);
+        if (TextUtils.isEmpty(verificationCode)) {
+            mVerificationCode.setError(getString(R.string.sign_up_verification_code_hint));
+            // shake the phone number edit text.
+            mVerificationCode.startAnimation(shake);
+            return;
+        }
+        //toast(phoneNo);
         mSignUpService.SignUp("application/json",
               firstName,
               lastName,

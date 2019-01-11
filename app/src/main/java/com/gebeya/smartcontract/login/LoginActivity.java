@@ -21,6 +21,7 @@ import com.gebeya.smartcontract.data.dto.UserResponseDTO;
 import com.gebeya.smartcontract.data.model.LoginModel;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.api.LoginService;
+import com.gebeya.smartcontract.sendPhoneNumber.SendPhoneNumberActivity;
 
 import java.util.Objects;
 
@@ -77,12 +78,15 @@ public class LoginActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(phoneNumber)) {
             loginPhoneNumber.setError(getString(R.string.login_phone_number_hint));
+            // shake the phone number edit text.
             loginPhoneNumber.startAnimation(shake);
             return;
         }
         String password = Objects.requireNonNull(loginPassword.getText()).toString().trim();
         if (TextUtils.isEmpty(password)) {
             loginPassword.setError(getString(R.string.login_password_hint));
+
+            // shake the password edit text.
             loginPassword.startAnimation(shake);
             return;
         }
@@ -120,9 +124,20 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<UserResponseDTO> call, Throwable t) {
-
+                d("Login Activity error loading from API");
+                t.printStackTrace();
             }
         });
+    }
+
+    @OnClick(R.id.tvLoginSignUp)
+    public void openSendPhoneNumberScreen(){
+        startActivity(new Intent(this,SendPhoneNumberActivity.class));
+    }
+
+    @OnClick(R.id.tvLoginForgotPassword)
+    public void openForgotPasswordScreen(){
+        startActivity(new Intent(this,SendPhoneNumberActivity.class));
     }
 
     private void openActivity() {

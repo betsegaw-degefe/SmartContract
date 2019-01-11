@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llEnterPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
@@ -24,50 +25,52 @@
                 android:id="@+id/ccp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:ccp_defaultNameCode="ET"
-                app:ccp_autoFormatNumber="true"/>
+                app:ccp_autoFormatNumber="true"
+                app:ccp_defaultNameCode="ET" />
 
             <EditText
                 android:id="@+id/sendPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
-                android:inputType="phone"
                 android:hint="9********"
+                android:inputType="phone"
                 android:padding="8dp"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textColorHint="#c6c6c6"/>
+                android:textColorHint="#c6c6c6" />
         </LinearLayout>
 
-        <customfonts.Button_sfuitext_regular
-            android:id="@+id/submitPhoneNumber"
-            style="@style/button.dark.blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:padding="15dp"
-            android:text="SUBMIT"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="15sp" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <customfonts.Button_sfuitext_regular
+                android:id="@+id/submitPhoneNumber"
+                style="@style/button.dark.blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                android:text="SUBMIT"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
+
             <customfonts.MyTextView_Roboto_Regular
                 android:id="@+id/haveAnAccount"
+                style="@style/label.ruby.medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/submitPhoneNumber"
+                android:layout_alignEnd="@+id/submitPhoneNumber"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="5dp"
-                android:text="Have an account?"
-                android:textColor="@color/ruby"
-                android:textSize="15sp" />
-        </LinearLayout>
+                android:text="Have an account?" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
