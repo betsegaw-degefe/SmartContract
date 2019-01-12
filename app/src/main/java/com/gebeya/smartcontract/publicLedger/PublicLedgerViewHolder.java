@@ -27,10 +27,13 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
 
     private Context mContext;
     private PublicLedgerCallback mCallback;
+    private String assetId;
+
 
     /**
      * stores and recycles views as they are scrolled off screen
-     * @param itemView : View
+     *
+     * @param itemView  : View
      * @param callback: publicLedgerCallback
      */
 
@@ -45,14 +48,15 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     }
 
     /**
-     * when a single ledger click, set the position of the item to the
+     * when a single ledger clicked, set the position of the item to the
      * public ledger callback
+     *
      * @param v
      */
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        mCallback.onSelected(position);
+        mCallback.onSelected(position, assetId);
     }
 
     public void setType(String type) {
@@ -70,5 +74,9 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
 
     public void setCreatedAt(String createdAt) {
         mTimeStamp.setText(createdAt);
+    }
+
+    public void setAssetId(String id) {
+        this.assetId = id;
     }
 }

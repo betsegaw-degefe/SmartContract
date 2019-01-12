@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3102496002437357848",
-      "lastPropertyId": "7:3552080474007500769",
+      "lastPropertyId": "9:8675925716275597260",
       "name": "UserLoginData",
       "properties": [
         {
@@ -35,6 +35,14 @@
         {
           "id": "7:3552080474007500769",
           "name": "token"
+        },
+        {
+          "id": "8:7783019569597772048",
+          "name": "registered"
+        },
+        {
+          "id": "9:8675925716275597260",
+          "name": "profilePic"
         }
       ],
       "relations": []

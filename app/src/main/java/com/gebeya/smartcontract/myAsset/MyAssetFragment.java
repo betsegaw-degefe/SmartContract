@@ -21,12 +21,9 @@ import com.gebeya.smartcontract.data.dto.HouseDTO;
 import com.gebeya.smartcontract.data.dto.MyAssetCarResponseDTO;
 import com.gebeya.smartcontract.data.dto.MyAssetHouseResponseDTO;
 import com.gebeya.smartcontract.data.dto.UserResponseDTO;
-import com.gebeya.smartcontract.data.model.LoginRequest;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
-import com.gebeya.smartcontract.myAsset.api.service.UserService;
-import com.gebeya.smartcontract.publicLedger.PublicLedgerCallback;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
@@ -34,8 +31,6 @@ import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.OnClick;
-import butterknife.Optional;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import retrofit2.Call;
@@ -59,7 +54,6 @@ public class MyAssetFragment extends BaseFragment {
     private MyAssetCarService mMyAssetCarService;
     private MyAssetHouseService mMyAssetHouseService;
     private MyAssetAdapter mMyAssetAdapter;
-    private UserService mUserService;
     private boolean isConnected;
 
     BoxStore userBox;
@@ -95,7 +89,7 @@ public class MyAssetFragment extends BaseFragment {
               new MyAssetCallback() {
                   @Override
                   public void onSelected(int position, String id) {
-                      toast("Selected position is: " + id);
+                     // toast("Selected position is: " + id);
                       // start make transaction activity.
                       Intent intent = new Intent(getActivity(), MakeTransactionActivity.class);
                       intent.putExtra("ASSET_ID", id);
@@ -149,7 +143,6 @@ public class MyAssetFragment extends BaseFragment {
      */
     private void createService() {
         mMyAssetCarService = Api.getMyAssetCarService();
-        mUserService = Api.getUserService();
         mMyAssetHouseService = Api.getMyAssetHouseService();
     }
 

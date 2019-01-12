@@ -56,6 +56,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.hbb20:ccp:2.2.3'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.alexzh:circleimageview:1.1.2@aar'
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
 
     // SUPPORT LIBRARIES
     implementation "$support:appcompat-v7:$appcompatVersion"
@@ -64,7 +66,6 @@ dependencies {
     implementation "$support:support-v4:$appcompatVersion"
     implementation "$support:recyclerview-v7:$appcompatVersion"
     implementation "$support:support-annotations:$appcompatVersion"
-
 }
 
 apply plugin: 'io.objectbox'

@@ -17,18 +17,39 @@ public class UserLoginData {
     private String lastName;
     @Index
     private String phoneNo;
+
     private String token;
+    private String registered;
+    private String profilePic;
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(String registered) {
+        this.registered = registered;
+    }
 
     public UserLoginData() {
 
     }
 
-    public UserLoginData(String userId, String firstName,
-                         String lastName, String phoneNo, String token) {
+    public UserLoginData(String userId,String profilePic, String firstName,
+                         String lastName, String phoneNo,String registered, String token) {
         this.userId = userId;
+        this.profilePic = profilePic;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNo = phoneNo;
+        this.registered = registered;
         this.token = token;
     }
 

@@ -61,8 +61,11 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
 
         if (transaction.getCar() != null) {
             publicLedgerViewHolder.setType("Car Transaction");
+            publicLedgerViewHolder.setAssetId(transaction.getCar().getId());
+
         } else if (transaction.getHouse() != null) {
             publicLedgerViewHolder.setType("House Transaction");
+            publicLedgerViewHolder.setAssetId(transaction.getHouse().getId());
         }
 
         if (transaction.getFrom() != null &&

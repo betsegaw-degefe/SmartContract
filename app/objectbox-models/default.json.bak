@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3102496002437357848",
-      "lastPropertyId": "6:718393486714212300",
+      "lastPropertyId": "7:3552080474007500769",
       "name": "UserLoginData",
       "properties": [
         {
@@ -33,8 +33,8 @@
           "name": "phoneNo"
         },
         {
-          "id": "6:718393486714212300",
-          "name": "tocken"
+          "id": "7:3552080474007500769",
+          "name": "token"
         }
       ],
       "relations": []
@@ -48,7 +48,9 @@
   "modelVersionParserMinimum": 4,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    718393486714212300
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

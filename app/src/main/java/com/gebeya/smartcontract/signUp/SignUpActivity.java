@@ -38,12 +38,16 @@ public class SignUpActivity extends BaseActivity {
     @BindView(R.id.verificationCode)
     EditText_Roboto_Regular mVerificationCode;
 
+    @BindView(R.id.confirmPassword)
+    EditText_Roboto_Regular mConfirmPassword;
+
     Animation shake;
 
     private SignUpService mSignUpService;
     private String firstName;
     private String lastName;
     private String password;
+    private String confirmPasswrd;
     private String phoneNo;
     private String verificationCode;
 
@@ -61,7 +65,7 @@ public class SignUpActivity extends BaseActivity {
         if (extras != null) {
 
             phoneNo = intent.getExtras().getString("PHONE_NUMBER");
-            toast(phoneNo);
+            //toast(phoneNo);
         }
 
         // Initialize an instance of the SendPhoneNumberService interface
@@ -102,6 +106,23 @@ public class SignUpActivity extends BaseActivity {
             mVerificationCode.startAnimation(shake);
             return;
         }
+        confirmPasswrd = mConfirmPassword.getText().toString().trim();
+
+        // Check whether the password match or not
+        if(TextUtils.isEmpty(confirmPasswrd)){
+            mConfirmPassword.setError(getString(R.string.sign_up_password_confirm_hint));
+            // shake the phone number edit text.
+            mConfirmPassword.startAnimation(shake);
+            return;
+        }
+
+        if(!password.equals(confirmPasswrd)){
+            mConfirmPassword.setError(getString(R.string.sign_up_password_match_hint));
+            // shake the phone number edit text.
+            mConfirmPassword.startAnimation(shake);
+            return;
+        }
+
         //toast(phoneNo);
         mSignUpService.SignUp("application/json",
               firstName,

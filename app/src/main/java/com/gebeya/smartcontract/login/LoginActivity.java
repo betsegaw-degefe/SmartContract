@@ -166,9 +166,11 @@ public class LoginActivity extends BaseActivity {
 
         // Creating a new instance of UserLoginData object.
         UserLoginData userLoginData = new UserLoginData(user.getId(),
+              user.getProfilePic(),
               user.getFirstName(),
               user.getLastName(),
               user.getPhoneNo(),
+              user.getCreatedAt(),
               token);
 
         // Store UserLoginData in to the object box.

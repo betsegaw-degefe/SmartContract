@@ -7,12 +7,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.LoginActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Objects;
 
@@ -43,6 +47,16 @@ public class MainActivity extends BaseActivity {
         bind();
 
         setSupportActionBar(mToolbar);
+
+        // Getting the FireBase token
+        FirebaseInstanceId.getInstance().getInstanceId()
+              .addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                d(newToken);
+            }
+        });
 
         // Display icon in the toolbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);

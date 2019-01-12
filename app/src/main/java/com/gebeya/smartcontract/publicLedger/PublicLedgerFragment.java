@@ -1,6 +1,7 @@
 package com.gebeya.smartcontract.publicLedger;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
@@ -20,6 +22,7 @@ import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
+import com.gebeya.smartcontract.publicLedger.transactionDetail.TransactionDetailActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
@@ -47,6 +50,9 @@ public class PublicLedgerFragment extends BaseFragment {
     @BindView(R.id.publicLedgerSwipeContainer)
     SwipeRefreshLayout swipeContainer;
 
+    @BindView(R.id.noPublicLedger)
+    TextView mNoPublicLedger;
+
     private RecyclerView.LayoutManager mLayoutManager;
     private PublicLedgerService mPublicLedgerService;
     private PublicLedgerAdapter mPublicLedgerAdapter;
@@ -62,9 +68,11 @@ public class PublicLedgerFragment extends BaseFragment {
         // Create the retrofit client service for the public ledger.
         mPublicLedgerService = Api.getPublicLedgerService();
 
-        // Retrieve the Box for the UserLogin
+        // Retrieve the Box for the UserLogin.
         userBox = ((App) Objects.requireNonNull(getActivity()).getApplicationContext()).getStore();
         box = userBox.boxFor(UserLoginData.class);
+
+
     }
 
 
@@ -76,12 +84,19 @@ public class PublicLedgerFragment extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         inflate(R.layout.fragment_public_ledger, container);
 
+        // No public Ledger message.
+        mNoPublicLedger.setVisibility(View.INVISIBLE);
+
         mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
               new ArrayList<TransactionDTO>(0),
               new PublicLedgerCallback() {
                   @Override
-                  public void onSelected(int position) {
-                      toast("Selected position is: " + position);
+                  public void onSelected(int position, String id) {
+                      //toast("Selected position is: " + position);
+                      // start make transaction activity.
+                      Intent intent = new Intent(getActivity(), TransactionDetailActivity.class);
+                      intent.putExtra("ASSET_ID", id);
+                      startActivity(intent);
                   }
               });
 
@@ -141,7 +156,11 @@ public class PublicLedgerFragment extends BaseFragment {
                     PublicLedgerResponseDTO ledgerResponse = response.body();
                     List<TransactionDTO> transactions = ledgerResponse.getData();
                     d("Transactions loaded: " + transactions.size());
-                    mPublicLedgerAdapter.updateTransactions(response.body().getData());
+                    if (!transactions.isEmpty()) {
+                        mPublicLedgerAdapter.updateTransactions(response.body().getData());
+                    } else {
+                        mNoPublicLedger.setVisibility(View.VISIBLE);
+                    }
                     progressView.setVisibility(View.GONE);
                     swipeContainer.setRefreshing(false);
                 } else {

@@ -8,6 +8,9 @@ public class UserDTO {
     @SerializedName("_id")
     @Expose
     private String id;
+    @SerializedName("profile_pic")
+    @Expose
+    private String profilePic;
     @SerializedName("phoneNo")
     @Expose
     private String phoneNo;
@@ -29,6 +32,14 @@ public class UserDTO {
 
     public String getId() {
         return id;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public void setId(String id) {

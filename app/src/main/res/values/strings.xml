@@ -14,15 +14,25 @@
     <string name="signUp">Sign UP</string>
     <string name="makeTransaction">Make Asset Transfer</string>
 
-    <!--ERRORS-->
+    <!--==================== ERRORS ==================== -->
+    <!--Login Error-->
     <string name="login_phone_number_hint">Please enter phone number</string>
     <string name="login_password_hint">Please enter password</string>
+    <!--SignUp Error-->
     <string name="sign_up_first_name_hint">Please enter first name</string>
     <string name="sign_up_last_name_hint">Please enter last name</string>
     <string name="sign_up_password_hint">Please enter password</string>
     <string name="sign_up_verification_code_hint">Please enter verification code</string>
+    <string name="sign_up_password_match_hint">Password doesn\'t match</string>
+    <string name="sign_up_password_confirm_hint">Please Confirm password</string>
+    <!--Send Phone Number-->
     <string name="send_phone_number_length">Please check phone number length</string>
     <string name="send_phone_number_start">Phone number start from 9</string>
+
+    <!--==================== PUBLIC LEDGER ==================== -->
+    <string name="NoPublicLedgerLabel">No Public Ledger Found.</string>
+
+
 
 
 

@@ -3,7 +3,7 @@
     package="com.gebeya.smartcontract">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -14,7 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/base_theme">
 
-        <receiver android:name="com.gebeya.framework.utils.NetworkChangeReceiver" >
+        <!-- This is used when no icon is set for incoming notification messages.-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher" />
+        <!-- This is used when no color is set for the incoming notification message. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <receiver android:name="com.gebeya.framework.utils.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -55,8 +64,21 @@
             android:name=".login.LoginActivity"
             android:label="@string/login"
             android:theme="@style/base_theme.NoActionBar" />
-        <activity android:name=".notification.NotificationActivity" />
-        <activity android:name=".search.SearchActivity" />
+        <activity
+            android:name=".notification.NotificationActivity" />
+        <activity
+            android:name=".search.SearchActivity" />
+        <activity
+            android:name=".publicLedger.transactionDetail.TransactionDetailActivity" />
+
+        <service
+            android:name="com.gebeya.framework.utils.FireMsgService"
+            android:stopWithTask="false">
+            <intent-filter>
+
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
