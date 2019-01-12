@@ -41,7 +41,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
         return MainActivity.PAGE_COUNT;
     }
 
-    @Override
+    /*@Override
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
@@ -52,5 +52,5 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
                 return "About us";
         }
         return null;
-    }
+    }*/
 }

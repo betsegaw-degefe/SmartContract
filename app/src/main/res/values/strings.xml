@@ -4,15 +4,24 @@
     <string name="defaultFont"></string>
 
     <!--==================== TAB NAMES ==================== -->
-    <string name="about_us">About us</string>
-    <string name="my_asset">My Asset</string>
-    <string name="public_ledger">Public Ledger</string>
+    <string name="tab_1_title">Public Ledger</string>
+    <string name="tab_2_title">My Asset</string>
+    <string name="tab_3_title">My Profile</string>
+
+
+    <string-array name="tab_titles">
+        <item>@string/tab_1_title</item>
+        <item>@string/tab_2_title</item>
+        <item>@string/tab_3_title</item>
+    </string-array>
 
     <!--==================== Toolbar NAMES ==================== -->
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="signUp">Sign UP</string>
     <string name="makeTransaction">Make Asset Transfer</string>
+    <string name="transactionHistory">Transaction History</string>
+
 
     <!--==================== ERRORS ==================== -->
     <!--Login Error-->
@@ -31,9 +40,6 @@
 
     <!--==================== PUBLIC LEDGER ==================== -->
     <string name="NoPublicLedgerLabel">No Public Ledger Found.</string>
-
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

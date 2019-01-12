@@ -3,14 +3,18 @@
     <!-- Base application theme. -->
     <style name="base_theme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:titleTextColor" tools:targetApi="m">@color/white</item>
+        <item name="android:activityOpenEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/slide_out_right</item>
     </style>
 
     <!--theme that hides the toolbar, but still keeping the status bar visible-->
     <style name="base_theme.no_toolbar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
     </style>
 
     <!--fullscreen theme - hides both the toolbar and status bars-->

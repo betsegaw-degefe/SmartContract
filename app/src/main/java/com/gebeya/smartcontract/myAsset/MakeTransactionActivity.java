@@ -2,13 +2,14 @@ package com.gebeya.smartcontract.myAsset;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.App;
-import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.model.MakeTransactionModel;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
@@ -17,14 +18,12 @@ import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
 import java.util.List;
 import java.util.Objects;
 
-import butterknife.BindFloat;
 import butterknife.BindView;
 import butterknife.OnClick;
 import customfonts.EditText_SFUI_Regular;
 import customfonts.MyTextView_Roboto_Regular;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
-import io.objectbox.query.Query;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,6 +62,11 @@ public class MakeTransactionActivity extends BaseActivity {
         setContentView(R.layout.activity_make_transaction);
         bind();
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         // Hiding the success and failure image and message.
         failureImage.setVisibility(View.INVISIBLE);
         successImage.setVisibility(View.INVISIBLE);
@@ -73,7 +77,7 @@ public class MakeTransactionActivity extends BaseActivity {
         // Extracting the intent passing from MyAssetFragment
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        if (extras!= null) {
+        if (extras != null) {
             mAssetId = intent.getExtras().getString("ASSET_ID");
         }
 
@@ -88,6 +92,8 @@ public class MakeTransactionActivity extends BaseActivity {
         // loads User
         List<UserLoginData> user = box.getAll();
         mFrom = user.get(0).getUserId();
+
+
     }
 
     @OnClick(R.id.submitAssetTransfer)
@@ -129,6 +135,16 @@ public class MakeTransactionActivity extends BaseActivity {
             failureMessage.setVisibility(View.VISIBLE);
             toast(Message);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
     }
 
 }
