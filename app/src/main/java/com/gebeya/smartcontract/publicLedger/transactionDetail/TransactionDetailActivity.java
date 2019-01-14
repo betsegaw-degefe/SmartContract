@@ -12,11 +12,9 @@ import android.view.View;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
-import com.gebeya.framework.utils.CheckInternetConnecction;
+import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
-import com.gebeya.smartcontract.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.data.dto.TransactionDetailResponseDTO;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.publicLedger.PublicLedgerAdapter;
@@ -86,7 +84,7 @@ public class TransactionDetailActivity extends BaseActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // Check connection.
-        isConnected = new CheckInternetConnecction().CheckInternetConnecction(getApplicationContext());
+        isConnected = new CheckInternetConnection().CheckInternetConnection(getApplicationContext());
 
         if (isConnected) {
             loadTransactionDetail();

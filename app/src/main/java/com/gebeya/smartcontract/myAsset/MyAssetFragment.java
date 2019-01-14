@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
-import com.gebeya.framework.utils.CheckInternetConnecction;
+import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.CarDTO;
@@ -104,7 +104,7 @@ public class MyAssetFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
 
         // Check connection.
-        isConnected = new CheckInternetConnecction().CheckInternetConnecction(getContext());
+        isConnected = new CheckInternetConnection().CheckInternetConnection(getContext());
 
         // Load assets from the server.
         if (isConnected) {

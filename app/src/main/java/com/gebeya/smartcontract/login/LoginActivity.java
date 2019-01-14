@@ -1,27 +1,28 @@
 package com.gebeya.smartcontract.login;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
+import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.data.dto.ErrorResponseDTO;
-import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.data.dto.UserDTO;
 import com.gebeya.smartcontract.data.dto.UserResponseDTO;
-import com.gebeya.smartcontract.data.model.LoginModel;
 import com.gebeya.smartcontract.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.api.LoginService;
 import com.gebeya.smartcontract.sendPhoneNumber.SendPhoneNumberActivity;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.Objects;
 
@@ -36,7 +37,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
-import static com.gebeya.smartcontract.R.color.light_blue_100;
 
 public class LoginActivity extends BaseActivity {
 
@@ -52,7 +52,11 @@ public class LoginActivity extends BaseActivity {
     private LoginService mLoginService;
     private Box<UserLoginData> mUserBox;
 
+    @BindView(R.id.progressViewLogin)
+    CircularProgressView mProgressView;
+
     Animation shake;
+    private boolean isConnected;
 
 
     @Override
@@ -70,29 +74,51 @@ public class LoginActivity extends BaseActivity {
         // create instance of animation for editText
         shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.shake);
 
+        mProgressView.setVisibility(View.GONE);
+        // Check connection.
+
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.logInButton)
     public void submitLogin() {
-        String phoneNumber = Objects.requireNonNull(loginPhoneNumber.getText()).toString().trim();
 
+        isConnected = new CheckInternetConnection().CheckInternetConnection(getApplicationContext());
+
+        loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_pressed));
+
+        String phoneNumber = Objects.requireNonNull(loginPhoneNumber.getText()).toString().trim();
         if (TextUtils.isEmpty(phoneNumber)) {
+            loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
             loginPhoneNumber.setError(getString(R.string.login_phone_number_hint));
             // shake the phone number edit text.
             loginPhoneNumber.startAnimation(shake);
             return;
         }
+
         String password = Objects.requireNonNull(loginPassword.getText()).toString().trim();
         if (TextUtils.isEmpty(password)) {
+            loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
             loginPassword.setError(getString(R.string.login_password_hint));
 
             // shake the password edit text.
             loginPassword.startAnimation(shake);
             return;
         }
+
+        if (!isConnected) {
+            toast("No Internet connection");
+            loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
+            return;
+        }
+        mProgressView.setVisibility(View.VISIBLE);
+
+        //toast("Passed.");
         // disable the login button
         loginButton.setEnabled(false);
-        toast(phoneNumber);
+        loginPhoneNumber.setEnabled(false);
+        loginPassword.setEnabled(false);
 
         mLoginService.loginSubmit(
               CONTENT_TYPE,
@@ -131,13 +157,13 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.tvLoginSignUp)
-    public void openSendPhoneNumberScreen(){
-        startActivity(new Intent(this,SendPhoneNumberActivity.class));
+    public void openSendPhoneNumberScreen() {
+        startActivity(new Intent(this, SendPhoneNumberActivity.class));
     }
 
     @OnClick(R.id.tvLoginForgotPassword)
-    public void openForgotPasswordScreen(){
-        startActivity(new Intent(this,SendPhoneNumberActivity.class));
+    public void openForgotPasswordScreen() {
+        startActivity(new Intent(this, SendPhoneNumberActivity.class));
     }
 
     private void openActivity() {
@@ -152,12 +178,24 @@ public class LoginActivity extends BaseActivity {
             loginPhoneNumber.setError(message);
             loginButton.setEnabled(true);
             loginPhoneNumber.startAnimation(shake);
+            loginPhoneNumber.setEnabled(true);
+            loginPassword.setEnabled(true);
+            mProgressView.setVisibility(View.GONE);
+            toast("User Does Not Exists");
+            loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
+
         }
         // Check password
         else if (message.equals("Password is Incorrect")) {
             loginPassword.setError(message);
             loginButton.setEnabled(true);
             loginPassword.startAnimation(shake);
+            loginPhoneNumber.setEnabled(true);
+            loginPassword.setEnabled(true);
+            mProgressView.setVisibility(View.GONE);
+            toast("Password is Incorrect");
+            loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
+
         }
 
     }

@@ -1,61 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".login.LoginActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
 
-    <LinearLayout
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/smart_contract_logo" />
+        tools:context=".login.LoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/rect_gray"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/phone_icon" />
-
-            <customfonts.EditText_SFUI_Regular
-                android:id="@+id/loginPhoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="#00000000"
-                android:hint="Phone Number (9********)"
-                android:inputType="number"
-                android:padding="8dp"
-                android:textColor="#000000"
-                android:textColorHint="#c6c6c6" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/smart_contract_logo" />
 
             <LinearLayout
-                android:id="@+id/llLoginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -67,71 +39,124 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/lock" />
+                    android:src="@drawable/phone_icon" />
 
                 <customfonts.EditText_SFUI_Regular
-                    android:id="@+id/loginPassword"
+                    android:id="@+id/loginPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:background="#00000000"
-                    android:hint="Password"
-                    android:inputType="textPassword"
+                    android:hint="Phone Number (9********)"
+                    android:inputType="number"
                     android:padding="8dp"
                     android:textColor="#000000"
                     android:textColorHint="#c6c6c6" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llLoginPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/rect_gray"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/lock" />
+
+                    <customfonts.EditText_SFUI_Regular
+                        android:id="@+id/loginPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="#00000000"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:padding="8dp"
+                        android:textColor="#000000"
+                        android:textColorHint="#c6c6c6" />
+                </LinearLayout>
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:id="@+id/tvLoginForgotPassword"
+                    style="@style/label.ruby.medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llLoginPassword"
+                    android:layout_alignEnd="@+id/llLoginPassword"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Forgot password?" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.Button_sfuitext_regular
+                    android:id="@+id/logInButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/button_custom"
+                    android:gravity="center_horizontal"
+                    android:padding="15dp"
+                    android:text="LOGIN"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+
+                <com.github.rahatarmanahmed.cpv.CircularProgressView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/progressViewLogin"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    app:cpv_animAutostart="true"
+                    app:cpv_color="@color/colorAccent"
+                    app:cpv_indeterminate="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
             <customfonts.MyTextView_Roboto_Regular
-                android:id="@+id/tvLoginForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="Don't have an account?" />
+
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/tvLoginSignUp"
                 style="@style/label.ruby.medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/llLoginPassword"
-                android:layout_alignEnd="@+id/llLoginPassword"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="5dp"
-                android:text="Forgot password?" />
-        </RelativeLayout>
-
-        <customfonts.Button_sfuitext_regular
-            android:id="@+id/logInButton"
-            style="@style/button.dark.blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:padding="15dp"
-            android:text="LOGIN"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="15sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <customfonts.MyTextView_Roboto_Regular
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
-            android:text="Don't have an account?" />
-
-
-        <customfonts.MyTextView_Roboto_Regular
-            android:id="@+id/tvLoginSignUp"
-            style="@style/label.ruby.medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="Sign Up" />
-    </LinearLayout>
-</RelativeLayout>
+                android:layout_marginStart="5dp"
+                android:text="Sign Up" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
