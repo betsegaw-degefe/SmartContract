@@ -77,6 +77,9 @@ public class PublicLedgerFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
 
+        // call the function which set the recycler view.
+        setupRecyclerView();
+
         // Create a PublicLedgerViewModel the first time the system calls an
         // fragments.
         // Re-created fragments receive the same PublicLedgerViewModel instance
@@ -97,7 +100,7 @@ public class PublicLedgerFragment extends BaseFragment {
         // No public Ledger message.
         mNoPublicLedger.setVisibility(View.INVISIBLE);
 
-        setupRecyclerView();
+
 
         return root;
     }

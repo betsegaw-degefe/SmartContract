@@ -1,15 +1,10 @@
 package com.gebeya.framework.utils;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -20,9 +15,6 @@ import com.gebeya.smartcontract.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONObject;
-
-import java.util.Map;
 import java.util.Objects;
 
 public class FireMsgService extends FirebaseMessagingService {
@@ -68,7 +60,10 @@ public class FireMsgService extends FirebaseMessagingService {
                   .getBody());
         }
 
+        sendNotification((Objects.requireNonNull(remoteMessage.getNotification())).getBody());
 
+        // Also if you intend on generating your own notifications as a result of a received FCM
+        // message, here is where that should be initiated. See sendNotification method below.
        /* Map<String, String> params = remoteMessage.getData();
         JSONObject object = new JSONObject(params);
         Log.e("JSON_OBJECT", object.toString());
@@ -98,7 +93,8 @@ public class FireMsgService extends FirebaseMessagingService {
                 channel.canBypassDnd();
             }
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+            NotificationCompat.Builder notificationBuilder =
+            new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
             notificationBuilder
                   .setAutoCancel(true)
@@ -154,6 +150,16 @@ public class FireMsgService extends FirebaseMessagingService {
 
 
         String channelId = getString(R.string.default_notification_channel_id);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+              new NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentTitle(getString(R.string.app_name))
+                    .setContentText(messageBody)
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent);
     }
 
 }
