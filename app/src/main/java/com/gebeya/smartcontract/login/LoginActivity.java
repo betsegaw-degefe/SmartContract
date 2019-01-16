@@ -2,6 +2,7 @@ package com.gebeya.smartcontract.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +63,8 @@ public class LoginActivity extends BaseActivity {
     Animation shake;
     private boolean isConnected;
     ActivityLoginBinding mActivityLoginBinding;
+
+    SharedPreferences sharedpreferences;
 
 
     @Override

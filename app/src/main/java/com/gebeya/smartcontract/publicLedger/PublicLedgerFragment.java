@@ -68,9 +68,15 @@ public class PublicLedgerFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        //observeViewModel(viewModel);
-
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        inflate(R.layout.fragment_public_ledger, container);
+        return root;
     }
 
     @Override
@@ -93,15 +99,6 @@ public class PublicLedgerFragment extends BaseFragment {
         observeViewModel(viewModel);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        inflate(R.layout.fragment_public_ledger, container);
-        return root;
-    }
-
     /**
      * Check connection.
      *
@@ -116,7 +113,6 @@ public class PublicLedgerFragment extends BaseFragment {
      */
     private void setupRecyclerView() {
         mLayoutManager = new LinearLayoutManager(getActivity());
-        if (mPublicLedgerAdapter == null) {
             mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
                   new ArrayList<TransactionDTO>(0),
                   (position, id) -> {
@@ -129,10 +125,6 @@ public class PublicLedgerFragment extends BaseFragment {
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(mPublicLedgerAdapter);
             mRecyclerView.setHasFixedSize(true);
-        } else {
-            mPublicLedgerAdapter.notifyDataSetChanged();
-        }
-
     }
 
     /**

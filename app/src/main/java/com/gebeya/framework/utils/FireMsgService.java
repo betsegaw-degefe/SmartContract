@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -24,14 +25,16 @@ import java.util.Objects;
 
 public class FireMsgService extends FirebaseMessagingService {
 
-    private static final String TAG = "FireMsgService";
+    SharedPreferences sharedpreferences;
 
+    private static final String TAG = "FireMsgService";
+    public static final String tokenPreference = "phoneTokenPreference";
 
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
 
-        sendRegistrationToServer(token);
+        sendRegistrationToSharedPreference(token);
     }
 
     /**
@@ -90,8 +93,14 @@ public class FireMsgService extends FirebaseMessagingService {
         Log.d(TAG, "Short lived task is done.");
     }
 
-    private void sendRegistrationToServer(String token) {
+    private void sendRegistrationToSharedPreference(String token) {
         // TODO: Implement this method to send token to your app server.
+        sharedpreferences = getApplicationContext().getSharedPreferences(tokenPreference,
+              Context.MODE_PRIVATE);
+
+        // Save changes to save preference
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
     }
 
     /**
