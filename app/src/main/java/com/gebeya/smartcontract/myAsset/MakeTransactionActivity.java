@@ -11,8 +11,8 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.model.MakeTransactionModel;
-import com.gebeya.smartcontract.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.model.data.model.MakeTransactionModel;
+import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
 
 import java.util.List;

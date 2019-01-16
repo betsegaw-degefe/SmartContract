@@ -7,7 +7,7 @@ import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
-import com.gebeya.smartcontract.data.remote.RetrofitClient;
+import com.gebeya.smartcontract.model.data.remote.RetrofitClient;
 import com.gebeya.smartcontract.publicLedger.api.service.TransactionDetailService;
 import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 import com.gebeya.smartcontract.signUp.api.SignUpService;

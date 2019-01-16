@@ -1,6 +1,6 @@
 package com.gebeya.smartcontract.sendPhoneNumber.api;
 
-import com.gebeya.smartcontract.data.model.SendPhoneNumberModel;
+import com.gebeya.smartcontract.model.data.model.SendPhoneNumberModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

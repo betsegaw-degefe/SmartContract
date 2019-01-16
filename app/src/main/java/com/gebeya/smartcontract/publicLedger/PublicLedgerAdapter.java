@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.dto.TransactionDTO;
+import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 
 import java.util.List;
 

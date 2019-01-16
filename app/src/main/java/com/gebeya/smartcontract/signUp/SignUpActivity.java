@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils;
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.model.SignUpModel;
+import com.gebeya.smartcontract.model.data.model.SignUpModel;
 import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.signUp.api.SignUpService;
 
@@ -59,13 +59,9 @@ public class SignUpActivity extends BaseActivity {
 
         // Extracting the phone number which is passed from sendPhoneNumberActivity.
         Intent intent = getIntent();
-
         Bundle extras = intent.getExtras();
-
         if (extras != null) {
-
             phoneNo = intent.getExtras().getString("PHONE_NUMBER");
-            //toast(phoneNo);
         }
 
         // Initialize an instance of the SendPhoneNumberService interface
@@ -109,14 +105,14 @@ public class SignUpActivity extends BaseActivity {
         confirmPasswrd = mConfirmPassword.getText().toString().trim();
 
         // Check whether the password match or not
-        if(TextUtils.isEmpty(confirmPasswrd)){
+        if (TextUtils.isEmpty(confirmPasswrd)) {
             mConfirmPassword.setError(getString(R.string.sign_up_password_confirm_hint));
             // shake the phone number edit text.
             mConfirmPassword.startAnimation(shake);
             return;
         }
 
-        if(!password.equals(confirmPasswrd)){
+        if (!password.equals(confirmPasswrd)) {
             mConfirmPassword.setError(getString(R.string.sign_up_password_match_hint));
             // shake the phone number edit text.
             mConfirmPassword.startAnimation(shake);

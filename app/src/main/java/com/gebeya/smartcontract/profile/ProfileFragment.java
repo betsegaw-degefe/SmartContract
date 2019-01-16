@@ -14,7 +14,7 @@ import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

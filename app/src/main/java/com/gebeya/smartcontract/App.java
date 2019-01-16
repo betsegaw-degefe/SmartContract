@@ -4,7 +4,7 @@ package com.gebeya.smartcontract;
 import android.app.Application;
 
 import com.gebeya.framework.utils.Util;
-import com.gebeya.smartcontract.data.objectBox.MyObjectBox;
+import com.gebeya.smartcontract.model.data.objectBox.MyObjectBox;
 
 import io.objectbox.BoxStore;
 import io.objectbox.Box;

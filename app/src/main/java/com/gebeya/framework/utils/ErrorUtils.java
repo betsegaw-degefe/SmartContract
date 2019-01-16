@@ -1,7 +1,7 @@
 package com.gebeya.framework.utils;
 
-import com.gebeya.smartcontract.data.dto.ErrorResponseDTO;
-import com.gebeya.smartcontract.data.remote.RetrofitClient;
+import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
+import com.gebeya.smartcontract.model.data.remote.RetrofitClient;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

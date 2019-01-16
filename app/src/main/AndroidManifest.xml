@@ -72,6 +72,7 @@
         <activity
             android:name=".publicLedger.transactionDetail.TransactionDetailActivity"
             android:label="@string/transactionHistory"/>
+        <activity android:name=".changePassword.ChangePasswordActivity" />
 
         <service
             android:name="com.gebeya.framework.utils.FireMsgService"
@@ -81,6 +82,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name="com.gebeya.framework.utils.MyJobService" />
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
 package com.gebeya.smartcontract.myAsset.api.service;
 
-import com.gebeya.smartcontract.data.dto.UserResponseDTO;
-import com.gebeya.smartcontract.data.model.LoginRequest;
+import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
+import com.gebeya.smartcontract.model.data.model.LoginRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

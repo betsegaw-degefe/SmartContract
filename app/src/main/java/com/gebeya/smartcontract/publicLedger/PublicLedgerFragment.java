@@ -1,10 +1,13 @@
 package com.gebeya.smartcontract.publicLedger;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +21,12 @@ import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.dto.PublicLedgerResponseDTO;
-import com.gebeya.smartcontract.data.dto.TransactionDTO;
-import com.gebeya.smartcontract.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
+import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.publicLedger.transactionDetail.TransactionDetailActivity;
+import com.gebeya.smartcontract.viewmodel.PublicLedgerViewModel;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
@@ -46,17 +50,17 @@ public class PublicLedgerFragment extends BaseFragment {
     @BindView(R.id.progress_view_public_ledger)
     CircularProgressView progressView;
 
-    //Bind with the swipe refresh container
+    /*// Bind with the swipe refresh container
     @BindView(R.id.publicLedgerSwipeContainer)
     SwipeRefreshLayout swipeContainer;
-
+*/
     @BindView(R.id.noPublicLedger)
     TextView mNoPublicLedger;
 
     private RecyclerView.LayoutManager mLayoutManager;
     private PublicLedgerService mPublicLedgerService;
     private PublicLedgerAdapter mPublicLedgerAdapter;
-    private boolean isConnected;
+    PublicLedgerViewModel viewModel;
 
     BoxStore userBox;
     Box<UserLoginData> box;
@@ -65,18 +69,24 @@ public class PublicLedgerFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Create the retrofit client service for the public ledger.
-        mPublicLedgerService = Api.getPublicLedgerService();
-
-        // Retrieve the Box for the UserLogin.
-        userBox = ((App) Objects.requireNonNull(getActivity()).getApplicationContext()).getStore();
-        box = userBox.boxFor(UserLoginData.class);
-
+       //observeViewModel(viewModel);
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
-    @SuppressLint("ResourceAsColor")
+        // Create a PublicLedgerViewModel the first time the system calls an
+        // fragments.
+        // Re-created fragments receive the same PublicLedgerViewModel instance
+        // created by the first fragment.
+
+        viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
+              .get(PublicLedgerViewModel.class);
+        observeViewModel(viewModel);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -87,98 +97,64 @@ public class PublicLedgerFragment extends BaseFragment {
         // No public Ledger message.
         mNoPublicLedger.setVisibility(View.INVISIBLE);
 
-        mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
-              new ArrayList<TransactionDTO>(0),
-              new PublicLedgerCallback() {
-                  @Override
-                  public void onSelected(int position, String id) {
+        setupRecyclerView();
+
+        return root;
+    }
+
+    /**
+     * Check connection.
+     *
+     * @return true: if there is connection; false: if there is no connection.
+     */
+    private boolean checkConnection() {
+        return new CheckInternetConnection().CheckInternetConnection(getContext());
+    }
+
+    /**
+     * Set the recycler view of public Ledger.
+     */
+    private void setupRecyclerView() {
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        if (mPublicLedgerAdapter == null) {
+            mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
+                  new ArrayList<TransactionDTO>(0),
+                  (position, id) -> {
                       //toast("Selected position is: " + position);
                       // start make transaction activity.
                       Intent intent = new Intent(getActivity(), TransactionDetailActivity.class);
                       intent.putExtra("ASSET_ID", id);
                       startActivity(intent);
-                  }
-              });
-
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mPublicLedgerAdapter);
-        mRecyclerView.setHasFixedSize(true);
-
-        // Check connection.
-        isConnected = new CheckInternetConnection().CheckInternetConnection(getContext());
-
-        if (isConnected) {
-            loadPublicLedger();
+                  });
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setAdapter(mPublicLedgerAdapter);
+            mRecyclerView.setHasFixedSize(true);
         } else {
-            toast("No Internet Connection");
-            progressView.setVisibility(View.GONE);
-            swipeContainer.setRefreshing(false);
+            mPublicLedgerAdapter.notifyDataSetChanged();
         }
 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (isConnected) {
-                    loadPublicLedger();
-                } else {
-                    toast("No Internet Connection");
-                    progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);
-                }
-            }
-        });
-
-        swipeContainer.setColorSchemeResources(
-              R.color.colorPrimary,
-              R.color.colorPrimaryDark,
-              R.color.ruby_dark);
-        return root;
     }
 
-
-    private void loadPublicLedger() {
-
-        // loads User token from objectBox
-        List<UserLoginData> users = box.getAll();
-        String token = users.get(0).getToken();
-        String bearerToken = "Bearer " + token;
-
-        mPublicLedgerService.getLedger(bearerToken,
-              CONTENT_TYPE
-        ).enqueue(new Callback<PublicLedgerResponseDTO>() {
-
-            @Override
-            public void onResponse(Call<PublicLedgerResponseDTO> call,
-                                   Response<PublicLedgerResponseDTO> response) {
-                if (response.isSuccessful()) {
-                    d("Public Ledger Activity transaction are loaded from API");
-                    PublicLedgerResponseDTO ledgerResponse = response.body();
-                    List<TransactionDTO> transactions = ledgerResponse.getData();
-                    d("Transactions loaded: " + transactions.size());
-                    if (!transactions.isEmpty()) {
-                        mPublicLedgerAdapter.updateTransactions(response.body().getData());
-                    } else {
-                        mNoPublicLedger.setVisibility(View.VISIBLE);
-                    }
-                    progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);
-                } else {
-                    e("Response was not successful");
-                    int statusCode = response.code();
-                    e("Response code: " + statusCode);
-                    progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PublicLedgerResponseDTO> call, Throwable t) {
-                d("Public Ledger Fragment error loading from API");
-                t.printStackTrace();
-                progressView.setVisibility(View.GONE);
-                swipeContainer.setRefreshing(false);
-            }
-        });
+    /**
+     * Observe the change in public ledger view model.
+     *
+     * @param viewModel: which hold the data for publicLedgerFragment
+     */
+    private void observeViewModel(PublicLedgerViewModel viewModel) {
+        viewModel.getPublicLedgerResponseObservable()
+              .observe(this, publicLedgerResponseDTO -> {
+                  if (publicLedgerResponseDTO != null) {
+                      List<TransactionDTO> transactions = publicLedgerResponseDTO.getData();
+                      mPublicLedgerAdapter.updateTransactions(transactions);
+                      mPublicLedgerAdapter.notifyDataSetChanged();
+                      progressView.setVisibility(View.GONE);
+                      //swipeContainer.setRefreshing(false);
+                  } else {
+                      mNoPublicLedger.setVisibility(View.VISIBLE);
+                      progressView.setVisibility(View.GONE);
+                      // swipeContainer.setRefreshing(false);
+                      toast("No Internet Connection");
+                  }
+              });
     }
 }

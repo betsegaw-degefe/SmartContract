@@ -1,6 +1,6 @@
 package com.gebeya.smartcontract.publicLedger.api.service;
 
-import com.gebeya.smartcontract.data.dto.TransactionDetailResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.TransactionDetailResponseDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

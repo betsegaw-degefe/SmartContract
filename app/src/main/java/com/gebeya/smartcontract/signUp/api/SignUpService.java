@@ -1,6 +1,6 @@
 package com.gebeya.smartcontract.signUp.api;
 
-import com.gebeya.smartcontract.data.model.SignUpModel;
+import com.gebeya.smartcontract.model.data.model.SignUpModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

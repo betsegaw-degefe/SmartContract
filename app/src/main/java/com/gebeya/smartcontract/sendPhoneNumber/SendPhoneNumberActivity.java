@@ -12,8 +12,10 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.dto.ErrorResponseDTO;
-import com.gebeya.smartcontract.data.model.SendPhoneNumberModel;
+import com.gebeya.smartcontract.changePassword.ChangePasswordActivity;
+import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.SendPhoneNumberResponseDTO;
+import com.gebeya.smartcontract.model.data.model.SendPhoneNumberModel;
 import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 import com.gebeya.smartcontract.signUp.SignUpActivity;
@@ -41,18 +43,31 @@ public class SendPhoneNumberActivity extends BaseActivity {
     @BindView(R.id.submitPhoneNumber)
     Button_sfuitext_regular submitPhoneNumberButton;
 
+    @BindView(R.id.sendPhoneNumberTitle)
+    MyTextView_Roboto_Regular mTitle;
+
     private SendPhoneNumberService mSendPhoneNumberService;
     private String phoneNumber;
     private String KEY = "PHONE_NUMBER";
+    private String title;
 
     Animation shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //setTheme(R.style.base_theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_phone_number_layout);
         bind();
+
+        // Extracting the title which is passed from login activity.
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            title = intent.getExtras().getString("TITLE");
+        }
+
+        // Set the title of the page
+        setScreenTitle();
 
         // Initialize an instance of the SendPhoneNumberService interface
         mSendPhoneNumberService = Api.sendPhoneNumberService();
@@ -67,13 +82,22 @@ public class SendPhoneNumberActivity extends BaseActivity {
         shake = AnimationUtils.loadAnimation(SendPhoneNumberActivity.this, R.anim.shake);
     }
 
+    /**
+     * Set the title of the page.
+     */
+    private void setScreenTitle() {
+        mTitle.setText(title);
+    }
+
+    /**
+     * Triggered when the submit button pressed.
+     */
     @OnClick(R.id.submitPhoneNumber)
     public void submitPhoneNumber() {
         submitPhoneNumberButton.setEnabled(false);
 
         String phoneNumberCheck = sendPhoneNumber.getText().toString().trim();
 
-        //toast("phone number length: " + countWords(phoneNumberCheck));
         // Get the full phone number with country code from the text field.
         phoneNumber = ccp.getFullNumber();
         if (TextUtils.isEmpty(phoneNumberCheck)) {
@@ -112,7 +136,14 @@ public class SendPhoneNumberActivity extends BaseActivity {
                   public void onResponse(Call<SendPhoneNumberModel> call,
                                          Response<SendPhoneNumberModel> response) {
                       if (response.isSuccessful()) {
-                          openSignUp();
+                          SendPhoneNumberResponseDTO sendPhoneNumberResponseDTO =
+                                new SendPhoneNumberResponseDTO();
+                          String message = sendPhoneNumberResponseDTO.getMessage();
+                          if (message.equals("Password reset successful")) {
+                              openResetPassword();
+                          } else {
+                              openSignUp();
+                          }
                       } else {
                           ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
                           String errorMessage = errorResponse.getMessage();
@@ -137,8 +168,14 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
     @OnClick(R.id.haveAnAccount)
     public void openLoginPage(MyTextView_Roboto_Regular myTextView_roboto_regular) {
-       // toast("It is working");
         startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    /**
+     * open reset password activity.
+     */
+    public void openResetPassword() {
+        startActivity(new Intent(this, ChangePasswordActivity.class));
     }
 
     /**

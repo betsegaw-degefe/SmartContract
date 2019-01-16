@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
-import com.gebeya.smartcontract.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.LoginActivity;
 
 import io.objectbox.Box;

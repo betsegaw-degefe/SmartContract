@@ -1,6 +1,8 @@
 package com.gebeya.smartcontract.login;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,10 +18,11 @@ import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.data.dto.ErrorResponseDTO;
-import com.gebeya.smartcontract.data.dto.UserDTO;
-import com.gebeya.smartcontract.data.dto.UserResponseDTO;
-import com.gebeya.smartcontract.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.databinding.ActivityLoginBinding;
+import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.UserDTO;
+import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
+import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.api.LoginService;
 import com.gebeya.smartcontract.sendPhoneNumber.SendPhoneNumberActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -49,20 +52,22 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.logInButton)
     Button_sfuitext_regular loginButton;
 
-    private LoginService mLoginService;
-    private Box<UserLoginData> mUserBox;
 
     @BindView(R.id.progressViewLogin)
     CircularProgressView mProgressView;
 
+    private LoginService mLoginService;
+    private Box<UserLoginData> mUserBox;
+
     Animation shake;
     private boolean isConnected;
+    ActivityLoginBinding mActivityLoginBinding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        mActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);
         bind();
 
         // Prepare a Box object for our UserLoginData class.
@@ -130,7 +135,6 @@ public class LoginActivity extends BaseActivity {
                                    Response<UserResponseDTO> response) {
 
                 if (response.isSuccessful()) {
-
                     UserResponseDTO userResponse = response.body();
                     assert userResponse != null;
                     UserDTO user = userResponse.getUser();
@@ -156,21 +160,42 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    /**
+     * Sign up link opens Send phone number activity.
+     */
     @OnClick(R.id.tvLoginSignUp)
     public void openSendPhoneNumberScreen() {
-        startActivity(new Intent(this, SendPhoneNumberActivity.class));
+        Intent intent = new Intent(this, SendPhoneNumberActivity.class);
+        intent.putExtra("TITLE","Sign Up");
+        startActivity(intent);
+        this.finish();
     }
 
+    /**
+     * Forgot password opens forget password activity.
+     */
     @OnClick(R.id.tvLoginForgotPassword)
     public void openForgotPasswordScreen() {
-        startActivity(new Intent(this, SendPhoneNumberActivity.class));
+        Intent intent = new Intent(this, SendPhoneNumberActivity.class);
+        intent.putExtra("TITLE","Forget Password");
+        startActivity(intent);
+        this.finish();
     }
+
+    /**
+     * when the login successful the page redirect to the main activity.
+     */
 
     private void openActivity() {
         startActivity(new Intent(this, MainActivity.class));
         this.finish();
     }
 
+    /**
+     * Receive response from the api and if there is error set the error.
+     *
+     * @param message: Error message sent from api.
+     */
     private void setError(String message) {
 
         // Check User name
@@ -200,6 +225,12 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    /**
+     * Set the user information to the object box.
+     *
+     * @param user: the user object sent from the api.
+     * @param token : the user login token sent from the api.
+     */
     private void setUserLogin(UserDTO user, String token) {
 
         // Creating a new instance of UserLoginData object.
