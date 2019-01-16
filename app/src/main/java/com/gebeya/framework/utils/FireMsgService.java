@@ -1,9 +1,14 @@
 package com.gebeya.framework.utils;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -61,54 +66,6 @@ public class FireMsgService extends FirebaseMessagingService {
         }
 
         sendNotification((Objects.requireNonNull(remoteMessage.getNotification())).getBody());
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-       /* Map<String, String> params = remoteMessage.getData();
-        JSONObject object = new JSONObject(params);
-        Log.e("JSON_OBJECT", object.toString());
-
-        String NOTIFICATION_CHANNEL_ID = "Smart_contract_channel";
-
-        long pattern[] = {0, 1000, 500, 1000};
-
-        NotificationManager mNotificationManager =
-              (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel =
-                  new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Your Notifications",
-                        NotificationManager.IMPORTANCE_HIGH);
-
-            notificationChannel.setDescription("");
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setVibrationPattern(pattern);
-            notificationChannel.enableVibration(true);
-            mNotificationManager.createNotificationChannel(notificationChannel);
-
-            // to display notification in DND Mode
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = mNotificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID);
-                channel.canBypassDnd();
-            }
-
-            NotificationCompat.Builder notificationBuilder =
-            new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-
-            notificationBuilder
-                  .setAutoCancel(true)
-                  .setColor(ContextCompat.getColor(this, R.color.colorAccent))
-                  .setContentTitle(getString(R.string.app_name))
-                  .setContentText(Objects.requireNonNull(remoteMessage.getNotification()).getBody())
-                  .setDefaults(Notification.DEFAULT_ALL)
-                  .setWhen(System.currentTimeMillis())
-                  .setSmallIcon(R.drawable.ic_launcher_background)
-                  .setAutoCancel(true);
-
-
-            mNotificationManager.notify(1000, notificationBuilder.build());}*/
-
     }
 
     /**
@@ -160,6 +117,25 @@ public class FireMsgService extends FirebaseMessagingService {
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+              (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId,
+                  "Channel human readable title",
+                  NotificationManager.IMPORTANCE_DEFAULT);
+
+            channel.setDescription("");
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
 }

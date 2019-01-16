@@ -69,7 +69,7 @@ public class PublicLedgerFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       //observeViewModel(viewModel);
+        //observeViewModel(viewModel);
 
     }
 
@@ -79,6 +79,9 @@ public class PublicLedgerFragment extends BaseFragment {
 
         // call the function which set the recycler view.
         setupRecyclerView();
+
+        // No public Ledger message.
+        mNoPublicLedger.setVisibility(View.INVISIBLE);
 
         // Create a PublicLedgerViewModel the first time the system calls an
         // fragments.
@@ -96,12 +99,6 @@ public class PublicLedgerFragment extends BaseFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         inflate(R.layout.fragment_public_ledger, container);
-
-        // No public Ledger message.
-        mNoPublicLedger.setVisibility(View.INVISIBLE);
-
-
-
         return root;
     }
 
