@@ -37,6 +37,12 @@
     <!--Send Phone Number-->
     <string name="send_phone_number_length">Please check phone number length</string>
     <string name="send_phone_number_start">Phone number start from 9</string>
+    <!--Change Password-->
+    <string name="change_old_password_hint">Please enter current password</string>
+    <string name="change_password_new_password_hint">Please enter new password</string>
+    <string name="change_password_confirm_password_hint">Please confirm password</string>
+    <string name="change_password_match_hint">Password doesn\'t match</string>
+
 
     <!--==================== PUBLIC LEDGER ==================== -->
     <string name="NoPublicLedgerLabel">No Public Ledger Found.</string>

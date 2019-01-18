@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.publicLedger;
+package com.gebeya.smartcontract.view.publicLedger;
 
 import android.content.Context;
 import android.os.Build;

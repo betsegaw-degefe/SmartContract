@@ -37,11 +37,7 @@
         <activity
             android:name=".splashScreen.SplashScreenActivity"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".myAsset.MakeTransactionActivity"
@@ -70,9 +66,15 @@
         <activity
             android:name=".search.SearchActivity" />
         <activity
-            android:name=".publicLedger.transactionDetail.TransactionDetailActivity"
+            android:name=".view.publicLedger.transactionDetail.TransactionDetailActivity"
             android:label="@string/transactionHistory"/>
-        <activity android:name=".changePassword.ChangePasswordActivity" />
+        <activity android:name=".changePassword.ChangePasswordActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="com.gebeya.framework.utils.FireMsgService"

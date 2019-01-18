@@ -20,6 +20,7 @@ public class PublicLedgerViewModel extends AndroidViewModel {
 
     private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();
     private LiveData<PublicLedgerResponseDTO> publicLedgerResponseObservable;
+
     BoxStore userBox;
     Box<UserLoginData> box;
 

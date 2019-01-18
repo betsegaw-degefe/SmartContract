@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.publicLedger.transactionDetail;
+package com.gebeya.smartcontract.view.publicLedger.transactionDetail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.dto.TransactionDetailResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.publicLedger.PublicLedgerAdapter;
-import com.gebeya.smartcontract.publicLedger.api.service.TransactionDetailService;
+import com.gebeya.smartcontract.view.publicLedger.PublicLedgerAdapter;
+import com.gebeya.smartcontract.view.publicLedger.api.service.TransactionDetailService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.List;

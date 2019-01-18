@@ -29,6 +29,7 @@ public class FireMsgService extends FirebaseMessagingService {
 
     private static final String TAG = "FireMsgService";
     public static final String tokenPreference = "phoneTokenPreference";
+    public static final String Name = "tokenKey";
 
     @Override
     public void onNewToken(String token) {
@@ -48,6 +49,10 @@ public class FireMsgService extends FirebaseMessagingService {
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
+        if (sharedpreferences.contains(Name)) {
+         //   name.setText(sharedpreferences.getString(Name, ""));
+        }
+
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
@@ -59,7 +64,6 @@ public class FireMsgService extends FirebaseMessagingService {
                 // Handle message within 10 seconds
                 handleNow();
             }
-
         }
 
         // Check if message contains a notification payload.
@@ -67,7 +71,6 @@ public class FireMsgService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification()
                   .getBody());
         }
-
         sendNotification((Objects.requireNonNull(remoteMessage.getNotification())).getBody());
     }
 
@@ -94,13 +97,13 @@ public class FireMsgService extends FirebaseMessagingService {
     }
 
     private void sendRegistrationToSharedPreference(String token) {
-        // TODO: Implement this method to send token to your app server.
         sharedpreferences = getApplicationContext().getSharedPreferences(tokenPreference,
               Context.MODE_PRIVATE);
 
         // Save changes to save preference
         SharedPreferences.Editor editor = sharedpreferences.edit();
-
+        editor.putString(Name, token);
+        editor.apply();
     }
 
     /**

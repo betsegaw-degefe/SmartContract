@@ -6,9 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.gebeya.smartcontract.myAsset.MyAssetFragment;
 import com.gebeya.smartcontract.profile.ProfileFragment;
-import com.gebeya.smartcontract.publicLedger.PublicLedgerFragment;
-
-import java.util.List;
+import com.gebeya.smartcontract.view.publicLedger.PublicLedgerFragment;
 
 public class MainActivityPagerAdapter extends FragmentPagerAdapter {
 

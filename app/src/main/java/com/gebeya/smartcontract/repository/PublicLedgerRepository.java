@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.publicLedger.api.service.PublicLedgerService;
+import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;

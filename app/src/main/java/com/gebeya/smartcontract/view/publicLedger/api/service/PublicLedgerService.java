@@ -1,7 +1,6 @@
-package com.gebeya.smartcontract.publicLedger.api.service;
+package com.gebeya.smartcontract.view.publicLedger.api.service;
 
 import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
-import com.gebeya.smartcontract.model.data.model.PublicLedgerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

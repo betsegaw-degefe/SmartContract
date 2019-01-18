@@ -1,6 +1,5 @@
 package com.gebeya.smartcontract.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -20,11 +19,11 @@ import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.ActivityLoginBinding;
+import com.gebeya.smartcontract.login.api.LoginService;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.UserDTO;
 import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.login.api.LoginService;
 import com.gebeya.smartcontract.sendPhoneNumber.SendPhoneNumberActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
@@ -53,7 +52,6 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.logInButton)
     Button_sfuitext_regular loginButton;
 
-
     @BindView(R.id.progressViewLogin)
     CircularProgressView mProgressView;
 
@@ -65,12 +63,12 @@ public class LoginActivity extends BaseActivity {
     ActivityLoginBinding mActivityLoginBinding;
 
     SharedPreferences sharedpreferences;
-
+    public static final String Name = "tokenKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        mActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         bind();
 
         // Prepare a Box object for our UserLoginData class.
@@ -84,6 +82,10 @@ public class LoginActivity extends BaseActivity {
 
         mProgressView.setVisibility(View.GONE);
         // Check connection.
+
+        /*if (sharedpreferences.contains(Name)) {
+            //   name.setText(sharedpreferences.getString(Name, ""));
+        }*/
 
     }
 
@@ -122,7 +124,6 @@ public class LoginActivity extends BaseActivity {
         }
         mProgressView.setVisibility(View.VISIBLE);
 
-        //toast("Passed.");
         // disable the login button
         loginButton.setEnabled(false);
         loginPhoneNumber.setEnabled(false);
@@ -169,7 +170,7 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.tvLoginSignUp)
     public void openSendPhoneNumberScreen() {
         Intent intent = new Intent(this, SendPhoneNumberActivity.class);
-        intent.putExtra("TITLE","Sign Up");
+        intent.putExtra("TITLE", "Sign Up");
         startActivity(intent);
         this.finish();
     }
@@ -180,7 +181,7 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.tvLoginForgotPassword)
     public void openForgotPasswordScreen() {
         Intent intent = new Intent(this, SendPhoneNumberActivity.class);
-        intent.putExtra("TITLE","Forget Password");
+        intent.putExtra("TITLE", "Forget Password");
         startActivity(intent);
         this.finish();
     }
