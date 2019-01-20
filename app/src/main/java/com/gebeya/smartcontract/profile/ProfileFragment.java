@@ -1,5 +1,6 @@
 package com.gebeya.smartcontract.profile;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +16,14 @@ import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.view.changePassword.ChangePasswordActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
@@ -43,6 +46,9 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.profileRegistered)
     TextView registered;
+
+    @BindView(R.id.changePasswordProfile)
+    TextView changePassword;
 
 
     BoxStore userBox;
@@ -80,5 +86,10 @@ public class ProfileFragment extends BaseFragment {
               .centerCrop()
               .into(profilePicture);
         return root;
+    }
+
+    @OnClick(R.id.changePasswordProfile)
+    public void openChangePasswordActivity() {
+        startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
     }
 }

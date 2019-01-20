@@ -12,14 +12,16 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.changePassword.ChangePasswordActivity;
+import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.SendPhoneNumberResponseDTO;
 import com.gebeya.smartcontract.model.data.model.SendPhoneNumberModel;
-import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
 import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 import com.gebeya.smartcontract.signUp.SignUpActivity;
 import com.hbb20.CountryCodePicker;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,6 +30,8 @@ import customfonts.MyTextView_Roboto_Regular;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
 
 public class SendPhoneNumberActivity extends BaseActivity {
 
@@ -47,6 +51,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
     MyTextView_Roboto_Regular mTitle;
 
     private SendPhoneNumberService mSendPhoneNumberService;
+    private ResetPasswordService mResetPasswordService;
     private String phoneNumber;
     private String KEY = "PHONE_NUMBER";
     private String title;
@@ -71,6 +76,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
         // Initialize an instance of the SendPhoneNumberService interface
         mSendPhoneNumberService = Api.sendPhoneNumberService();
+        mResetPasswordService = Api.resetPasswordService();
 
         // Attach CarrierNumber editText to Country code picker.
         ccp.registerCarrierNumberEditText(sendPhoneNumber);
@@ -129,35 +135,60 @@ public class SendPhoneNumberActivity extends BaseActivity {
         // Trim the the first country code.
         phoneNumber = phoneNumber.replace(countryCode, "");
 
-        mSendPhoneNumberService.sendPhoneNumber("application/json",
-              phoneNumber)
-              .enqueue(new Callback<SendPhoneNumberModel>() {
-                  @Override
-                  public void onResponse(Call<SendPhoneNumberModel> call,
-                                         Response<SendPhoneNumberModel> response) {
-                      if (response.isSuccessful()) {
-                          SendPhoneNumberResponseDTO sendPhoneNumberResponseDTO =
-                                new SendPhoneNumberResponseDTO();
-                          String message = sendPhoneNumberResponseDTO.getMessage();
-                          if (message.equals("Password reset successful")) {
-                              openResetPassword();
-                          } else {
+        if (title.equals("Sign Up")) {
+            mSendPhoneNumberService.sendPhoneNumber(CONTENT_TYPE,
+                  phoneNumber)
+                  .enqueue(new Callback<SendPhoneNumberModel>() {
+                      @Override
+                      public void onResponse(Call<SendPhoneNumberModel> call,
+                                             Response<SendPhoneNumberModel> response) {
+                          if (response.isSuccessful()) {
                               openSignUp();
+                          } else {
+                              ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                              String errorMessage = errorResponse.getMessage();
+                              setError(errorMessage);
                           }
-                      } else {
-                          ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
-                          String errorMessage = errorResponse.getMessage();
-                          setError(errorMessage);
                       }
-                  }
 
-                  @Override
-                  public void onFailure(Call<SendPhoneNumberModel> call,
-                                        Throwable t) {
-                      d("SendPhoneNumberActivity error loading from API");
-                      t.printStackTrace();
-                  }
-              });
+                      @Override
+                      public void onFailure(Call<SendPhoneNumberModel> call,
+                                            Throwable t) {
+                          d("SendPhoneNumberActivity error loading from API");
+                          t.printStackTrace();
+                      }
+                  });
+        } else if (title.equals("Forget Password")) {
+            mResetPasswordService.resetPassword(CONTENT_TYPE, phoneNumber)
+                  .enqueue(new Callback<SendPhoneNumberResponseDTO>() {
+                      @Override
+                      public void onResponse(Call<SendPhoneNumberResponseDTO> call,
+                                             Response<SendPhoneNumberResponseDTO> response) {
+                          if (response.isSuccessful()) {
+                              SendPhoneNumberResponseDTO sendPhoneNumberResponseDTO =
+                                    response.body();
+
+                              String message = Objects.requireNonNull(sendPhoneNumberResponseDTO).getMessage();
+
+                              if (message.equals("Password reset successful")) {
+                                  openResetPassword(message);
+                              }
+                          } else {
+                              ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                              String errorMessage = errorResponse.getMessage();
+                              setError(errorMessage);
+                          }
+                      }
+
+                      @Override
+                      public void onFailure(Call<SendPhoneNumberResponseDTO> call, Throwable t) {
+                          d("SendPhoneNumberActivity error loading from API");
+                          t.printStackTrace();
+                      }
+                  });
+        }
+
+
     }
 
     /**
@@ -174,8 +205,9 @@ public class SendPhoneNumberActivity extends BaseActivity {
     /**
      * open reset password activity.
      */
-    public void openResetPassword() {
-        startActivity(new Intent(this, ChangePasswordActivity.class));
+    public void openResetPassword(String message) {
+        toast(message);
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     /**

@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.gebeya.framework.utils.Api;
+import com.gebeya.framework.utils.ErrorUtils;
+import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
@@ -28,15 +30,7 @@ public class PublicLedgerRepository {
     BoxStore userBox;
     Box<UserLoginData> box;
 
-    static PublicLedgerRepository  INSTANCE;
-
-    /**
-     * Create a singleton of this class.
-     */
-    private static class SingletonHelper {
-
-       // private static final PublicLedgerRepository INSTANCE = new PublicLedgerRepository();
-    }
+    private static PublicLedgerRepository  INSTANCE;
 
     /**
      * called when the instance of the PublicLedgerRepository class needed.
@@ -44,7 +38,6 @@ public class PublicLedgerRepository {
      * @return singletonHelper instance class.
      */
     public static PublicLedgerRepository getInstance() {
-        //return SingletonHelper.INSTANCE;
         if (INSTANCE == null) {
             INSTANCE = new PublicLedgerRepository();
         }
@@ -61,7 +54,7 @@ public class PublicLedgerRepository {
     /**
      *
      * @param bearerToken : The user bearer token.
-     * @return
+     * @return :
      */
     public LiveData<PublicLedgerResponseDTO> getPublicLedgerRepository(String bearerToken) {
 
@@ -77,6 +70,7 @@ public class PublicLedgerRepository {
                                          Response<PublicLedgerResponseDTO> response) {
                       if (response.isSuccessful())
                           publicLedgerResponse.setValue(response.body());
+
                   }
 
                   @Override

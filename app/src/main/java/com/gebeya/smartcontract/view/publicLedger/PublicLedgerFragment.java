@@ -17,7 +17,6 @@ import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.view.publicLedger.transactionDetail.TransactionDetailActivity;
 import com.gebeya.smartcontract.viewmodel.PublicLedgerViewModel;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -76,8 +75,7 @@ public class PublicLedgerFragment extends BaseFragment {
         mNoPublicLedger.setVisibility(View.INVISIBLE);
 
         // Create a PublicLedgerViewModel the first time the system calls an
-        // fragments.
-        // Re-created fragments receive the same PublicLedgerViewModel instance
+        // fragments.Re-created fragments receive the same PublicLedgerViewModel instance
         // created by the first fragment.
 
         viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
@@ -124,7 +122,26 @@ public class PublicLedgerFragment extends BaseFragment {
         viewModel.getPublicLedgerResponseObservable()
               .observe(this, publicLedgerResponseDTO -> {
                   if (publicLedgerResponseDTO != null) {
-                      List<TransactionDTO> transactions = publicLedgerResponseDTO.getData();
+
+
+                      List<TransactionDTO> checkingTransactionNull = publicLedgerResponseDTO.getData();
+
+                      List<TransactionDTO> transactions = new ArrayList<>();
+
+                      // Check whether transactions have a null field or not
+                      // if null field found then the transaction removed from the list.
+                      for (int i = 0; i < checkingTransactionNull.size(); i++) {
+                          if (checkingTransactionNull.get(i).getCar() != null &&
+                                checkingTransactionNull.get(i).getFrom() != null &&
+                                checkingTransactionNull.get(i).getTo() != null) {
+
+                              transactions.add(i, checkingTransactionNull.get(i));
+
+                          }
+                      }
+
+                      //transactions.size();
+                      // transactions.get()
                       mPublicLedgerAdapter.updateTransactions(transactions);
                       mPublicLedgerAdapter.notifyDataSetChanged();
                       progressView.setVisibility(View.GONE);

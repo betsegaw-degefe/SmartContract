@@ -183,13 +183,12 @@ public class LoginActivity extends BaseActivity {
         Intent intent = new Intent(this, SendPhoneNumberActivity.class);
         intent.putExtra("TITLE", "Forget Password");
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
 
     /**
      * when the login successful the page redirect to the main activity.
      */
-
     private void openActivity() {
         startActivity(new Intent(this, MainActivity.class));
         this.finish();

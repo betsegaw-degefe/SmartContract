@@ -18,18 +18,14 @@ import io.objectbox.BoxStore;
 
 public class PublicLedgerViewModel extends AndroidViewModel {
 
-    private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();
+    //private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();
     private LiveData<PublicLedgerResponseDTO> publicLedgerResponseObservable;
 
     BoxStore userBox;
     Box<UserLoginData> box;
 
-    static {
+   /* static {
         MUTABLE_LIVE_DATA.setValue(null);
-    }
-
-    /*public PublicLedgerViewModel(@NonNull Application application) {
-        super(application);
     }*/
 
     public PublicLedgerViewModel(@NonNull Application application) {

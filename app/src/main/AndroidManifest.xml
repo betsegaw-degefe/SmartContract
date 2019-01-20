@@ -37,7 +37,10 @@
         <activity
             android:name=".splashScreen.SplashScreenActivity"
             android:theme="@style/SplashTheme">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".myAsset.MakeTransactionActivity"
@@ -68,12 +71,8 @@
         <activity
             android:name=".view.publicLedger.transactionDetail.TransactionDetailActivity"
             android:label="@string/transactionHistory"/>
-        <activity android:name=".changePassword.ChangePasswordActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".view.changePassword.ChangePasswordActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service

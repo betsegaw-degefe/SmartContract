@@ -72,8 +72,8 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
               transaction.getTo() != null &&
               transaction.getCreatedAt() != null) {
 
-            publicLedgerViewHolder.setFrom(transaction.getFrom().getId());
-            publicLedgerViewHolder.setTo(transaction.getTo().getId());
+            publicLedgerViewHolder.setFrom(transaction.getFrom().getFirstName() + " " + transaction.getFrom().getLastName());
+            publicLedgerViewHolder.setTo(transaction.getTo().getFirstName() + " " + transaction.getTo().getLastName());
             DateFormatter dateFormatter = new DateFormatter();
             publicLedgerViewHolder.setCreatedAt(dateFormatter.DateFormatter(transaction.getCreatedAt()));
         }
@@ -95,6 +95,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
      * @param transactions
      */
     public void updateTransactions(List<TransactionDTO> transactions) {
+
         mTransactions = transactions;
         notifyDataSetChanged();
 

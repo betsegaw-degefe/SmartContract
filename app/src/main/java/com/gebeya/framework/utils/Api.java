@@ -5,6 +5,8 @@ import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
+import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
+import com.gebeya.smartcontract.view.changePassword.api.ChangePasswordService;
 import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.model.data.remote.RetrofitClient;
 import com.gebeya.smartcontract.view.publicLedger.api.service.TransactionDetailService;
@@ -56,6 +58,14 @@ public final class Api {
 
     public static TransactionDetailService transactionDetailService(){
         return RetrofitClient.getClient(BASE_URL).create(TransactionDetailService.class);
+    }
+
+    public static ChangePasswordService changePasswordService(){
+        return RetrofitClient.getClient(BASE_URL).create(ChangePasswordService.class);
+    }
+
+    public static ResetPasswordService resetPasswordService(){
+        return RetrofitClient.getClient(BASE_URL).create(ResetPasswordService.class);
     }
 
 }
