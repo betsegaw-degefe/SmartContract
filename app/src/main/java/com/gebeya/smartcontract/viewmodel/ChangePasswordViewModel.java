@@ -27,7 +27,6 @@ public class ChangePasswordViewModel extends AndroidViewModel {
 
     private final static MutableLiveData<ChangePasswordResponseDTO> mChangePasswordResponseObservable = new MutableLiveData<>();
     private final static MutableLiveData<ErrorResponseDTO> mErrorResponseObservable = new MutableLiveData<>();
-    private LiveData<?> responseObservable;
 
     public MutableLiveData<String> oldPassword = new MutableLiveData<>();
     public MutableLiveData<String> newPassword = new MutableLiveData<>();

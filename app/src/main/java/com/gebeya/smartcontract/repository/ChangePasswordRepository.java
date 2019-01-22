@@ -42,9 +42,9 @@ public class ChangePasswordRepository {
 
     /**
      * @param bearerToken : The user bearer token
-     * @return change password object responded from the api.
      */
-    public void getChangePasswordRepository(String bearerToken, ChangePasswordModelDto changePasswordModelDto) {
+    public void getChangePasswordRepository(String bearerToken,
+                                            ChangePasswordModelDto changePasswordModelDto) {
 
         mChangePasswordService.changePasswordSubmit(bearerToken,
               CONTENT_TYPE, changePasswordModelDto)

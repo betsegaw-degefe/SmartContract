@@ -89,7 +89,7 @@ public class MyAssetFragment extends BaseFragment {
               new MyAssetCallback() {
                   @Override
                   public void onSelected(int position, String id) {
-                     // toast("Selected position is: " + id);
+                      // toast("Selected position is: " + id);
                       // start make transaction activity.
                       Intent intent = new Intent(getActivity(), MakeTransactionActivity.class);
                       intent.putExtra("ASSET_ID", id);

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+    <variable
+        name="SearchUserViewModel"
+        type="com.gebeya.smartcontract.viewmodel.SearchUserViewModel"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white_background">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/searchUserToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchUserRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/search_user_layout" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <com.github.rahatarmanahmed.cpv.CircularProgressView
+                android:id="@+id/progressViewSearchUser"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                app:cpv_animAutostart="true"
+                app:cpv_color="@color/colorAccent"
+                app:cpv_indeterminate="true" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/noSearchUser"
+            style="@style/label.blue"
+            android:layout_centerInParent="true"
+            android:text="@string/noSearchUserLabel"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

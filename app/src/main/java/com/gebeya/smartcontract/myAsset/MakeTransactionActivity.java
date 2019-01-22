@@ -11,6 +11,7 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.model.MakeTransactionModel;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
@@ -47,6 +48,9 @@ public class MakeTransactionActivity extends BaseActivity {
 
     @BindView(R.id.failureMessage)
     MyTextView_Roboto_Regular failureMessage;
+
+    @BindView(R.id.searchUserIcon)
+    ImageView searchUser;
 
     private MakeTransactionService mMakeTransactionService;
     private String mAssetId;
@@ -145,6 +149,11 @@ public class MakeTransactionActivity extends BaseActivity {
                 return true;
         }
         return false;
+    }
+
+    @OnClick(R.id.searchUserIcon)
+    public void searchUserActivity(){
+        startActivity(new Intent(this,LoginActivity.class));
     }
 
 }

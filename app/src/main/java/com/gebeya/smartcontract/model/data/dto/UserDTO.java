@@ -4,35 +4,30 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserDTO {
-
-    @SerializedName("_id")
-    @Expose
-    private String id;
     @SerializedName("profile_pic")
     @Expose
     private String profilePic;
-    @SerializedName("phoneNo")
+    @SerializedName("deviceId")
     @Expose
-    private String phoneNo;
+    private String deviceId;
+    @SerializedName("_id")
+    @Expose
+    private String id;
     @SerializedName("firstName")
     @Expose
     private String firstName;
     @SerializedName("lastName")
     @Expose
     private String lastName;
-    @SerializedName("public_id")
+    @SerializedName("phoneNo")
     @Expose
-    private String publicId;
+    private String phoneNo;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-
-    public String getId() {
-        return id;
-    }
 
     public String getProfilePic() {
         return profilePic;
@@ -42,16 +37,20 @@ public class UserDTO {
         this.profilePic = profilePic;
     }
 
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
     }
 
     public String getFirstName() {
@@ -70,12 +69,12 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getPublicId() {
-        return publicId;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setPublicId(String publicId) {
-        this.publicId = publicId;
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public String getCreatedAt() {

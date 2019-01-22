@@ -3,6 +3,7 @@ package com.gebeya.smartcontract.model.data.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.security.acl.Owner;
 import java.util.List;
 
 public class CarDTO {
@@ -18,7 +19,7 @@ public class CarDTO {
     private String id;
     @SerializedName("owner")
     @Expose
-    private String owner;
+    private UserDTO mUserDTO;
     @SerializedName("brand")
     @Expose
     private String brand;
@@ -28,7 +29,9 @@ public class CarDTO {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
 
     public Integer getYearOfManufactured() {
         return yearOfManufactured;
@@ -54,12 +57,12 @@ public class CarDTO {
         this.id = id;
     }
 
-    public String getOwner() {
-        return owner;
+    public UserDTO getUserDTO() {
+        return mUserDTO;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setUserDTO(UserDTO userDTO) {
+        mUserDTO = userDTO;
     }
 
     public String getBrand() {
@@ -82,7 +85,16 @@ public class CarDTO {
         return createdAt;
     }
 
-    public void setUpdatedAt(String createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }

@@ -21,6 +21,8 @@
     <string name="signUp">Sign UP</string>
     <string name="makeTransaction">Make Asset Transfer</string>
     <string name="transactionHistory">Transaction History</string>
+    <string name="searchUser">Search User</string>
+
 
 
     <!--==================== ERRORS ==================== -->
@@ -46,6 +48,9 @@
 
     <!--==================== PUBLIC LEDGER ==================== -->
     <string name="NoPublicLedgerLabel">No Public Ledger Found.</string>
+
+    <!--==================== SEARCH USER ==================== -->
+    <string name="noSearchUserLabel">No User Found.</string>
 
     <!--==================== Fire base Message Service ==================== -->
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>

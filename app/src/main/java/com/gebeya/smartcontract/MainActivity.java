@@ -150,6 +150,7 @@ public class MainActivity extends BaseActivity {
             // Toast.makeText(getApplicationContext(), "Setting Menu", Toast.LENGTH_SHORT).show();
             box.removeAll();
             startActivity(new Intent(this, LoginActivity.class));
+            this.finish();
             return true;
         }
         // If search option selected

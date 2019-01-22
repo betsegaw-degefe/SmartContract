@@ -27,6 +27,9 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <!--Theme for the Search by name screen-->
+    <style name="searchUserTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+
     <style name="base_theme.AppBarOverlay." parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="base_theme.PopupOverlay." parent="ThemeOverlay.AppCompat.Light" />
@@ -37,6 +40,7 @@
         <item name="android:minWidth">130dp</item>
         <item name="android:minHeight">35dp</item>
     </style>
+
     <!--dark button-->
     <style name="button.dark">
         <item name="android:textColor">@color/white</item>
@@ -135,6 +139,11 @@
     <!--large black label-->
     <style name="label.black.large">
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--extra large black label-->
+    <style name="label.black.extra_large">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

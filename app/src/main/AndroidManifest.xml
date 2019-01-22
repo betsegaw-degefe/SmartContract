@@ -74,6 +74,10 @@
         <activity android:name=".view.changePassword.ChangePasswordActivity">
 
         </activity>
+        <activity
+            android:name=".view.searchUser.SearchUserActivity"
+            android:label="@string/searchUser"
+            android:theme="@style/searchUserTheme"/>
 
         <service
             android:name="com.gebeya.framework.utils.FireMsgService"
