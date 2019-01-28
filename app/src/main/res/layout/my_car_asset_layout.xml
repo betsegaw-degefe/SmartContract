@@ -7,7 +7,9 @@
     android:padding="8dp"
     android:layout_marginTop="8dp"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:elevation="4dp"
+    android:orientation="vertical"
+    tools:ignore="UnusedAttribute">
 
     <FrameLayout
         android:id="@+id/myAssetImageContainer"

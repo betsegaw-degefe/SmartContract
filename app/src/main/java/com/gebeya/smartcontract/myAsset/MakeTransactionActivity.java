@@ -15,6 +15,7 @@ import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.model.MakeTransactionModel;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
+import com.gebeya.smartcontract.view.searchUser.SearchUserActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -152,8 +153,8 @@ public class MakeTransactionActivity extends BaseActivity {
     }
 
     @OnClick(R.id.searchUserIcon)
-    public void searchUserActivity(){
-        startActivity(new Intent(this,LoginActivity.class));
+    public void searchUserActivity() {
+        startActivity(new Intent(this, SearchUserActivity.class));
     }
 
 }

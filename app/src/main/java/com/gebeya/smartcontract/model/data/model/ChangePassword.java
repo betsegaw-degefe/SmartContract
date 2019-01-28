@@ -3,9 +3,6 @@ package com.gebeya.smartcontract.model.data.model;
 
 public class ChangePassword {
 
-   /* public final ObservableField<String> currentPassword = new ObservableField<>();
-    public final ObservableField<String> newPassword = new ObservableField<>();*/
-
     private String currentPassword;
     private String newPassword;
     private String confirmPassword;

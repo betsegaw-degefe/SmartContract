@@ -48,10 +48,11 @@ dependencies {
     implementation "$support:support-annotations:$appcompatVersion"
 
     //TEST IMPLEMENTATION
-    //implementation "${support}.constraint:constraint-layout:1.1.3"
     testImplementation 'junit:junit:4.12'
+
     //androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation "${support}.test.espresso:espresso-core:3.0.2"
+
     // UI DATA BINDING
     implementation "$butterknife:$butterknifeVersion"
     annotationProcessor "$butterknife-compiler:$butterknifeVersion"
@@ -69,8 +70,13 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.1'
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+
+    // Picasso image loader
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Country code picker
     implementation 'com.hbb20:ccp:2.2.3'
+
     // Firebase dependencies.
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'

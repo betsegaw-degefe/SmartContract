@@ -10,8 +10,10 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -23,19 +25,27 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Objects;
 
+import static com.gebeya.framework.utils.Constants.PREFS_NAME;
+
 public class FireMsgService extends FirebaseMessagingService {
 
     SharedPreferences sharedpreferences;
 
     private static final String TAG = "FireMsgService";
-    public static final String tokenPreference = "phoneTokenPreference";
-    public static final String Name = "tokenKey";
+    public static final String DEVICE_ID = "DEVICE_TOKEN_ID";
 
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
 
         sendRegistrationToSharedPreference(token);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
     }
 
     /**
@@ -48,10 +58,6 @@ public class FireMsgService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-
-        if (sharedpreferences.contains(Name)) {
-         //   name.setText(sharedpreferences.getString(Name, ""));
-        }
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -97,13 +103,15 @@ public class FireMsgService extends FirebaseMessagingService {
     }
 
     private void sendRegistrationToSharedPreference(String token) {
-        sharedpreferences = getApplicationContext().getSharedPreferences(tokenPreference,
-              Context.MODE_PRIVATE);
+        //sharedpreferences = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
 
         // Save changes to save preference
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(Name, token);
+        editor.putString(DEVICE_ID, token);
         editor.apply();
+        //Toast()
+        String restoredText = sharedpreferences.getString(DEVICE_ID, "");
+        Log.d(TAG, restoredText);
     }
 
     /**

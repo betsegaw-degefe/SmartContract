@@ -3,7 +3,7 @@ package com.gebeya.smartcontract.model.data.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ChangePasswordModelDto {
+public class ChangePasswordModelDTO {
 
     @SerializedName("oldPassword")
     @Expose

@@ -13,15 +13,15 @@ public class UserDTO {
     @SerializedName("_id")
     @Expose
     private String id;
+    @SerializedName("phoneNo")
+    @Expose
+    private String phoneNo;
     @SerializedName("firstName")
     @Expose
     private String firstName;
     @SerializedName("lastName")
     @Expose
     private String lastName;
-    @SerializedName("phoneNo")
-    @Expose
-    private String phoneNo;
     @SerializedName("created_at")
     @Expose
     private String createdAt;

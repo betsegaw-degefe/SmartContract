@@ -25,12 +25,8 @@ import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
 public class PublicLedgerRepository {
 
     private PublicLedgerService mPublicLedgerService;
-
-    // declaring for object box variables.
-    BoxStore userBox;
-    Box<UserLoginData> box;
-
     private static PublicLedgerRepository  INSTANCE;
+
 
     /**
      * called when the instance of the PublicLedgerRepository class needed.
@@ -77,6 +73,7 @@ public class PublicLedgerRepository {
                   public void onFailure(Call<PublicLedgerResponseDTO> call,
                                         Throwable t) {
                       publicLedgerResponse.setValue(null);
+                      t.printStackTrace();
                   }
               });
         return publicLedgerResponse;

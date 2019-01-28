@@ -6,7 +6,9 @@
     android:layout_marginTop="8dp"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:elevation="4dp"
+    android:padding="8dp"
+    tools:ignore="UnusedAttribute">
 
     <FrameLayout
         android:id="@+id/myAssetHouseImageContainer"
@@ -146,6 +148,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/llRegister"
             android:layout_width="wrap_content"
@@ -167,12 +170,13 @@
                 android:layout_marginTop="8dp"
                 tools:text="09-Nov-18 07:25:53" />
         </LinearLayout>
+
         <ImageView
             android:id="@+id/assetTransferIcon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
             android:layout_alignBottom="@+id/llRegister"
-            app:srcCompat="@drawable/ic_iconfinder_rounded_06_2024632"/>
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_iconfinder_rounded_06_2024632" />
     </RelativeLayout>
 </LinearLayout>

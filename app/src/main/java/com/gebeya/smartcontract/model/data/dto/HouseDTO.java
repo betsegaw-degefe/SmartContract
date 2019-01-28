@@ -16,13 +16,15 @@ public class HouseDTO {
     private String id;
     @SerializedName("owner")
     @Expose
-    private String owner;
+    private UserDTO mUserDTO;
     @SerializedName("area_m2")
     @Expose
     private Integer areaM2;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+
+
 
 
     public List<List<Double>> getGeoLocation() {
@@ -49,12 +51,12 @@ public class HouseDTO {
         this.id = id;
     }
 
-    public String getOwner() {
-        return owner;
+    public UserDTO getUserDTO() {
+        return mUserDTO;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setUserDTO(UserDTO userDTO) {
+        mUserDTO = userDTO;
     }
 
     public Integer getAreaM2() {

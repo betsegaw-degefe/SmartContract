@@ -1,6 +1,5 @@
 package com.gebeya.framework.utils;
 
-import android.content.Context;
 import android.util.Log;
 
 public class Util {
@@ -38,7 +37,4 @@ public class Util {
         }
     }
 
-    /*public static boolean connected(Context context) {
-        Net`
-    }*/
 }

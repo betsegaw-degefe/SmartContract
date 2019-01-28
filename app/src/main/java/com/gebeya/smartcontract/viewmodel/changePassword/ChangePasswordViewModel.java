@@ -1,24 +1,20 @@
-package com.gebeya.smartcontract.viewmodel;
+package com.gebeya.smartcontract.viewmodel.changePassword;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.gebeya.smartcontract.App;
-import com.gebeya.smartcontract.model.data.dto.ChangePasswordModelDto;
+import com.gebeya.smartcontract.model.data.dto.ChangePasswordModelDTO;
 import com.gebeya.smartcontract.model.data.dto.ChangePasswordResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
-import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.model.data.model.ChangePassword;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.repository.ChangePasswordRepository;
 
 import java.util.List;
-import java.util.Objects;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -33,7 +29,7 @@ public class ChangePasswordViewModel extends AndroidViewModel {
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>();
 
     private MutableLiveData<ChangePassword> mChangePasswordMutableLiveData;
-    private ChangePasswordModelDto mChangePasswordModelDto = new ChangePasswordModelDto();
+    private ChangePasswordModelDTO mChangePasswordModelDto = new ChangePasswordModelDTO();
 
     private BoxStore userBox;
     private Box<UserLoginData> box;

@@ -15,14 +15,6 @@ public class House {
     private Integer areaM2;
     private String createdAt;
 
-    public House(HouseDTO houseDTO) {
-        this.geoLocation = houseDTO.getGeoLocation();
-        this.pictures = houseDTO.getPictures();
-        this.id = houseDTO.getId();
-        this.owner = houseDTO.getOwner();
-        this.areaM2 = houseDTO.getAreaM2();
-        this.createdAt = houseDTO.getCreatedAt();
-    }
 
     public List<List<Double>> getGeoLocation() {
         return geoLocation;

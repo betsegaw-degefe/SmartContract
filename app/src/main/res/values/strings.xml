@@ -48,6 +48,8 @@
 
     <!--==================== PUBLIC LEDGER ==================== -->
     <string name="NoPublicLedgerLabel">No Public Ledger Found.</string>
+    <string name="NoInternetConnectionLabel">No Internet Connection.</string>
+
 
     <!--==================== SEARCH USER ==================== -->
     <string name="noSearchUserLabel">No User Found.</string>

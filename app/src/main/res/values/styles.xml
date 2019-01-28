@@ -28,7 +28,11 @@
     </style>
 
     <!--Theme for the Search by name screen-->
-    <style name="searchUserTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="searchUserTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="base_theme.AppBarOverlay." parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

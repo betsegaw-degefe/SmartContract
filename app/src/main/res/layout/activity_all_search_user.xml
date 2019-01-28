@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="SearchUserViewModel"
-        type="com.gebeya.smartcontract.viewmodel.SearchUserViewModel"/>
+
+        <variable
+            name="adapter"
+            type="com.gebeya.smartcontract.view.searchUser.SearchUserAdapter" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white_background">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/searchUserToolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+            android:theme="@style/searchUserTheme">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/searchUserToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/searchUserRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?actionBarSize"
+            android:adapter="@{adapter}"
             android:scrollbars="vertical"
             tools:listitem="@layout/search_user_layout" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,6 +49,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:visibility="invisible"
                 app:cpv_animAutostart="true"
                 app:cpv_color="@color/colorAccent"
                 app:cpv_indeterminate="true" />

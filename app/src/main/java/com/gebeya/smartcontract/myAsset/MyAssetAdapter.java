@@ -13,7 +13,7 @@ import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.dto.CarDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseDTO;
-import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<HouseDTO> mHouse;
     private List<Object> mItems;
 
-    private UserResponseDTO mUserResponseDTO;
+    private UserLoginResponseDTO mUserResponseDTO;
     private MyAssetCallback mCallback;
     private Context mContext;
     private int counter = 0;
@@ -35,7 +35,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public MyAssetAdapter(Context context,
                           List<CarDTO> cars,
                           List<HouseDTO> houses,
-                          UserResponseDTO userResponseDTO,
+                          UserLoginResponseDTO userResponseDTO,
                           MyAssetCallback callback) {
         this.mContext = context;
         this.mCars = cars;

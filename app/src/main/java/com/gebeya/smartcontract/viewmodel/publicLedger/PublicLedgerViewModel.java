@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.viewmodel;
+package com.gebeya.smartcontract.viewmodel.publicLedger;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -18,16 +18,16 @@ import io.objectbox.BoxStore;
 
 public class PublicLedgerViewModel extends AndroidViewModel {
 
-    //private static final MutableLiveData MUTABLE_LIVE_DATA = new MutableLiveData();
     private LiveData<PublicLedgerResponseDTO> publicLedgerResponseObservable;
 
     BoxStore userBox;
     Box<UserLoginData> box;
 
-   /* static {
-        MUTABLE_LIVE_DATA.setValue(null);
-    }*/
-
+    /**
+     * Constructor
+     *
+     * @param application The Application of package.
+     */
     public PublicLedgerViewModel(@NonNull Application application) {
         super(application);
 

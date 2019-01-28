@@ -37,10 +37,9 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
      * @param callback: publicLedgerCallback
      */
 
-    public PublicLedgerViewHolder(@NonNull View itemView,
-                                  PublicLedgerCallback callback) {
+    PublicLedgerViewHolder(@NonNull View itemView,
+                           PublicLedgerCallback callback) {
         super(itemView);
-
         this.mCallback = callback;
         mContext = itemView.getContext();
         ButterKnife.bind(this, itemView);

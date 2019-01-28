@@ -20,7 +20,8 @@ import com.gebeya.smartcontract.model.data.dto.CarDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseDTO;
 import com.gebeya.smartcontract.model.data.dto.MyAssetCarResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.MyAssetHouseResponseDTO;
-import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
+import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
@@ -85,7 +86,7 @@ public class MyAssetFragment extends BaseFragment {
         mMyAssetAdapter = new MyAssetAdapter(getActivity(),
               new ArrayList<CarDTO>(0),
               new ArrayList<HouseDTO>(0),
-              new UserResponseDTO(),
+              new UserLoginResponseDTO(),
               new MyAssetCallback() {
                   @Override
                   public void onSelected(int position, String id) {
@@ -116,17 +117,14 @@ public class MyAssetFragment extends BaseFragment {
         }
 
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Load assets from the server.
-                if (isConnected) {
-                    loadMyAsset();
-                } else {
-                    toast("No Internet Connection");
-                    progressView.setVisibility(View.GONE);
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            // Load assets from the server.
+            if (isConnected) {
+                loadMyAsset();
+            } else {
+                toast("No Internet Connection");
+                progressView.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -170,9 +168,19 @@ public class MyAssetFragment extends BaseFragment {
                                    Response<MyAssetCarResponseDTO> response) {
                 if (response.isSuccessful()) {
                     MyAssetCarResponseDTO myAssetResponseDTO = response.body();
-                    List<CarDTO> carList = myAssetResponseDTO.getData();
-                    d("----------------------------Assets loaded: " + carList.size());
-                    mMyAssetAdapter.updateMyAssetCar(response.body().getData());
+
+                    List<CarDTO> checkingAssetNull = myAssetResponseDTO.getData();
+                    List<CarDTO> assetList = new ArrayList<>();
+                    //List<CarDTO> carList = myAssetResponseDTO.getData();
+                    // Check whether transactions have a null field or not
+                    // if null field found then the transaction removed from the list.
+                    for (int i = 0; i < checkingAssetNull.size(); i++) {
+                        if (checkingAssetNull.get(i).getModel() != null) {
+                            assetList.add(i, checkingAssetNull.get(i));
+                        }
+                    }
+                    d("----------------------------Assets loaded: " + assetList.size());
+                    mMyAssetAdapter.updateMyAssetCar(assetList);
                 } else {
                     e("Response was not successful");
                     int statusCode = response.code();

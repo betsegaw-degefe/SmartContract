@@ -13,7 +13,7 @@ import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.ActivityChangePasswordBinding;
 import com.gebeya.smartcontract.model.data.model.ChangePassword;
-import com.gebeya.smartcontract.viewmodel.ChangePasswordViewModel;
+import com.gebeya.smartcontract.viewmodel.changePassword.ChangePasswordViewModel;
 
 import java.util.Objects;
 

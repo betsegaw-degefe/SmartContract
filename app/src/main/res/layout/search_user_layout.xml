@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    android:background="@color/white"
-    android:padding="2dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/llSearchName"
+    <data>
+
+        <variable
+            name="User"
+            type="com.gebeya.smartcontract.model.data.dto.UserDTO" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="2dp"
+        android:background="@color/white"
+        android:padding="2dp">
 
-        <customfonts.MyTextView_Roboto_Regular
-            android:id="@+id/lblSearchName"
-            style="@style/label.black.extra_large"
-            android:layout_gravity="center"
+        <LinearLayout
+            android:id="@+id/llSearchName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            tools:text="Betsegaw Degefe" />
+            android:padding="8dp"
+            android:orientation="vertical">
 
-        <customfonts.MyTextView_Roboto_Regular
-            android:id="@+id/lblSearchPhone"
-            style="@style/label.ruby"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="12dp"
-            tools:text="0910104285" />
-    </LinearLayout>
-</RelativeLayout>
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/lblSearchName"
+                style="@style/label.black.extra_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                tools:text="Betsegaw Degefe" />
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/lblSearchPhone"
+                style="@style/label.ruby"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="8dp"
+                tools:text="0910104285" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

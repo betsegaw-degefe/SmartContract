@@ -50,8 +50,8 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     /**
      * binds the data to the TextView in each row
      *
-     * @param publicLedgerViewHolder
-     * @param position
+     * @param: publicLedgerViewHolder
+     * @param: position
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override

@@ -1,6 +1,6 @@
 package com.gebeya.smartcontract.view.changePassword.api;
 
-import com.gebeya.smartcontract.model.data.dto.ChangePasswordModelDto;
+import com.gebeya.smartcontract.model.data.dto.ChangePasswordModelDTO;
 import com.gebeya.smartcontract.model.data.dto.ChangePasswordResponseDTO;
 
 import retrofit2.Call;
@@ -13,6 +13,6 @@ public interface ChangePasswordService {
     Call<ChangePasswordResponseDTO> changePasswordSubmit(
           @Header("Authorization") String token,
           @Header("Content-Type") String type,
-          @Body ChangePasswordModelDto ChangePasswordModelDto
+          @Body ChangePasswordModelDTO ChangePasswordModelDto
     );
 }

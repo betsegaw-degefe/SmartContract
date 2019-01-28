@@ -1,15 +1,18 @@
 package com.gebeya.smartcontract.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
@@ -22,7 +25,7 @@ import com.gebeya.smartcontract.databinding.ActivityLoginBinding;
 import com.gebeya.smartcontract.login.api.LoginService;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.UserDTO;
-import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.sendPhoneNumber.SendPhoneNumberActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -40,6 +43,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
+import static com.gebeya.framework.utils.Constants.PREFS_NAME;
+import static com.gebeya.framework.utils.FireMsgService.DEVICE_ID;
 
 public class LoginActivity extends BaseActivity {
 
@@ -55,15 +60,17 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.progressViewLogin)
     CircularProgressView mProgressView;
 
+
+
     private LoginService mLoginService;
     private Box<UserLoginData> mUserBox;
 
     Animation shake;
-    private boolean isConnected;
     ActivityLoginBinding mActivityLoginBinding;
 
     SharedPreferences sharedpreferences;
-    public static final String Name = "tokenKey";
+
+    String deviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +88,28 @@ public class LoginActivity extends BaseActivity {
         shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.shake);
 
         mProgressView.setVisibility(View.GONE);
-        // Check connection.
-
-        /*if (sharedpreferences.contains(Name)) {
-            //   name.setText(sharedpreferences.getString(Name, ""));
-        }*/
 
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedpreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        /*sharedpreferences = getApplicationContext()
+              .getSharedPreferences(PREFS_NAME,
+                    Context.MODE_PRIVATE);*/
+        //Context context = getBaseContext();
+        deviceId = sharedpreferences.getString(DEVICE_ID, "");
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.logInButton)
     public void submitLogin() {
 
-        isConnected = new CheckInternetConnection().CheckInternetConnection(getApplicationContext());
+        boolean isConnected = new CheckInternetConnection().CheckInternetConnection(getApplicationContext());
 
         loginButton.setBackground(this.getResources().getDrawable(R.drawable.button_pressed));
 
@@ -123,6 +138,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         mProgressView.setVisibility(View.VISIBLE);
+        toast(deviceId);
 
         // disable the login button
         loginButton.setEnabled(false);
@@ -132,14 +148,14 @@ public class LoginActivity extends BaseActivity {
         mLoginService.loginSubmit(
               CONTENT_TYPE,
               phoneNumber,
-              password).enqueue(new Callback<UserResponseDTO>() {
+              password).enqueue(new Callback<UserLoginResponseDTO>() {
 
             @Override
-            public void onResponse(Call<UserResponseDTO> call,
-                                   Response<UserResponseDTO> response) {
+            public void onResponse(Call<UserLoginResponseDTO> call,
+                                   Response<UserLoginResponseDTO> response) {
 
                 if (response.isSuccessful()) {
-                    UserResponseDTO userResponse = response.body();
+                    UserLoginResponseDTO userResponse = response.body();
                     assert userResponse != null;
                     UserDTO user = userResponse.getUser();
                     String token = userResponse.getToken();
@@ -157,7 +173,7 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<UserResponseDTO> call, Throwable t) {
+            public void onFailure(Call<UserLoginResponseDTO> call, Throwable t) {
                 d("Login Activity error loading from API");
                 t.printStackTrace();
             }
