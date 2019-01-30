@@ -25,6 +25,8 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     @BindView(R.id.transactionTimeStamp)
     TextView mTimeStamp;
 
+
+
     private Context mContext;
     private PublicLedgerCallback mCallback;
     private String assetId;
@@ -63,6 +65,8 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
             mType.setText(type);
     }
 
+
+
     public void setFrom(String from) {
         mFrom.setText(from);
     }
@@ -75,7 +79,7 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
         mTimeStamp.setText(createdAt);
     }
 
-    public void setAssetId(String id) {
+    void setAssetId(String id) {
         this.assetId = id;
     }
 }

@@ -15,7 +15,12 @@ import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHolder> {
+
+    @BindView(R.id.publicLedgerRecyclerView)
+    RecyclerView mRecyclerView;
 
     private List<TransactionDTO> mTransactions;
     private LayoutInflater inflater;
@@ -25,9 +30,9 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     /**
      * Passing data to the constructor
      */
-    public PublicLedgerAdapter(Context context,
-                               List<TransactionDTO> transactions,
-                               PublicLedgerCallback callback) {
+    PublicLedgerAdapter(Context context,
+                        List<TransactionDTO> transactions,
+                        PublicLedgerCallback callback) {
         this.mCallback = callback;
         this.mTransactions = transactions;
         this.mContext = context;
@@ -92,7 +97,7 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     /**
      * get the transaction from the API and update the transaction view.
      *
-     * @param transactions
+     * @param transactions: list of transaction
      */
     public void updateTransactions(List<TransactionDTO> transactions) {
 
@@ -104,5 +109,6 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     private TransactionDTO getTransaction(int adapterPosition) {
         return mTransactions.get(adapterPosition);
     }
+
 
 }

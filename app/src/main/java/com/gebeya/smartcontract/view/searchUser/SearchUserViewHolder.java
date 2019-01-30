@@ -14,9 +14,9 @@ public class SearchUserViewHolder extends RecyclerView.ViewHolder implements Vie
     private SearchUserCallback mCallback;
     private String mUserId;
 
-    public SearchUserViewHolder(@NonNull View itemView,
-                                SearchUserCallback mSearchUserCallback,
-                                SearchUserLayoutBinding searchUserLayoutBinding) {
+    SearchUserViewHolder(@NonNull View itemView,
+                         SearchUserCallback mSearchUserCallback,
+                         SearchUserLayoutBinding searchUserLayoutBinding) {
         super(searchUserLayoutBinding.getRoot());
         this.mCallback = mSearchUserCallback;
         Context context = itemView.getContext();

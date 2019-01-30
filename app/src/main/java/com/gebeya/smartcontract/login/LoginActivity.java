@@ -1,6 +1,5 @@
 package com.gebeya.smartcontract.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -12,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
@@ -43,7 +41,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
-import static com.gebeya.framework.utils.Constants.PREFS_NAME;
 import static com.gebeya.framework.utils.FireMsgService.DEVICE_ID;
 
 public class LoginActivity extends BaseActivity {
@@ -59,7 +56,6 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.progressViewLogin)
     CircularProgressView mProgressView;
-
 
 
     private LoginService mLoginService;
@@ -148,7 +144,8 @@ public class LoginActivity extends BaseActivity {
         mLoginService.loginSubmit(
               CONTENT_TYPE,
               phoneNumber,
-              password).enqueue(new Callback<UserLoginResponseDTO>() {
+              password,
+              deviceId).enqueue(new Callback<UserLoginResponseDTO>() {
 
             @Override
             public void onResponse(Call<UserLoginResponseDTO> call,

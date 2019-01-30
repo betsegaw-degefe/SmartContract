@@ -42,4 +42,12 @@
             app:cpv_animAutostart="true"
             app:cpv_indeterminate="true" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/noAsset"
+        style="@style/label.blue"
+        android:layout_centerInParent="true"
+        android:text="@string/NoMyAssetLabel"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="gone" />
 </RelativeLayout>

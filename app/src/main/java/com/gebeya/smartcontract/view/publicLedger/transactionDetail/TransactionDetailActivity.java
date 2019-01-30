@@ -15,12 +15,14 @@ import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.model.data.dto.TransactionDetailResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.TransactionDetailCarResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.TransactionDetailHouseResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.view.publicLedger.PublicLedgerAdapter;
 import com.gebeya.smartcontract.view.publicLedger.api.service.TransactionDetailService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -71,7 +73,7 @@ public class TransactionDetailActivity extends BaseActivity {
         Bundle extras = intent.getExtras();
         if (extras != null) {
             AssetId = intent.getExtras().getString("ASSET_ID");
-            toast(AssetId);
+            //toast(AssetId);
         }
 
         // Retrieve the Box for the UserLogin
@@ -94,16 +96,13 @@ public class TransactionDetailActivity extends BaseActivity {
             swipeContainer.setRefreshing(false);
         }
 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (isConnected) {
-                    loadTransactionDetail();
-                } else {
-                    toast("No Internet Connection");
-                    progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);
-                }
+        swipeContainer.setOnRefreshListener(() -> {
+            if (isConnected) {
+                loadTransactionDetail();
+            } else {
+                toast("No Internet Connection");
+                progressView.setVisibility(View.GONE);
+                swipeContainer.setRefreshing(false);
             }
         });
         swipeContainer.setColorSchemeResources(
@@ -122,16 +121,33 @@ public class TransactionDetailActivity extends BaseActivity {
         mTransactionDetailService.getTransactionHistory(
               bearerToken,
               CONTENT_TYPE,
-              AssetId
-        ).enqueue(new Callback<TransactionDetailResponseDTO>() {
-            @Override
-            public void onResponse(Call<TransactionDetailResponseDTO>
-                                         call, Response<TransactionDetailResponseDTO> response) {
-                if (response.isSuccessful()) {
-                    d("TransactionDetailActivity are loaded from API");
+              AssetId)
+              .enqueue(new Callback<ArrayList<TransactionDetailCarResponseDTO>>() {
+                  @Override
+                  public void onResponse(Call<ArrayList<TransactionDetailCarResponseDTO>> call,
+                                         Response<ArrayList<TransactionDetailCarResponseDTO>> response) {
+                      if (response.isSuccessful()) {
+                          //TransactionDetailCarResponseDTO carTransactionResponse = response.body();
+                          //carTransactionResponse.
+                          ArrayList<TransactionDetailCarResponseDTO> carTransactionResponse = response.body();
+                          //mPublicLedgerAdap
+                          //mPublicLedgerAdapter.updateTransactions(carTransactionResponse);
+                      }
 
-                   /* TransactionDetailResponseDTO transactionDetailResponse = response.body();
-                    //List<TransactionDetailResponseDTO> transactions = transactionDetailResponse;
+                  }
+
+                  @Override
+                  public void onFailure(Call<ArrayList<TransactionDetailCarResponseDTO>> call, Throwable t) {
+
+                  }
+                 /* @Override
+                  public void onResponse(Call<TransactionDetailCarResponseDTO>
+                                               call, Response<TransactionDetailCarResponseDTO> response) {
+                      if (response.isSuccessful()) {
+                          d("TransactionDetailActivity are loaded from API");
+
+                   *//* TransactionDetailHouseResponseDTO transactionDetailResponse = response.body();
+                    //List<TransactionDetailHouseResponseDTO> transactions = transactionDetailResponse;
                     // d("Transactions loaded: " + transactions.size());
                     if (!transactionDetailResponse.getId().isEmpty()) {
                         mPublicLedgerAdapter.updateTransactions(response.body().getData());
@@ -139,22 +155,22 @@ public class TransactionDetailActivity extends BaseActivity {
                         mNoPublicLedger.setVisibility(View.VISIBLE);
                     }
                     progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);*/
-                } else {
-                    e("Response was not successful");
-                    int statusCode = response.code();
-                    e("Response code: " + statusCode);
-                    progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);
-                }
-            }
+                    swipeContainer.setRefreshing(false);*//*
+                      } else {
+                          e("Response was not successful");
+                          int statusCode = response.code();
+                          e("Response code: " + statusCode);
+                          progressView.setVisibility(View.GONE);
+                          swipeContainer.setRefreshing(false);
+                      }
+                  }
 
-            @Override
-            public void onFailure(Call<TransactionDetailResponseDTO>
-                                        call, Throwable t) {
+                  @Override
+                  public void onFailure(Call<TransactionDetailCarResponseDTO>
+                                              call, Throwable t) {
 
-            }
-        });
+                  }*/
+              });
     }
 
     @Override

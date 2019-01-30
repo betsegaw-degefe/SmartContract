@@ -1,11 +1,14 @@
 package com.gebeya.smartcontract;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +34,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.mainToolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.appbar)
+    AppBarLayout mAppBarLayout;
+
     @BindView(R.id.mainViewPager)
     ViewPager mViewPager;
 
@@ -41,6 +47,9 @@ public class MainActivity extends BaseActivity {
     BoxStore userBox;
     Box<UserLoginData> box;
 
+    private int mLastDy;
+
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +133,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -167,5 +177,18 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
+        switch (newState) {
+            case RecyclerView.SCROLL_STATE_IDLE:
+                mAppBarLayout.setExpanded(mLastDy <= 0, true);
+                mLastDy = 0;
+                break;
+        }
+    }
+
+    public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
+        mLastDy = dy == 0 ? mLastDy : dy;
     }
 }

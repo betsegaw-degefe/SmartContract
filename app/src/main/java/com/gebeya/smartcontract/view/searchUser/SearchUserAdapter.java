@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 
@@ -22,10 +23,12 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserViewHolder
     private ArrayList<UserDTO> mArrayList;
     private SearchUserCallback mCallback;
     private Context mContext;
+    private LayoutInflater inflater;
 
-    public SearchUserAdapter(Context context,
-                             ArrayList<UserDTO> userResponse,
-                             SearchUserCallback searchUserCallback) {
+
+    SearchUserAdapter(Context context,
+                      ArrayList<UserDTO> userResponse,
+                      SearchUserCallback searchUserCallback) {
 
         this.mContext = context;
         this.mUsers = userResponse;
@@ -37,11 +40,15 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserViewHolder
     @Override
     public SearchUserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
+       /* Context context = viewGroup.getContext();
+        inflater = LayoutInflater.from(context);
+        final View itemView = inflater.inflate(R.layout.search_user_layout, viewGroup, false);*/
+
         SearchUserLayoutBinding binding = DataBindingUtil.inflate(
               LayoutInflater.from(viewGroup.getContext()),
               R.layout.search_user_layout, viewGroup, false);
 
-        return new SearchUserViewHolder(viewGroup, mCallback, binding);
+        return new SearchUserViewHolder(binding.getRoot(), mCallback, binding);
     }
 
     @Override

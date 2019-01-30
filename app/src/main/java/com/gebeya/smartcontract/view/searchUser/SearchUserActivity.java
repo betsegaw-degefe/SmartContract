@@ -1,6 +1,7 @@
 package com.gebeya.smartcontract.view.searchUser;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -16,7 +17,11 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.ActivityAllSearchUserBinding;
+import com.gebeya.smartcontract.model.data.dto.UserDTO;
+import com.gebeya.smartcontract.myAsset.MakeTransactionActivity;
 import com.gebeya.smartcontract.viewmodel.searchUser.SearchUserViewModel;
+
+import java.util.ArrayList;
 
 public class SearchUserActivity extends BaseActivity {
 
@@ -25,12 +30,18 @@ public class SearchUserActivity extends BaseActivity {
     SearchUserViewModel searchUserViewModel;
 
     private SearchUserAdapter mSearchUserAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+
+    private static final String KEY_USER_ID = "USER_ID";
+    private static final String KEY_ASSET_ID = "ASSET_ID";
+
+    private String mAssetId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        extractIntent();
 
         // Inflate the binding layout ui.
         binding =
@@ -66,9 +77,8 @@ public class SearchUserActivity extends BaseActivity {
                 if (usersResponse != null) {
 
                     // Instantiate SearchUserAdapter
-                    mSearchUserAdapter =
-                          new SearchUserAdapter(this, usersResponse,
-                                (position, id) -> toast("Selected position is: " + position));
+                    searchUserAdapterInstance(usersResponse);
+
                     binding.searchUserRecyclerView.setAdapter(mSearchUserAdapter);
                     mSearchUserAdapter.notifyDataSetChanged();
                     binding.progressViewSearchUser.setVisibility(View.GONE);
@@ -112,7 +122,6 @@ public class SearchUserActivity extends BaseActivity {
                 return false;
             }
         };
-        //return super.onCreateOptionsMenu(menu);
         mSearchView.setOnQueryTextListener(queryTextListener);
         return true;
     }
@@ -149,9 +158,9 @@ public class SearchUserActivity extends BaseActivity {
      */
     private void initViews() {
         binding.progressViewSearchUser.setVisibility(View.VISIBLE);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.searchUserRecyclerView.setHasFixedSize(true);
-        binding.searchUserRecyclerView.setLayoutManager(mLayoutManager);
+        binding.searchUserRecyclerView.setLayoutManager(layoutManager);
     }
 
     /**
@@ -163,4 +172,34 @@ public class SearchUserActivity extends BaseActivity {
         return new CheckInternetConnection().CheckInternetConnection(this);
     }
 
+    /**
+     * Extract The Intent Passing from Make Transaction Activity.
+     */
+    private void extractIntent() {
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            mAssetId = intent.getExtras().getString("ASSET_ID");
+        }
+
+    }
+
+    /**
+     * Instantiate SearchUserAdapter class.
+     *
+     * @param usersResponse: array list of users.
+     */
+
+    private void searchUserAdapterInstance(ArrayList<UserDTO> usersResponse) {
+        mSearchUserAdapter =
+              new SearchUserAdapter(this, usersResponse,
+                    (position, id) -> {
+                        //toast("Selected position is: " + position);
+                        Intent intent = new Intent(this,
+                              MakeTransactionActivity.class);
+                        intent.putExtra(KEY_USER_ID, usersResponse.get(position).getId());
+                        intent.putExtra(KEY_ASSET_ID, mAssetId);
+                        startActivity(intent);
+                    });
+    }
 }

@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.CheckInternetConnection;
+import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
@@ -108,6 +110,20 @@ public class PublicLedgerFragment extends BaseFragment {
               R.color.colorPrimary,
               R.color.colorPrimaryDark,
               R.color.ruby_dark);
+
+        mRecyclerView.addOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                ((MainActivity) getActivity()).onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                ((MainActivity) getActivity()).onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     /**
@@ -127,7 +143,7 @@ public class PublicLedgerFragment extends BaseFragment {
         mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
               new ArrayList<>(0),
               (position, id) -> {
-                  toast("Selected position is: " + position);
+                  //toast("Selected position is: " + position);
                   // start make transaction activity.
                   Intent intent = new Intent(getActivity(), TransactionDetailActivity.class);
                   intent.putExtra("ASSET_ID", id);
@@ -160,7 +176,13 @@ public class PublicLedgerFragment extends BaseFragment {
                                     checkingTransactionNull.get(i).getFrom() != null &&
                                     checkingTransactionNull.get(i).getTo() != null) {
 
-                                  transactions.add(i, checkingTransactionNull.get(i));
+                                  transactions.add(checkingTransactionNull.get(i));
+
+                              } else if (checkingTransactionNull.get(i).getHouse() != null &&
+                                    checkingTransactionNull.get(i).getFrom() != null &&
+                                    checkingTransactionNull.get(i).getTo() != null) {
+
+                                  transactions.add(checkingTransactionNull.get(i));
 
                               }
                           }

@@ -13,6 +13,7 @@ public interface LoginService {
     Call<UserLoginResponseDTO> loginSubmit(
           @Field("Content-Type") String type,
           @Field("phoneNo") String phoneNo,
-          @Field("password") String password
+          @Field("password") String password,
+          @Field("deviceId") String deviceId
     );
 }

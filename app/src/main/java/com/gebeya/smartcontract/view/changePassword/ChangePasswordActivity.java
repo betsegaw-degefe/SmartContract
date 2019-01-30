@@ -3,7 +3,9 @@ package com.gebeya.smartcontract.view.changePassword;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -82,7 +84,8 @@ public class ChangePasswordActivity extends BaseActivity {
         // hide loading circular progress.
         binding.progressViewChangePassword.setVisibility(View.GONE);
 
-
+        // set action bar
+        setActionBarChangePassword();
     }
 
     /**
@@ -97,6 +100,26 @@ public class ChangePasswordActivity extends BaseActivity {
      */
     public void unpressbtn() {
         binding.submitChangePasswordButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
+    }
+
+    /**
+     * Set Action Bar.
+     */
+    private void setActionBarChangePassword() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
     }
 
     /**
