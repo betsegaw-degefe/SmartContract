@@ -17,10 +17,13 @@ import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
-import com.gebeya.smartcontract.model.data.dto.MakeTransactionBodyDTO;
-import com.gebeya.smartcontract.model.data.model.MakeTransactionModel;
+import com.gebeya.smartcontract.model.data.dto.MakeCarTransactionBodyDTO;
+import com.gebeya.smartcontract.model.data.dto.MakeHouseTransactionBodyDTO;
+import com.gebeya.smartcontract.model.data.model.MakeCarTransactionModel;
+import com.gebeya.smartcontract.model.data.model.MakeHouseTransactionModel;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
+import com.gebeya.smartcontract.myAsset.api.service.MakeCarTransactionService;
+import com.gebeya.smartcontract.myAsset.api.service.MakeHouseTransactionService;
 import com.gebeya.smartcontract.view.searchUser.SearchUserActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
@@ -70,19 +73,25 @@ public class MakeTransactionActivity extends BaseActivity {
     CircularProgressView mProgressView;
 
 
-    MakeTransactionBodyDTO mMakeTransactionBodyDTO = new MakeTransactionBodyDTO();
+    MakeCarTransactionBodyDTO mMakeCarTransactionBodyDTO = new MakeCarTransactionBodyDTO();
+    MakeHouseTransactionBodyDTO mMakeHouseTransactionBodyDTO = new MakeHouseTransactionBodyDTO();
 
-    private MakeTransactionService mMakeTransactionService;
+    private MakeCarTransactionService mMakeCarTransactionService;
+    private MakeHouseTransactionService mMakeHouseTransactionService;
+
     private String mAssetId;
     private String mTo;
     private String mFrom;
     private String userId;
+    private String mTypeOfAsset;
 
     Animation shake;
 
 
+    // Intent Key name space holders.
     private static final String KEY_USER_ID = "USER_ID";
     private static final String KEY_ASSET_ID = "ASSET_ID";
+    private static final String KEY_ASSET_TYPE = "ASSET_TYPE";
 
 
     BoxStore userBox;
@@ -113,11 +122,14 @@ public class MakeTransactionActivity extends BaseActivity {
         if (extras != null) {
             mAssetId = intent.getExtras().getString(KEY_ASSET_ID);
             userId = intent.getExtras().getString(KEY_USER_ID);
+            mTypeOfAsset = intent.getExtras().getString(KEY_ASSET_TYPE);
+            toast(mTypeOfAsset);
             idTo.setText(userId);
         }
 
-        // Initialize an instance of the MakeTransactionService interface
-        mMakeTransactionService = Api.makeTransactionService();
+        // Initialize an instance of the MakeCarTransactionService interface
+        mMakeCarTransactionService = Api.makeTransactionService();
+        mMakeHouseTransactionService = Api.makeHouseTransactionService();
 
         // Retrieve the Box for the UserLogin
         userBox = ((App) getApplication()).getStore();
@@ -157,45 +169,86 @@ public class MakeTransactionActivity extends BaseActivity {
         String token = users.get(0).getToken();
         String bearerToken = "Bearer " + token;
 
-        mMakeTransactionBodyDTO.setCarId(mAssetId);
-        mMakeTransactionBodyDTO.setFrom(mFrom);
-        mMakeTransactionBodyDTO.setTo(mTo);
+        if (mTypeOfAsset.equals("CAR")) {
+            mMakeCarTransactionBodyDTO.setCarId(mAssetId);
+            mMakeCarTransactionBodyDTO.setFrom(mFrom);
+            mMakeCarTransactionBodyDTO.setTo(mTo);
 
-        mMakeTransactionService.makeTransaction(bearerToken, CONTENT_TYPE,
-              mMakeTransactionBodyDTO).enqueue(new Callback<MakeTransactionModel>() {
-            @Override
-            public void onResponse(Call<MakeTransactionModel> call,
-                                   Response<MakeTransactionModel> response) {
-                if (response.isSuccessful()) {
-                    successImage.setVisibility(View.VISIBLE);
-                    successMessage.setVisibility(View.VISIBLE);
-                    mProgressView.setVisibility(View.GONE);
-                    new Timer().schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            openMainActivity();
-                        }
-                    }, 2000);
+            mMakeCarTransactionService.makeTransaction(bearerToken, CONTENT_TYPE,
+                  mMakeCarTransactionBodyDTO).enqueue(new Callback<MakeCarTransactionModel>() {
+                @Override
+                public void onResponse(Call<MakeCarTransactionModel> call,
+                                       Response<MakeCarTransactionModel> response) {
+                    if (response.isSuccessful()) {
+                        successImage.setVisibility(View.VISIBLE);
+                        successMessage.setVisibility(View.VISIBLE);
+                        mProgressView.setVisibility(View.GONE);
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                openMainActivity();
+                            }
+                        }, 2000);
 
-                } else {
-                    ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
-                    idTo.setError(errorResponse.getMessage());
-                    failureImage.setVisibility(View.VISIBLE);
-                    failureMessage.setVisibility(View.VISIBLE);
-                    submitTransferButton.setEnabled(true);
-                    submitTransferButton.setBackground(getResources().getDrawable(R.drawable.button_blue_background));
-                    mProgressView.setVisibility(View.GONE);
+                    } else {
+                        ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                        idTo.setError(errorResponse.getMessage());
+                        failureImage.setVisibility(View.VISIBLE);
+                        failureMessage.setVisibility(View.VISIBLE);
+                        submitTransferButton.setEnabled(true);
+                        submitTransferButton.setBackground(getResources().getDrawable(R.drawable.button_blue_background));
+                        mProgressView.setVisibility(View.GONE);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<MakeTransactionModel> call,
-                                  Throwable t) {
-                d("Transaction failed to send to API");
-                t.printStackTrace();
+                @Override
+                public void onFailure(Call<MakeCarTransactionModel> call,
+                                      Throwable t) {
+                    d("Transaction failed to send to API");
+                    t.printStackTrace();
 
-            }
-        });
+                }
+            });
+        } else if (mTypeOfAsset.equals("HOUSE")) {
+            mMakeHouseTransactionBodyDTO.setHouseId(mAssetId);
+            mMakeHouseTransactionBodyDTO.setFrom(mFrom);
+            mMakeHouseTransactionBodyDTO.setTo(mTo);
+
+            mMakeHouseTransactionService.makeTransaction(bearerToken, CONTENT_TYPE,
+                  mMakeHouseTransactionBodyDTO).enqueue(new Callback<MakeHouseTransactionModel>() {
+                @Override
+                public void onResponse(Call<MakeHouseTransactionModel> call,
+                                       Response<MakeHouseTransactionModel> response) {
+                    if (response.isSuccessful()) {
+                        successImage.setVisibility(View.VISIBLE);
+                        successMessage.setVisibility(View.VISIBLE);
+                        mProgressView.setVisibility(View.GONE);
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                openMainActivity();
+                            }
+                        }, 2000);
+
+                    } else {
+                        ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                        idTo.setError(errorResponse.getMessage());
+                        failureImage.setVisibility(View.VISIBLE);
+                        failureMessage.setVisibility(View.VISIBLE);
+                        submitTransferButton.setEnabled(true);
+                        submitTransferButton.setBackground(getResources().getDrawable(R.drawable.button_blue_background));
+                        mProgressView.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MakeHouseTransactionModel> call,
+                                      Throwable t) {
+                    d("Transaction failed to send to API");
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 
     private void statusShow(int code, String Message) {
@@ -227,6 +280,7 @@ public class MakeTransactionActivity extends BaseActivity {
     public void searchUserActivity() {
         Intent intent = new Intent(this, SearchUserActivity.class);
         intent.putExtra(KEY_ASSET_ID, mAssetId);
+        intent.putExtra(KEY_ASSET_TYPE, mTypeOfAsset);
         startActivity(intent);
     }
 

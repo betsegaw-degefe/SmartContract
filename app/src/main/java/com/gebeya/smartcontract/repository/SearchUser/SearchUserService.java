@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface SearchUserService {
+
     @POST("/users/findUser")
     Call<ArrayList<UserDTO>> searchUser(
           @Header("Authorization") String token,

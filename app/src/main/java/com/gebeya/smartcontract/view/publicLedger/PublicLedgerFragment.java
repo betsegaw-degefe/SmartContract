@@ -59,6 +59,11 @@ public class PublicLedgerFragment extends BaseFragment {
     BoxStore userBox;
     Box<UserLoginData> box;
 
+    // Intent Key name space holders.
+    private static final String KEY_ASSET_ID = "ASSET_ID";
+    private static final String KEY_ASSET_TYPE = "ASSET_TYPE";
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,11 +147,11 @@ public class PublicLedgerFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
               new ArrayList<>(0),
-              (position, id) -> {
-                  //toast("Selected position is: " + position);
+              (position, id, type) -> {
                   // start make transaction activity.
                   Intent intent = new Intent(getActivity(), TransactionDetailActivity.class);
-                  intent.putExtra("ASSET_ID", id);
+                  intent.putExtra(KEY_ASSET_ID, id);
+                  intent.putExtra(KEY_ASSET_TYPE, type);
                   startActivity(intent);
               });
         mRecyclerView.setLayoutManager(mLayoutManager);

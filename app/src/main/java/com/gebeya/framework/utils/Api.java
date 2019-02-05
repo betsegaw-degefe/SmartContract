@@ -1,16 +1,18 @@
 package com.gebeya.framework.utils;
 
 import com.gebeya.smartcontract.login.api.LoginService;
-import com.gebeya.smartcontract.myAsset.api.service.MakeTransactionService;
+import com.gebeya.smartcontract.myAsset.api.service.MakeCarTransactionService;
+import com.gebeya.smartcontract.myAsset.api.service.MakeHouseTransactionService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
 import com.gebeya.smartcontract.myAsset.api.service.UserService;
 import com.gebeya.smartcontract.repository.SearchUser.SearchUserService;
 import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
 import com.gebeya.smartcontract.view.changePassword.api.ChangePasswordService;
+import com.gebeya.smartcontract.view.publicLedger.api.service.HouseTransactionHistoryDetailService;
 import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.model.data.remote.RetrofitClient;
-import com.gebeya.smartcontract.view.publicLedger.api.service.TransactionDetailService;
+import com.gebeya.smartcontract.view.publicLedger.api.service.CarTransactionHistoryDetailService;
 import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 import com.gebeya.smartcontract.signUp.api.SignUpService;
 
@@ -53,12 +55,20 @@ public final class Api {
         return RetrofitClient.getClient(BASE_URL).create(LoginService.class);
     }
 
-    public static MakeTransactionService makeTransactionService() {
-        return RetrofitClient.getClient(BASE_URL).create(MakeTransactionService.class);
+    public static MakeCarTransactionService makeTransactionService() {
+        return RetrofitClient.getClient(BASE_URL).create(MakeCarTransactionService.class);
     }
 
-    public static TransactionDetailService transactionDetailService() {
-        return RetrofitClient.getClient(BASE_URL).create(TransactionDetailService.class);
+    public static MakeHouseTransactionService makeHouseTransactionService() {
+        return RetrofitClient.getClient(BASE_URL).create(MakeHouseTransactionService.class);
+    }
+
+    public static CarTransactionHistoryDetailService carTransactionHistoryDetailService() {
+        return RetrofitClient.getClient(BASE_URL).create(CarTransactionHistoryDetailService.class);
+    }
+
+    public static HouseTransactionHistoryDetailService houseTransactionHistoryDetailService() {
+        return RetrofitClient.getClient(BASE_URL).create(HouseTransactionHistoryDetailService.class);
     }
 
     public static ChangePasswordService changePasswordService() {

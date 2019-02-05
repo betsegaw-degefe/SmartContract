@@ -1,5 +1,5 @@
 package com.gebeya.smartcontract.myAsset;
 
 public interface MyAssetCallback {
-    void onSelected(int position, String assetId);
+    void onSelected(int position, String assetId, String type);
 }

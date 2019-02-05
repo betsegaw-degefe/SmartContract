@@ -3,11 +3,10 @@ package com.gebeya.smartcontract.model.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MakeTransactionModel {
-
-    @SerializedName("carId")
+public class MakeHouseTransactionModel {
+    @SerializedName("houseId")
     @Expose
-    private String carId;
+    private String houseId;
     @SerializedName("to")
     @Expose
     private String to;
@@ -16,12 +15,12 @@ public class MakeTransactionModel {
     private String from;
 
 
-    public String getCarId() {
-        return carId;
+    public String getHouseIdId() {
+        return houseId;
     }
 
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public void setHouseId(String carId) {
+        this.houseId = carId;
     }
 
     public String getTo() {

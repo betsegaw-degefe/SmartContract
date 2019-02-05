@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.gebeya.smartcontract.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class TransactionDetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -20,17 +21,27 @@ public class TransactionDetailViewHolder extends RecyclerView.ViewHolder impleme
     @BindView(R.id.transactionDetailTimeStamp)
     TextView mTimeStamp;
 
+    @BindView(R.id.transactionHistoryTitle)
+    TextView mTitle;
+
     private TransactionDetailCallback mCallback;
 
     public TransactionDetailViewHolder(@NonNull View itemView,
                                        TransactionDetailCallback callback) {
         super(itemView);
         this.mCallback = callback;
+        ButterKnife.bind(this, itemView);
+
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void setType(String type) {
+        if (!type.isEmpty())
+            mTitle.setText(type);
     }
 
     public void setFrom(String from) {

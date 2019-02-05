@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.Api;
@@ -20,7 +21,6 @@ import com.gebeya.smartcontract.model.data.dto.CarDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseDTO;
 import com.gebeya.smartcontract.model.data.dto.MyAssetCarResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.MyAssetHouseResponseDTO;
-import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
@@ -50,6 +50,10 @@ public class MyAssetFragment extends BaseFragment {
 
     @BindView(R.id.myAssetSwipeContainer)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @BindView(R.id.noAsset)
+    TextView noAssetLabel;
+
 
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAssetCarService mMyAssetCarService;
@@ -84,19 +88,17 @@ public class MyAssetFragment extends BaseFragment {
 
         // Initializing the adapter.
         mMyAssetAdapter = new MyAssetAdapter(getActivity(),
-              new ArrayList<CarDTO>(0),
-              new ArrayList<HouseDTO>(0),
+              new ArrayList<>(0),
+              new ArrayList<>(0),
               new UserLoginResponseDTO(),
-              new MyAssetCallback() {
-                  @Override
-                  public void onSelected(int position, String id) {
-                      // toast("Selected position is: " + id);
-                      // start make transaction activity.
-                      Intent intent = new Intent(getActivity(), MakeTransactionActivity.class);
-                      intent.putExtra("ASSET_ID", id);
+              (position, id, typeOfAsset) -> {
+                  // toast("Selected position is: " + id);
+                  // start make transaction activity.
+                  Intent intent = new Intent(getActivity(), MakeTransactionActivity.class);
+                  intent.putExtra("ASSET_ID", id);
+                  intent.putExtra("ASSET_TYPE", typeOfAsset);
 
-                      startActivity(intent);
-                  }
+                  startActivity(intent);
               });
 
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -168,19 +170,24 @@ public class MyAssetFragment extends BaseFragment {
                                    Response<MyAssetCarResponseDTO> response) {
                 if (response.isSuccessful()) {
                     MyAssetCarResponseDTO myAssetResponseDTO = response.body();
+                    if (myAssetResponseDTO != null) {
 
-                    List<CarDTO> checkingAssetNull = myAssetResponseDTO.getData();
-                    List<CarDTO> assetList = new ArrayList<>();
-                    //List<CarDTO> carList = myAssetResponseDTO.getData();
-                    // Check whether transactions have a null field or not
-                    // if null field found then the transaction removed from the list.
-                    for (int i = 0; i < checkingAssetNull.size(); i++) {
-                        if (checkingAssetNull.get(i).getModel() != null) {
-                            assetList.add(i, checkingAssetNull.get(i));
+                        List<CarDTO> checkingAssetNull = myAssetResponseDTO.getData();
+                        List<CarDTO> assetList = new ArrayList<>();
+
+                        // Check whether transactions have a null field or not
+                        // if null field found then the transaction removed from the list.
+                        for (int i = 0; i < checkingAssetNull.size(); i++) {
+                            if (checkingAssetNull.get(i).getModel() != null) {
+                                assetList.add(i, checkingAssetNull.get(i));
+                            }
                         }
+                        d("----------------------------Assets loaded: " + assetList.size());
+                        mMyAssetAdapter.updateMyAssetCar(assetList);
+                    } else {
+                        noAssetLabel.setVisibility(View.VISIBLE);
                     }
-                    d("----------------------------Assets loaded: " + assetList.size());
-                    mMyAssetAdapter.updateMyAssetCar(assetList);
+
                 } else {
                     e("Response was not successful");
                     int statusCode = response.code();

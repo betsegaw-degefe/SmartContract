@@ -3,16 +3,19 @@ package com.gebeya.smartcontract.model.data.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ToDTO {
+public class HouseTransactionDTO {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("firstName")
+    @SerializedName("houseId")
     @Expose
-    private String firstName;
-    @SerializedName("lastName")
+    private HouseDTO houseId;
+    @SerializedName("to")
     @Expose
-    private String lastName;
+    private ToDTO to;
+    @SerializedName("from")
+    @Expose
+    private FromDTO from;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -25,20 +28,28 @@ public class ToDTO {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public HouseDTO getHouse() {
+        return houseId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setHouse(HouseDTO houseId) {
+        this.houseId = houseId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public ToDTO getTo() {
+        return to;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setTo(ToDTO to) {
+        this.to = to;
+    }
+
+    public FromDTO getFrom() {
+        return from;
+    }
+
+    public void setFrom(FromDTO from) {
+        this.from = from;
     }
 
     public String getCreatedAt() {

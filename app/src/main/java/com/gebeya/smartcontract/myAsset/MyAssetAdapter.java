@@ -73,6 +73,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             CarDTO car = mCars.get(i);
 
             myAssetCarViewHolder.setAssetId(car.getId());
+            myAssetCarViewHolder.setTypeOfAsset("CAR");
             myAssetCarViewHolder.setAssetSpecification(car.getBrand());
             myAssetCarViewHolder.setAssetType(car.getModel() + ", " + car
                   .getYearOfManufactured());
@@ -91,6 +92,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 myAssetHouseViewHolder.setAssetID(house.getId());
                 myAssetHouseViewHolder.setHousePictures(house.getPictures());
+                myAssetHouseViewHolder.setTypeOfAsset("HOUSE");
 
                 myAssetHouseViewHolder.setLocation(house.getGeoLocation());
                 myAssetHouseViewHolder.setArea(house.getAreaM2().toString() + " Square meter.");

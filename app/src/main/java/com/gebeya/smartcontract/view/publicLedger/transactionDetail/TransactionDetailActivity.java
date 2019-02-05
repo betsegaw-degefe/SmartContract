@@ -7,19 +7,26 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.CheckInternetConnection;
+import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.model.data.dto.TransactionDetailCarResponseDTO;
-import com.gebeya.smartcontract.model.data.dto.TransactionDetailHouseResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.CarHistoryTransactionBodyDTO;
+import com.gebeya.smartcontract.model.data.dto.CarTransactionDTO;
+import com.gebeya.smartcontract.model.data.dto.CarTransactionHistoryResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
+import com.gebeya.smartcontract.model.data.dto.HouseHistoryTransactionBodyDTO;
+import com.gebeya.smartcontract.model.data.dto.HouseTransactionDTO;
+import com.gebeya.smartcontract.model.data.dto.HouseTransactionHistoryResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.view.publicLedger.PublicLedgerAdapter;
-import com.gebeya.smartcontract.view.publicLedger.api.service.TransactionDetailService;
+import com.gebeya.smartcontract.view.publicLedger.api.service.CarTransactionHistoryDetailService;
+import com.gebeya.smartcontract.view.publicLedger.api.service.HouseTransactionHistoryDetailService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
@@ -46,13 +53,22 @@ public class TransactionDetailActivity extends BaseActivity {
     CircularProgressView progressView;
 
     private RecyclerView.LayoutManager mLayoutManager;
-    private TransactionDetailService mTransactionDetailService;
-    private PublicLedgerAdapter mPublicLedgerAdapter;
-    private String AssetId;
+    private CarTransactionHistoryDetailService mCarTransactionHistoryDetailService;
+    private HouseTransactionHistoryDetailService mHouseTransactionHistoryDetailService;
+
+    private TransactionDetailAdapter mTransactionDetailAdapter;
+    private String assetId;
+    private String assetType;
     private boolean isConnected;
 
     BoxStore userBox;
     Box<UserLoginData> box;
+    String bearerToken;
+
+    // Intent Key name space holders.
+    private static final String KEY_ASSET_ID = "ASSET_ID";
+    private static final String KEY_ASSET_TYPE = "ASSET_TYPE";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,15 +82,24 @@ public class TransactionDetailActivity extends BaseActivity {
         }
 
         // Create the retrofit client service for the public ledger.
-        mTransactionDetailService = Api.transactionDetailService();
+        mCarTransactionHistoryDetailService = Api.carTransactionHistoryDetailService();
+        mHouseTransactionHistoryDetailService = Api.houseTransactionHistoryDetailService();
+
 
         // Extracting the Asset Id which is passed from publicLedgerFragment.
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            AssetId = intent.getExtras().getString("ASSET_ID");
-            //toast(AssetId);
+            assetId = intent.getExtras().getString(KEY_ASSET_ID);
+            assetType = intent.getExtras().getString(KEY_ASSET_TYPE);
         }
+
+        // Initializing the adapter.
+        mTransactionDetailAdapter = new TransactionDetailAdapter(this,
+              new ArrayList<>(0),
+              new ArrayList<>(0),
+              (position) -> {
+              });
 
         // Retrieve the Box for the UserLogin
         userBox = ((App) getApplication()).getStore();
@@ -82,14 +107,23 @@ public class TransactionDetailActivity extends BaseActivity {
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mPublicLedgerAdapter);
+        mRecyclerView.setAdapter(mTransactionDetailAdapter);
         mRecyclerView.setHasFixedSize(true);
+
+        // loads User token from objectBox
+        List<UserLoginData> users = box.getAll();
+        String token = users.get(0).getToken();
+        bearerToken = "Bearer " + token;
 
         // Check connection.
         isConnected = new CheckInternetConnection().CheckInternetConnection(getApplicationContext());
 
         if (isConnected) {
-            loadTransactionDetail();
+            if (assetType.equals("House Transaction")) {
+                loadHouseTransactionDetail();
+            } else if (assetType.equals("Car Transaction")) {
+                loadCarTransactionDetail();
+            }
         } else {
             toast("No Internet Connection");
             progressView.setVisibility(View.GONE);
@@ -98,7 +132,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
         swipeContainer.setOnRefreshListener(() -> {
             if (isConnected) {
-                loadTransactionDetail();
+                loadCarTransactionDetail();
             } else {
                 toast("No Internet Connection");
                 progressView.setVisibility(View.GONE);
@@ -111,65 +145,105 @@ public class TransactionDetailActivity extends BaseActivity {
               R.color.ruby_dark);
     }
 
-    private void loadTransactionDetail() {
+    private void loadCarTransactionDetail() {
 
-        // loads User token from objectBox
-        List<UserLoginData> users = box.getAll();
-        String token = users.get(0).getToken();
-        String bearerToken = "Bearer " + token;
+        CarHistoryTransactionBodyDTO carHistoryTransactionBodyDTO
+              = new CarHistoryTransactionBodyDTO();
+        carHistoryTransactionBodyDTO.setCarId(assetId);
 
-        mTransactionDetailService.getTransactionHistory(
-              bearerToken,
-              CONTENT_TYPE,
-              AssetId)
-              .enqueue(new Callback<ArrayList<TransactionDetailCarResponseDTO>>() {
+        mCarTransactionHistoryDetailService.getCarTransactionHistory(bearerToken,
+              CONTENT_TYPE, carHistoryTransactionBodyDTO)
+              .enqueue(new Callback<CarTransactionHistoryResponseDTO>() {
                   @Override
-                  public void onResponse(Call<ArrayList<TransactionDetailCarResponseDTO>> call,
-                                         Response<ArrayList<TransactionDetailCarResponseDTO>> response) {
+                  public void onResponse(Call<CarTransactionHistoryResponseDTO> call,
+                                         Response<CarTransactionHistoryResponseDTO> response) {
                       if (response.isSuccessful()) {
-                          //TransactionDetailCarResponseDTO carTransactionResponse = response.body();
-                          //carTransactionResponse.
-                          ArrayList<TransactionDetailCarResponseDTO> carTransactionResponse = response.body();
-                          //mPublicLedgerAdap
-                          //mPublicLedgerAdapter.updateTransactions(carTransactionResponse);
-                      }
 
-                  }
+                          List<CarTransactionDTO> checkingTransactionNull = response.body().getData();
+                          List<CarTransactionDTO> transactions = new ArrayList<>();
 
-                  @Override
-                  public void onFailure(Call<ArrayList<TransactionDetailCarResponseDTO>> call, Throwable t) {
+                          // Check whether transactions have a null field or not
+                          // if null field found then the transaction removed from the list.
+                          for (int i = 0; i < checkingTransactionNull.size(); i++) {
+                              if (checkingTransactionNull.get(i).getCar() != null &&
+                                    checkingTransactionNull.get(i).getFrom() != null &&
+                                    checkingTransactionNull.get(i).getTo() != null) {
 
-                  }
-                 /* @Override
-                  public void onResponse(Call<TransactionDetailCarResponseDTO>
-                                               call, Response<TransactionDetailCarResponseDTO> response) {
-                      if (response.isSuccessful()) {
-                          d("TransactionDetailActivity are loaded from API");
+                                  transactions.add(checkingTransactionNull.get(i));
+                              }
+                          }
 
-                   *//* TransactionDetailHouseResponseDTO transactionDetailResponse = response.body();
-                    //List<TransactionDetailHouseResponseDTO> transactions = transactionDetailResponse;
-                    // d("Transactions loaded: " + transactions.size());
-                    if (!transactionDetailResponse.getId().isEmpty()) {
-                        mPublicLedgerAdapter.updateTransactions(response.body().getData());
-                    } else {
-                        mNoPublicLedger.setVisibility(View.VISIBLE);
-                    }
-                    progressView.setVisibility(View.GONE);
-                    swipeContainer.setRefreshing(false);*//*
-                      } else {
-                          e("Response was not successful");
-                          int statusCode = response.code();
-                          e("Response code: " + statusCode);
+                          mTransactionDetailAdapter.updateCarTransactions(transactions);
                           progressView.setVisibility(View.GONE);
                           swipeContainer.setRefreshing(false);
+
+
+                      } else if (response.errorBody() != null) {
+                          String message2 = response.message();
+                          Integer code = response.code();
+                          ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                          String message = errorResponse.getMessage();
+                          Integer errorCode = errorResponse.getStatus();
                       }
                   }
 
                   @Override
-                  public void onFailure(Call<TransactionDetailCarResponseDTO>
-                                              call, Throwable t) {
+                  public void onFailure(Call<CarTransactionHistoryResponseDTO> call,
+                                        Throwable t) {
+                      toast("failed");
+                      d("----------------------------Transaction failed to send to API-------------------------------------");
+                      t.printStackTrace();
+                  }
+              });
+    }
 
-                  }*/
+    private void loadHouseTransactionDetail() {
+        HouseHistoryTransactionBodyDTO houseHistoryTransactionBodyDTO
+              = new HouseHistoryTransactionBodyDTO();
+        houseHistoryTransactionBodyDTO.setHouseId(assetId);
+
+        mHouseTransactionHistoryDetailService.getHouseTransactionHistory(bearerToken,
+              CONTENT_TYPE, houseHistoryTransactionBodyDTO)
+              .enqueue(new Callback<HouseTransactionHistoryResponseDTO>() {
+                  @Override
+                  public void onResponse(Call<HouseTransactionHistoryResponseDTO> call,
+                                         Response<HouseTransactionHistoryResponseDTO> response) {
+
+                      if (response.isSuccessful()) {
+
+                          List<HouseTransactionDTO> checkingTransactionNull = response.body().getData();
+                          List<HouseTransactionDTO> transactions = new ArrayList<>();
+
+                          // Check whether transactions have a null field or not
+                          // if null field found then the transaction removed from the list.
+                          for (int i = 0; i < checkingTransactionNull.size(); i++) {
+                              if (checkingTransactionNull.get(i).getHouse() != null &&
+                                    checkingTransactionNull.get(i).getFrom() != null &&
+                                    checkingTransactionNull.get(i).getTo() != null) {
+
+                                  transactions.add(checkingTransactionNull.get(i));
+                              }
+                          }
+
+                          mTransactionDetailAdapter.updaterHouseTransactions(transactions);
+                          progressView.setVisibility(View.GONE);
+                          swipeContainer.setRefreshing(false);
+
+                      } else if (response.errorBody() != null) {
+                          String message2 = response.message();
+                          Integer code = response.code();
+                          ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
+                          String message = errorResponse.getMessage();
+                          Integer errorCode = errorResponse.getStatus();
+                      }
+                  }
+
+                  @Override
+                  public void onFailure(Call<HouseTransactionHistoryResponseDTO> call, Throwable t) {
+                      toast("failed");
+                      Log.d(this.getClass().getName(), "-----------------------------------------Request failed to send to API-------------------------------------------");
+                      t.printStackTrace();
+                  }
               });
     }
 

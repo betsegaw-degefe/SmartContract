@@ -26,10 +26,10 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     TextView mTimeStamp;
 
 
-
     private Context mContext;
     private PublicLedgerCallback mCallback;
     private String assetId;
+    private String type;
 
 
     /**
@@ -57,14 +57,15 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        mCallback.onSelected(position, assetId);
+        mCallback.onSelected(position, assetId, type);
     }
 
     public void setType(String type) {
-        if (!type.isEmpty())
+        if (!type.isEmpty()) {
+            this.type = type;
             mType.setText(type);
+        }
     }
-
 
 
     public void setFrom(String from) {
@@ -79,7 +80,8 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
         mTimeStamp.setText(createdAt);
     }
 
-    void setAssetId(String id) {
+    public void setAssetId(String id) {
         this.assetId = id;
     }
+
 }

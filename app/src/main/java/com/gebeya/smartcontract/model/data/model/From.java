@@ -15,7 +15,6 @@ public class From {
         this.id = fromDTO.getId();
         this.firstName = fromDTO.getFirstName();
         this.lastName = fromDTO.getLastName();
-        this.publicId = fromDTO.getPublicId();
         this.createdAt = fromDTO.getCreatedAt();
     }
 

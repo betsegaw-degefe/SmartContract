@@ -33,8 +33,10 @@ public class SearchUserActivity extends BaseActivity {
 
     private static final String KEY_USER_ID = "USER_ID";
     private static final String KEY_ASSET_ID = "ASSET_ID";
+    private static final String KEY_ASSET_TYPE = "ASSET_TYPE";
 
     private String mAssetId;
+    private String mAssetType;
 
 
     @Override
@@ -179,7 +181,9 @@ public class SearchUserActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            mAssetId = intent.getExtras().getString("ASSET_ID");
+            mAssetId = intent.getExtras().getString(KEY_ASSET_ID);
+            mAssetType = intent.getExtras().getString(KEY_ASSET_TYPE);
+            toast(mAssetType);
         }
 
     }
@@ -199,6 +203,7 @@ public class SearchUserActivity extends BaseActivity {
                               MakeTransactionActivity.class);
                         intent.putExtra(KEY_USER_ID, usersResponse.get(position).getId());
                         intent.putExtra(KEY_ASSET_ID, mAssetId);
+                        intent.putExtra(KEY_ASSET_TYPE, mAssetType);
                         startActivity(intent);
                     });
     }

@@ -48,6 +48,9 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
     @BindView(R.id.houseImageIndicator)
     CirclePageIndicator houseImageIndicator;
 
+    private String mTypeOfAsset;
+
+
     /**
      * Declaring local variables.
      */
@@ -68,7 +71,7 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        mCallback.onSelected(position, assetId);
+        mCallback.onSelected(position, assetId, mTypeOfAsset);
     }
 
     /**
@@ -100,6 +103,10 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
     public void setHouseRegistered(String registered) {
         if (!registered.isEmpty())
             mHouseRegestered.setText(registered);
+    }
+
+    public void setTypeOfAsset(String typeOfAsset) {
+        this.mTypeOfAsset = typeOfAsset;
     }
 
     /**

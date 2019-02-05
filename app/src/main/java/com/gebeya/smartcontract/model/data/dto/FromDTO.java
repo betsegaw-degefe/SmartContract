@@ -14,13 +14,9 @@ public class FromDTO {
     @SerializedName("lastName")
     @Expose
     private String lastName;
-    @SerializedName("public_id")
-    @Expose
-    private String publicId;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-
 
     public String getId() {
         return id;
@@ -44,14 +40,6 @@ public class FromDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPublicId() {
-        return publicId;
-    }
-
-    public void setPublicId(String publicId) {
-        this.publicId = publicId;
     }
 
     public String getCreatedAt() {

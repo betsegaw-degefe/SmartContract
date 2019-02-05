@@ -7,5 +7,5 @@ package com.gebeya.smartcontract.view.publicLedger;
  */
 
 public interface PublicLedgerCallback {
-    void onSelected(int position, String id);
+    void onSelected(int position, String id, String type);
 }

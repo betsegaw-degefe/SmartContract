@@ -3,7 +3,7 @@ package com.gebeya.smartcontract.model.data.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MakeTransactionBodyDTO {
+public class MakeCarTransactionBodyDTO {
     @SerializedName("carId")
     @Expose
     private String carId;
