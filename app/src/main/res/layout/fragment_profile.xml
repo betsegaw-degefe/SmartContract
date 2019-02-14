@@ -38,36 +38,6 @@
                     app:view_borderColor="#cccccc"
                     app:view_borderWidth="2dp" />
 
-
-                <!-- <com.mikhaellopez.circularimageview.CircularImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    app:srcCompat="@drawable/ic_user"
-                    app:civ_border_color="#EEEEEE"
-                    app:civ_border_width="2dp"
-                    app:civ_shadow="true"
-                    app:civ_shadow_radius="10"
-                    app:civ_shadow_color="#8BC34A"/>-->
-
-                <!--<com.alexzh.circleimageview.CircleImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:clickable="true"
-                    android:layout_marginTop="50dp"
-                    app:view_backgroundColor="@color/colorPrimary"
-                    app:view_shadowRadius="4dp"
-                    app:view_shadowDx="2dp"
-                    app:view_shadowDy="0dp"
-                    app:view_shadowColor="@color/white_background"
-                    app:view_borderWidth="4dp"
-                    app:view_selectedColor="@color/blue"
-                    app:view_borderColor="@android:color/darker_gray"
-                    android:layout_gravity="center"
-                    app:src="@drawable/ic_user"
-                    android:focusable="true" />-->
             </FrameLayout>
 
             <LinearLayout

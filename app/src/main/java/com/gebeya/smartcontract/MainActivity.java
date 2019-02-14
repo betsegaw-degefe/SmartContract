@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.view.changePassword.ChangePasswordActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -140,32 +141,20 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
-   /* @Override
-    public void onPageSelected(int i) {
-        d("Current page:  " + i);
-        String title = titles[i];
-
-
-        //titleLabel.setText(title);
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         // if Sign out selected
         if (id == R.id.signOutToolBar) {
-            toast("Sign out menu");
-            // Toast.makeText(getApplicationContext(), "Setting Menu", Toast.LENGTH_SHORT).show();
             box.removeAll();
             startActivity(new Intent(this, LoginActivity.class));
             this.finish();
             return true;
         }
         // If search option selected
-        else if (id == R.id.searchToolBar) {
-            toast("Search tool bar selected");
-            //Toast.makeText(getApplicationContext(), "Search Menu", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.changePasswordToolBar) {
+            startActivity(new Intent(this, ChangePasswordActivity.class));
             return true;
         }
         // If notification option selected.

@@ -3,6 +3,7 @@ package com.gebeya.smartcontract.sendPhoneNumber;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.gebeya.smartcontract.model.data.model.SendPhoneNumberModel;
 import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
 import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
 import com.gebeya.smartcontract.signUp.SignUpActivity;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.hbb20.CountryCodePicker;
 
 import java.util.Objects;
@@ -49,6 +51,9 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
     @BindView(R.id.sendPhoneNumberTitle)
     MyTextView_Roboto_Regular mTitle;
+
+    @BindView(R.id.progressViewSendPhoneNumber)
+    CircularProgressView prgressView;
 
     private SendPhoneNumberService mSendPhoneNumberService;
     private ResetPasswordService mResetPasswordService;
@@ -86,6 +91,9 @@ public class SendPhoneNumberActivity extends BaseActivity {
 
         // create instance of animation for editText
         shake = AnimationUtils.loadAnimation(SendPhoneNumberActivity.this, R.anim.shake);
+
+        // Hide the progress view.
+        prgressView.setVisibility(View.GONE);
     }
 
     /**
@@ -129,11 +137,18 @@ public class SendPhoneNumberActivity extends BaseActivity {
             return;
         }
 
+        // Change the background color of the pressed button.
+        submitPhoneNumberButton.setBackground(this.getResources().getDrawable(R.drawable.button_pressed));
+
+        // Making visible the progress view.
+        prgressView.setVisibility(View.VISIBLE);
+
         // Get the country code only.
         String countryCode = ccp.getSelectedCountryCode();
 
         // Trim the the first country code.
         phoneNumber = phoneNumber.replace(countryCode, "");
+
 
         if (title.equals("Sign Up")) {
             mSendPhoneNumberService.sendPhoneNumber(CONTENT_TYPE,
@@ -148,6 +163,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
                               ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
                               String errorMessage = errorResponse.getMessage();
                               setError(errorMessage);
+                              unpressbtn();
                           }
                       }
 
@@ -177,6 +193,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
                               ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
                               String errorMessage = errorResponse.getMessage();
                               setError(errorMessage);
+                              unpressbtn();
                           }
                       }
 
@@ -206,7 +223,7 @@ public class SendPhoneNumberActivity extends BaseActivity {
      * open reset password activity.
      */
     public void openResetPassword(String message) {
-        toast(message);
+        toast("Password sent to your phone number.");
         startActivity(new Intent(this, LoginActivity.class));
     }
 
@@ -277,5 +294,12 @@ public class SendPhoneNumberActivity extends BaseActivity {
         // Create a char array of given String
         char[] ch = str.toCharArray();
         return ch[0] == '9';
+    }
+
+    /**
+     * change the background color of the button to default.
+     */
+    public void unpressbtn() {
+        submitPhoneNumberButton.setBackground(this.getResources().getDrawable(R.drawable.button_blue_background));
     }
 }

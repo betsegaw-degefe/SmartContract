@@ -123,7 +123,6 @@ public class MakeTransactionActivity extends BaseActivity {
             mAssetId = intent.getExtras().getString(KEY_ASSET_ID);
             userId = intent.getExtras().getString(KEY_USER_ID);
             mTypeOfAsset = intent.getExtras().getString(KEY_ASSET_TYPE);
-            toast(mTypeOfAsset);
             idTo.setText(userId);
         }
 

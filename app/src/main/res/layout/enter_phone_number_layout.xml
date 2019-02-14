@@ -76,6 +76,17 @@
                 android:textColor="#ffffff"
                 android:textSize="15sp" />
 
+            <com.github.rahatarmanahmed.cpv.CircularProgressView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/progressViewSendPhoneNumber"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                app:cpv_animAutostart="true"
+                app:cpv_color="@color/colorAccent"
+                app:cpv_indeterminate="true" />
+
 
             <customfonts.MyTextView_Roboto_Regular
                 android:id="@+id/haveAnAccount"

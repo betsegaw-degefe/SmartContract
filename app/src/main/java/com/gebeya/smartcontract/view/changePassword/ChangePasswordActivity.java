@@ -3,6 +3,7 @@ package com.gebeya.smartcontract.view.changePassword;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -60,8 +61,12 @@ public class ChangePasswordActivity extends BaseActivity {
               .observe(this, changePasswordResponseDTO -> {
                   changePasswordResponseDTO = ChangePasswordViewModel.getResponseObservable().getValue();
                   if (changePasswordResponseDTO != null) {
-                      toast("Password Changed Successfully.");
+                      //toast("Password Changed Successfully.");
+
+                      Snackbar.make(binding.changePasswordRelativeLayout,
+                            R.string.changePasswordSSuccessSnackBarLabel,Snackbar.LENGTH_LONG).show();
                       enableFields();
+                      //this.finish();
                   }
               });
 
@@ -112,6 +117,11 @@ public class ChangePasswordActivity extends BaseActivity {
         }
     }
 
+    /**
+     * When back item selected this function called
+     *
+     * @return: true if the back item is selected.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

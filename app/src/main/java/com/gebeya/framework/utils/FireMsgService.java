@@ -135,6 +135,7 @@ public class FireMsgService extends FirebaseMessagingService {
                     .setContentTitle(getString(R.string.app_name))
                     .setContentText(messageBody)
                     .setAutoCancel(true)
+                    .setNumber(1)
                     .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);
 

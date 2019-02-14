@@ -10,10 +10,10 @@
         android:title="Notification">
     </item>
     <item
-        android:id="@+id/searchToolBar"
+        android:id="@+id/changePasswordToolBar"
         app:showAsAction="never"
         android:orderInCategory="300"
-        android:title="Search">
+        android:title="Change Password">
     </item>
     <item
         android:id="@+id/signOutToolBar"

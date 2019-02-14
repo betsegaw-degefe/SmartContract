@@ -92,8 +92,6 @@ public class MyAssetFragment extends BaseFragment {
               new ArrayList<>(0),
               new UserLoginResponseDTO(),
               (position, id, typeOfAsset) -> {
-                  // toast("Selected position is: " + id);
-                  // start make transaction activity.
                   Intent intent = new Intent(getActivity(), MakeTransactionActivity.class);
                   intent.putExtra("ASSET_ID", id);
                   intent.putExtra("ASSET_TYPE", typeOfAsset);
@@ -170,7 +168,7 @@ public class MyAssetFragment extends BaseFragment {
                                    Response<MyAssetCarResponseDTO> response) {
                 if (response.isSuccessful()) {
                     MyAssetCarResponseDTO myAssetResponseDTO = response.body();
-                    if (myAssetResponseDTO != null) {
+                    if (myAssetResponseDTO != null && myAssetResponseDTO.getData().size() != 0) {
 
                         List<CarDTO> checkingAssetNull = myAssetResponseDTO.getData();
                         List<CarDTO> assetList = new ArrayList<>();

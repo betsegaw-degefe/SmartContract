@@ -183,7 +183,7 @@ public class SearchUserActivity extends BaseActivity {
         if (extras != null) {
             mAssetId = intent.getExtras().getString(KEY_ASSET_ID);
             mAssetType = intent.getExtras().getString(KEY_ASSET_TYPE);
-            toast(mAssetType);
+           // toast(mAssetType);
         }
 
     }

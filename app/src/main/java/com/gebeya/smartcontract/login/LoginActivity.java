@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         mProgressView.setVisibility(View.VISIBLE);
-        toast(deviceId);
+        //toast(deviceId);
 
         // disable the login button
         loginButton.setEnabled(false);
