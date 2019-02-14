@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.gebeya.smartcontract.myAsset.MyAssetFragment;
 import com.gebeya.smartcontract.profile.ProfileFragment;
+import com.gebeya.smartcontract.view.aboutUs.AboutUsFragment;
 import com.gebeya.smartcontract.view.publicLedger.PublicLedgerFragment;
 
 public class MainActivityPagerAdapter extends FragmentPagerAdapter {
@@ -13,7 +14,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
     private int numOfTabs;
 
 
-    public MainActivityPagerAdapter(FragmentManager manager,int numOfTabs) {
+    MainActivityPagerAdapter(FragmentManager manager, int numOfTabs) {
         super(manager);
         this.numOfTabs = numOfTabs;
     }
@@ -28,6 +29,8 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
                 return new MyAssetFragment();
             case 2:
                 return new ProfileFragment();
+            case 3:
+                return new AboutUsFragment();
             default:
                 return null;
         }
@@ -36,19 +39,7 @@ public class MainActivityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return MainActivity.PAGE_COUNT;
+        return numOfTabs;
     }
 
-    /*@Override
-    public CharSequence getPageTitle(int position) {
-        switch (position){
-            case 0:
-                return "Public Ledger";
-            case 1:
-                return "My Asset";
-            case 2:
-                return "About us";
-        }
-        return null;
-    }*/
 }

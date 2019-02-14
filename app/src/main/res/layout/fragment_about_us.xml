@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="AboutUsViewModel"
+            type="com.gebeya.smartcontract.viewmodel.aboutUs.AboutUsViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:background="@color/white_background"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/about_us_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/ic_hand_shake_icon" />
+
+        <TextView
+            android:id="@+id/aboutVersionTitleLabel"
+            android:layout_below="@+id/about_us_icon"
+            style="@style/label.blue"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/aboutVersionLabel"
+            style="@style/label.blue"
+            android:layout_above="@+id/copy_right_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:text="@string/about_version_label" />
+
+        <TextView
+            android:id="@+id/copy_right_label"
+            style="@style/label.blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:text="@string/about_copyright_label" />
+
+    </RelativeLayout>
+</layout>

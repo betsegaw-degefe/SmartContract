@@ -92,11 +92,6 @@ public class LoginActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //sharedpreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        /*sharedpreferences = getApplicationContext()
-              .getSharedPreferences(PREFS_NAME,
-                    Context.MODE_PRIVATE);*/
-        //Context context = getBaseContext();
         deviceId = sharedpreferences.getString(DEVICE_ID, "");
 
     }

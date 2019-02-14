@@ -198,7 +198,6 @@ public class SearchUserActivity extends BaseActivity {
         mSearchUserAdapter =
               new SearchUserAdapter(this, usersResponse,
                     (position, id) -> {
-                        //toast("Selected position is: " + position);
                         Intent intent = new Intent(this,
                               MakeTransactionActivity.class);
                         intent.putExtra(KEY_USER_ID, usersResponse.get(position).getId());

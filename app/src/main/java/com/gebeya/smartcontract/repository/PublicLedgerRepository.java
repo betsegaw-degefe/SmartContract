@@ -25,7 +25,7 @@ import static com.gebeya.framework.utils.Constants.CONTENT_TYPE;
 public class PublicLedgerRepository {
 
     private PublicLedgerService mPublicLedgerService;
-    private static PublicLedgerRepository  INSTANCE;
+    private static PublicLedgerRepository INSTANCE;
 
 
     /**
@@ -48,7 +48,6 @@ public class PublicLedgerRepository {
     }
 
     /**
-     *
      * @param bearerToken : The user bearer token.
      * @return :
      */
@@ -64,9 +63,11 @@ public class PublicLedgerRepository {
                   @Override
                   public void onResponse(Call<PublicLedgerResponseDTO> call,
                                          Response<PublicLedgerResponseDTO> response) {
-                      if (response.isSuccessful())
+                      if (response.isSuccessful() && response.body().data.size() != (0))
                           publicLedgerResponse.setValue(response.body());
-
+                      else {
+                          publicLedgerResponse.setValue(null);
+                      }
                   }
 
                   @Override

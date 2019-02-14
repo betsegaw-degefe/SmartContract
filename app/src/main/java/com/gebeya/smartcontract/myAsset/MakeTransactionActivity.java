@@ -204,6 +204,7 @@ public class MakeTransactionActivity extends BaseActivity {
                 @Override
                 public void onFailure(Call<MakeCarTransactionModel> call,
                                       Throwable t) {
+                    toast("Transaction failed!");
                     d("Transaction failed to send to API");
                     t.printStackTrace();
 

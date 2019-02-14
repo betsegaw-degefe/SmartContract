@@ -29,7 +29,7 @@ import io.objectbox.BoxStore;
 
 public class MainActivity extends BaseActivity {
 
-    public static final int PAGE_COUNT = 3;
+    public static final int PAGE_COUNT = 4;
 
     @BindView(R.id.mainToolbar)
     Toolbar mToolbar;
@@ -62,18 +62,13 @@ public class MainActivity extends BaseActivity {
 
         // Getting the FireBase token
         FirebaseInstanceId.getInstance().getInstanceId()
-              .addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
-                  @Override
-                  public void onSuccess(InstanceIdResult instanceIdResult) {
-                      String newToken = instanceIdResult.getToken();
-                      d(newToken);
-                  }
+              .addOnSuccessListener(this, instanceIdResult -> {
+                  String newToken = instanceIdResult.getToken();
+                  d(newToken);
               });
 
         // Display icon in the toolbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setLogo(R.mipmap.ic_launcher);
-        //getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 
         // Retrieve the Box for the UserLogin
@@ -85,9 +80,11 @@ public class MainActivity extends BaseActivity {
         int[] tabIcons = {
               R.drawable.ic_public_ledger_tab_icon,
               R.drawable.ic_my_asset_tab_icon,
-              R.drawable.ic_user_profile
+              R.drawable.ic_user_profile,
+              R.drawable.ic_aboutus_icon
         };
 
+        // Instantiating the main activity adapter
         MainActivityPagerAdapter mAdapter =
               new MainActivityPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
 
@@ -101,16 +98,18 @@ public class MainActivity extends BaseActivity {
         Objects.requireNonNull(mTabLayout.getTabAt(0)).setIcon(tabIcons[0]);
         Objects.requireNonNull(mTabLayout.getTabAt(1)).setIcon(tabIcons[1]);
         Objects.requireNonNull(mTabLayout.getTabAt(2)).setIcon(tabIcons[2]);
+        Objects.requireNonNull(mTabLayout.getTabAt(3)).setIcon(tabIcons[3]);
 
         // Set the tab color to ruby by default.
         int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
         Objects.requireNonNull(Objects.requireNonNull(mTabLayout.getTabAt(0)).getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
+        // Invoked when tab selection changes
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
-                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
                 mViewPager.setCurrentItem(tab.getPosition());
                 int tabAt = tab.getPosition();
                 mToolbar.setTitle(titles[tabAt]);
@@ -119,7 +118,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark);
-                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                Objects.requireNonNull(tab.getIcon()).setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override

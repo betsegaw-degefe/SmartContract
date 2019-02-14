@@ -7,12 +7,13 @@
     <string name="tab_1_title">Public Ledger</string>
     <string name="tab_2_title">My Asset</string>
     <string name="tab_3_title">My Profile</string>
-
+    <string name="tab_4_title">About Us</string>
 
     <string-array name="tab_titles">
         <item>@string/tab_1_title</item>
         <item>@string/tab_2_title</item>
         <item>@string/tab_3_title</item>
+        <item>@string/tab_4_title</item>
     </string-array>
 
     <!--==================== Toolbar NAMES ==================== -->
@@ -22,6 +23,10 @@
     <string name="makeTransaction">Make Asset Transfer</string>
     <string name="transactionHistory">Transaction History</string>
     <string name="searchUser">Search User</string>
+
+    <!--==================== ABOUT US==================== -->
+    <string name="about_version_label">v1.0.0</string>
+    <string name="about_copyright_label"> © Gebeya - 2019</string>
 
 
 

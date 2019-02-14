@@ -26,7 +26,6 @@ public class ChangePasswordRepository {
      * @return Instance of this class.
      */
     public static ChangePasswordRepository getInstance() {
-        //return SingletonHelper.INSTANCE;
         if (INSTANCE == null) {
             INSTANCE = new ChangePasswordRepository();
         }
