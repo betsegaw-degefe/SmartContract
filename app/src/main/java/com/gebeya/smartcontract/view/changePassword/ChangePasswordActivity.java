@@ -74,7 +74,7 @@ public class ChangePasswordActivity extends BaseActivity {
         ChangePasswordViewModel.getErrorResponseObservable()
               .observe(this, errorResponseDTO -> {
                   errorResponseDTO = ChangePasswordViewModel.getErrorResponseObservable().getValue();
-                  String message = errorResponseDTO.getMessage();
+                  String message = Objects.requireNonNull(errorResponseDTO).getMessage();
                   if (message.equals("Password is Incorrect"))
                       setError(message);
               });

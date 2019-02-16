@@ -50,7 +50,6 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Context context = viewGroup.getContext();
         inflater = LayoutInflater.from(context);
         final View itemView;
-        //viewGroup.getLayoutMode();
 
         if (!mCars.equals(null) && layoutCounter < mCars.size()) {
             itemView = inflater.inflate(R.layout.my_car_asset_layout,

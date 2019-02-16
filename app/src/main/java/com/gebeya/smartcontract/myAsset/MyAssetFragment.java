@@ -108,7 +108,7 @@ public class MyAssetFragment extends BaseFragment {
         isConnected = new CheckInternetConnection().CheckInternetConnection(getContext());
 
         // Load assets from the server.
-        if (isConnected) {
+        if (isConnected && !box.isEmpty()) {
             loadMyAsset();
         } else {
             toast("No Internet Connection");

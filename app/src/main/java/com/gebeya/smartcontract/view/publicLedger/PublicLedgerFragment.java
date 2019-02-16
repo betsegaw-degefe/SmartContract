@@ -2,6 +2,7 @@ package com.gebeya.smartcontract.view.publicLedger;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,11 +19,16 @@ import android.widget.TextView;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.CheckInternetConnection;
+import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.databinding.FragmentAboutUsBinding;
+import com.gebeya.smartcontract.databinding.FragmentPublicLedgerBinding;
+import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.view.publicLedger.transactionDetail.TransactionDetailActivity;
+import com.gebeya.smartcontract.viewmodel.changePassword.ChangePasswordViewModel;
 import com.gebeya.smartcontract.viewmodel.publicLedger.PublicLedgerViewModel;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
@@ -36,25 +42,12 @@ import io.objectbox.BoxStore;
 
 public class PublicLedgerFragment extends BaseFragment {
 
-    @BindView(R.id.publicLedgerRecyclerView)
-    RecyclerView mRecyclerView;
-
-    @BindView(R.id.progress_view_public_ledger)
-    CircularProgressView progressView;
-
-    // Bind with the swipe refresh container
-    @BindView(R.id.publicLedgerSwipeContainer)
-    SwipeRefreshLayout swipeContainer;
-
-    @BindView(R.id.noPublicLedger)
-    TextView mNoPublicLedger;
+    // binding class for publicLedgerLayout
+    FragmentPublicLedgerBinding binding;
 
     private RecyclerView.LayoutManager mLayoutManager;
     private PublicLedgerAdapter mPublicLedgerAdapter;
     PublicLedgerViewModel viewModel;
-
-    @BindView(R.id.publicLedgerRelativeLayout)
-    RelativeLayout mRelativeLayout;
 
     BoxStore userBox;
     Box<UserLoginData> box;
@@ -73,8 +66,11 @@ public class PublicLedgerFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        inflate(R.layout.fragment_public_ledger, container);
-        return root;
+
+        // Inflate the binding layout ui.
+        binding = DataBindingUtil.inflate(
+              inflater, R.layout.fragment_public_ledger, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -85,7 +81,7 @@ public class PublicLedgerFragment extends BaseFragment {
         setupRecyclerView();
 
         // No public Ledger message.
-        mNoPublicLedger.setVisibility(View.INVISIBLE);
+        binding.noPublicLedger.setVisibility(View.INVISIBLE);
 
         // Create a PublicLedgerViewModel the first time the system calls an
         // fragments.Re-created fragments receive the same PublicLedgerViewModel instance
@@ -93,30 +89,35 @@ public class PublicLedgerFragment extends BaseFragment {
         viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
               .get(PublicLedgerViewModel.class);
 
+        // Retrieve the Box for the UserLogin.
+        userBox = ((App) Objects.requireNonNull(getActivity()).getApplicationContext()).getStore();
+        box = userBox.boxFor(UserLoginData.class);
+
         // Observe the change in public ledger view model.
         observeViewModel(viewModel);
+        observeErrorViewModel();
 
-        swipeContainer.setOnRefreshListener(() -> {
+        binding.publicLedgerSwipeContainer.setOnRefreshListener(() -> {
             // Load assets from the server.
             if (isConnected()) {
                 // Observe the change in public ledger view model.
+                viewModel = new PublicLedgerViewModel(getActivity().getApplication());
                 observeViewModel(viewModel);
+                observeErrorViewModel();
             } else {
-                //toast("No Internet Connection");
-
-                Snackbar.make(mRelativeLayout, R.string.NoInternetConnectionLabel, Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.publicLedgerRelativeLayout, R.string.NoInternetConnectionLabel, Snackbar.LENGTH_SHORT)
                       .show();
-                progressView.setVisibility(View.GONE);
-                swipeContainer.setRefreshing(false);
+                binding.progressViewPublicLedger.setVisibility(View.GONE);
+                binding.publicLedgerSwipeContainer.setRefreshing(false);
             }
         });
 
-        swipeContainer.setColorSchemeResources(
+        binding.publicLedgerSwipeContainer.setColorSchemeResources(
               R.color.colorPrimary,
               R.color.colorPrimaryDark,
               R.color.ruby_dark);
 
-        mRecyclerView.addOnScrollListener(new OnScrollListener() {
+        binding.publicLedgerRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -129,6 +130,23 @@ public class PublicLedgerFragment extends BaseFragment {
                 ((MainActivity) getActivity()).onScrolled(recyclerView, dx, dy);
             }
         });
+    }
+
+    /**
+     * Observe the Error model DTO object change. If there is, This function triggered.
+     */
+    private void observeErrorViewModel() {
+        // Set observable on the ErrorResponseDTO and triggered when the change happen.
+        PublicLedgerViewModel.getErrorResponseObservable()
+              .observe(this, errorResponseDTO -> {
+                  errorResponseDTO = PublicLedgerViewModel.getErrorResponseObservable().getValue();
+                  String message = Objects.requireNonNull(errorResponseDTO).getMessage();
+                  if (message.equals("Authorization Header Token is Invalid")) {
+                     // box.removeAll();
+                      startActivity(new Intent(getActivity(), LoginActivity.class));
+                      Objects.requireNonNull(getActivity()).finish();
+                  }
+              });
     }
 
     /**
@@ -148,15 +166,16 @@ public class PublicLedgerFragment extends BaseFragment {
         mPublicLedgerAdapter = new PublicLedgerAdapter(getActivity(),
               new ArrayList<>(0),
               (position, id, type) -> {
+
                   // start make transaction activity.
                   Intent intent = new Intent(getActivity(), TransactionDetailActivity.class);
                   intent.putExtra(KEY_ASSET_ID, id);
                   intent.putExtra(KEY_ASSET_TYPE, type);
                   startActivity(intent);
               });
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mPublicLedgerAdapter);
-        mRecyclerView.setHasFixedSize(true);
+        binding.publicLedgerRecyclerView.setLayoutManager(mLayoutManager);
+        binding.publicLedgerRecyclerView.setAdapter(mPublicLedgerAdapter);
+        binding.publicLedgerRecyclerView.setHasFixedSize(true);
     }
 
     /**
@@ -167,7 +186,7 @@ public class PublicLedgerFragment extends BaseFragment {
     private void observeViewModel(PublicLedgerViewModel viewModel) {
 
         if (isConnected()) {
-            viewModel.getPublicLedgerResponseObservable()
+            PublicLedgerViewModel.getPublicLedgerResponseObservable()
                   .observe(this, publicLedgerResponseDTO -> {
                       if (publicLedgerResponseDTO != null) {
 
@@ -191,21 +210,22 @@ public class PublicLedgerFragment extends BaseFragment {
 
                               }
                           }
-                          mNoPublicLedger.setVisibility(View.GONE);
+                          binding.noPublicLedger.setVisibility(View.GONE);
                           mPublicLedgerAdapter.updateTransactions(transactions);
                           mPublicLedgerAdapter.notifyDataSetChanged();
-                          progressView.setVisibility(View.GONE);
-                          swipeContainer.setRefreshing(false);
+                          binding.progressViewPublicLedger.setVisibility(View.GONE);
+                          binding.publicLedgerSwipeContainer.setRefreshing(false);
                       } else {
-                          mNoPublicLedger.setVisibility(View.VISIBLE);
-                          progressView.setVisibility(View.GONE);
-                          swipeContainer.setRefreshing(false);
+                          binding.noPublicLedger.setVisibility(View.VISIBLE);
+                          binding.progressViewPublicLedger.setVisibility(View.GONE);
+                          binding.publicLedgerSwipeContainer.setRefreshing(false);
                       }
                   });
         } else {
-            mNoPublicLedger.setVisibility(View.VISIBLE);
-            toast("No Internet Connection");
-            progressView.setVisibility(View.GONE);
+            binding.noPublicLedger.setVisibility(View.VISIBLE);
+            Snackbar.make(binding.publicLedgerRelativeLayout, R.string.NoInternetConnectionLabel, Snackbar.LENGTH_SHORT)
+                  .show();
+            binding.progressViewPublicLedger.setVisibility(View.GONE);
         }
 
     }

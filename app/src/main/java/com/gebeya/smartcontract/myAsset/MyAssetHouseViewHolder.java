@@ -12,6 +12,7 @@ import com.gebeya.smartcontract.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,10 +89,10 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
                     i++;
                 }
             }
-            mCoordinate1.setText(String.format("[%f,", coordinates[0]));
-            mCoordinate2.setText(String.format("%f,", coordinates[1]));
-            mCoordinate3.setText(String.format("%f,", coordinates[2]));
-            mCoordinate4.setText(String.format("%f]", coordinates[3]));
+            mCoordinate1.setText(String.format(Locale.getDefault(), "[%f,", coordinates[0]));
+            mCoordinate2.setText(String.format(Locale.getDefault(), "%f,", coordinates[1]));
+            mCoordinate3.setText(String.format(Locale.getDefault(), "%f,", coordinates[2]));
+            mCoordinate4.setText(String.format(Locale.getDefault(), "%f]", coordinates[3]));
         }
     }
 

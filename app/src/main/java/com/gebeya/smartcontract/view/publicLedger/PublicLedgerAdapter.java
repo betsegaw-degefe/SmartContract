@@ -1,6 +1,7 @@
 package com.gebeya.smartcontract.view.publicLedger;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.databinding.PublicLedgerLayoutBinding;
 import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 
 import java.util.List;
@@ -19,11 +21,7 @@ import butterknife.BindView;
 
 public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHolder> {
 
-    @BindView(R.id.publicLedgerRecyclerView)
-    RecyclerView mRecyclerView;
-
     private List<TransactionDTO> mTransactions;
-    private LayoutInflater inflater;
     private PublicLedgerCallback mCallback;
     private Context mContext;
 
@@ -45,10 +43,12 @@ public class PublicLedgerAdapter extends RecyclerView.Adapter<PublicLedgerViewHo
     @Override
     public PublicLedgerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
                                                      int viewType) {
-        Context context = viewGroup.getContext();
-        inflater = LayoutInflater.from(context);
-        final View itemView = inflater.inflate(R.layout.public_ledger_layout, viewGroup, false);
-        return new PublicLedgerViewHolder(itemView, mCallback);
+        PublicLedgerLayoutBinding binding = DataBindingUtil.inflate(
+              LayoutInflater.from(viewGroup.getContext()),
+              R.layout.public_ledger_layout, viewGroup, false);
+
+        return new PublicLedgerViewHolder(binding.getRoot(), mCallback, binding);
+
     }
 
 

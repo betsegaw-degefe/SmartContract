@@ -1,6 +1,5 @@
 package com.gebeya.smartcontract.view.searchUser;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,7 +18,6 @@ public class SearchUserViewHolder extends RecyclerView.ViewHolder implements Vie
                          SearchUserLayoutBinding searchUserLayoutBinding) {
         super(searchUserLayoutBinding.getRoot());
         this.mCallback = mSearchUserCallback;
-        Context context = itemView.getContext();
         binding = searchUserLayoutBinding;
         itemView.setOnClickListener(this);
     }

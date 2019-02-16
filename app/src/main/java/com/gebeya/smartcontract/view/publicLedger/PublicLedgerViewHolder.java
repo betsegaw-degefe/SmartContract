@@ -1,32 +1,20 @@
 package com.gebeya.smartcontract.view.publicLedger;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.databinding.PublicLedgerLayoutBinding;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @BindView(R.id.transactionType)
-    TextView mType;
 
-    @BindView(R.id.transactionFrom)
-    TextView mFrom;
+    public PublicLedgerLayoutBinding binding;
 
-    @BindView(R.id.transactionTo)
-    TextView mTo;
-
-    @BindView(R.id.transactionTimeStamp)
-    TextView mTimeStamp;
-
-
-    private Context mContext;
     private PublicLedgerCallback mCallback;
     private String assetId;
     private String type;
@@ -40,11 +28,12 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
      */
 
     PublicLedgerViewHolder(@NonNull View itemView,
-                           PublicLedgerCallback callback) {
-        super(itemView);
+                           PublicLedgerCallback callback,
+                           PublicLedgerLayoutBinding publicLedgerLayoutBinding) {
+
+        super(publicLedgerLayoutBinding.getRoot());
         this.mCallback = callback;
-        mContext = itemView.getContext();
-        ButterKnife.bind(this, itemView);
+        binding = publicLedgerLayoutBinding;
         itemView.setOnClickListener(this);
     }
 
@@ -63,21 +52,21 @@ public class PublicLedgerViewHolder extends RecyclerView.ViewHolder implements V
     public void setType(String type) {
         if (!type.isEmpty()) {
             this.type = type;
-            mType.setText(type);
+            binding.transactionType.setText(type);
         }
     }
 
 
     public void setFrom(String from) {
-        mFrom.setText(from);
+        binding.transactionFrom.setText(from);
     }
 
     public void setTo(String to) {
-        mTo.setText(to);
+        binding.transactionTo.setText(to);
     }
 
     public void setCreatedAt(String createdAt) {
-        mTimeStamp.setText(createdAt);
+        binding.transactionTimeStamp.setText(createdAt);
     }
 
     public void setAssetId(String id) {

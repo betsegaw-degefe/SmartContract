@@ -7,9 +7,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.gebeya.smartcontract.App;
+import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.repository.PublicLedgerRepository;
+import com.gebeya.smartcontract.repository.publicLedger.PublicLedgerRepository;
 
 import java.util.List;
 
@@ -18,7 +19,9 @@ import io.objectbox.BoxStore;
 
 public class PublicLedgerViewModel extends AndroidViewModel {
 
-    private LiveData<PublicLedgerResponseDTO> publicLedgerResponseObservable;
+    private final static MutableLiveData<PublicLedgerResponseDTO> publicLedgerResponseObservable = new MutableLiveData<>();
+    private final static MutableLiveData<ErrorResponseDTO> mErrorResponseObservable = new MutableLiveData<>();
+
 
     BoxStore userBox;
     Box<UserLoginData> box;
@@ -40,11 +43,28 @@ public class PublicLedgerViewModel extends AndroidViewModel {
         String bearerToken = "Bearer " + token;
 
 
-        publicLedgerResponseObservable = PublicLedgerRepository.getInstance()
-              .getPublicLedgerRepository(bearerToken);
+        PublicLedgerRepository.getInstance().getPublicLedgerRepository(bearerToken);
     }
 
-    public LiveData<PublicLedgerResponseDTO> getPublicLedgerResponseObservable() {
+    /**
+     * Create a LiveData instance of PublicLedgerResponseDTO object.
+     *
+     * @return a LiveData instance of PublicLedgerResponseDTO.
+     */
+    public static MutableLiveData<PublicLedgerResponseDTO> getPublicLedgerResponseObservable() {
         return publicLedgerResponseObservable;
     }
+
+    /**
+     * Create a LiveData instance of ErrorResponseDTO object.
+     *
+     * @return a LiveData instance of ErrorResponseDTO.
+     */
+    public static MutableLiveData<ErrorResponseDTO> getErrorResponseObservable() {
+        return mErrorResponseObservable;
+    }
+
+   /* public LiveData<PublicLedgerResponseDTO> getPublicLedgerResponseObservable() {
+        return publicLedgerResponseObservable;
+    }*/
 }

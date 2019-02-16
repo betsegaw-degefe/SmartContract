@@ -40,10 +40,6 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserViewHolder
     @Override
     public SearchUserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-       /* Context context = viewGroup.getContext();
-        inflater = LayoutInflater.from(context);
-        final View itemView = inflater.inflate(R.layout.search_user_layout, viewGroup, false);*/
-
         SearchUserLayoutBinding binding = DataBindingUtil.inflate(
               LayoutInflater.from(viewGroup.getContext()),
               R.layout.search_user_layout, viewGroup, false);

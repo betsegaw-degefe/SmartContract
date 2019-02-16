@@ -12,7 +12,7 @@ import com.gebeya.smartcontract.model.data.dto.ChangePasswordResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.model.ChangePassword;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.repository.ChangePasswordRepository;
+import com.gebeya.smartcontract.repository.changePassword.ChangePasswordRepository;
 
 import java.util.List;
 

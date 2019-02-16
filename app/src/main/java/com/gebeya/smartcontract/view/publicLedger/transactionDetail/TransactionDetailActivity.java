@@ -3,6 +3,7 @@ package com.gebeya.smartcontract.view.publicLedger.transactionDetail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
@@ -25,12 +27,15 @@ import com.gebeya.smartcontract.model.data.dto.HouseHistoryTransactionBodyDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseTransactionDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseTransactionHistoryResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.myAsset.SlidingImageAdapter;
 import com.gebeya.smartcontract.view.publicLedger.api.service.CarTransactionHistoryDetailService;
 import com.gebeya.smartcontract.view.publicLedger.api.service.HouseTransactionHistoryDetailService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import io.objectbox.Box;
@@ -51,6 +56,46 @@ public class TransactionDetailActivity extends BaseActivity {
 
     @BindView(R.id.progressViewTransactionDetail)
     CircularProgressView progressView;
+
+    @BindView(R.id.tvTransactionHistoryAssetSpecification)
+    TextView brand;
+
+    @BindView(R.id.transactionHistoryAssetType)
+    TextView model;
+
+    @BindView(R.id.transactionHistoryViewPager)
+    ViewPager mViewPager;
+
+    @BindView(R.id.houseTransactionHistoryViewPager)
+    ViewPager mHouseViewPager;
+
+    @BindView(R.id.includeCarHistory)
+    View includeCarHisttory;
+
+    @BindView(R.id.includeHouseHistory)
+    View includeHouseHistory;
+
+    @BindView(R.id.indicator)
+    CirclePageIndicator indicator;
+
+    @BindView(R.id.houseImageIndicator)
+    CirclePageIndicator houseImageIndicator;
+
+    @BindView(R.id.tvLocationx1)
+    TextView mCoordinate1;
+
+    @BindView(R.id.tvLocationx2)
+    TextView mCoordinate2;
+
+    @BindView(R.id.tvLocationx3)
+    TextView mCoordinate3;
+
+    @BindView(R.id.tvLocationx4)
+    TextView mCoordinate4;
+
+    @BindView(R.id.transactionHistoryHouseArea)
+    TextView houseArea;
+
 
     private RecyclerView.LayoutManager mLayoutManager;
     private CarTransactionHistoryDetailService mCarTransactionHistoryDetailService;
@@ -159,6 +204,10 @@ public class TransactionDetailActivity extends BaseActivity {
                                          Response<CarTransactionHistoryResponseDTO> response) {
                       if (response.isSuccessful()) {
 
+                          // The two Car transaction DTO variables are one is for holding
+                          // Response from the network. after checking whether the response
+                          // from the network is null or not we use the second variable for
+                          // holding the non null variable.
                           List<CarTransactionDTO> checkingTransactionNull = response.body().getData();
                           List<CarTransactionDTO> transactions = new ArrayList<>();
 
@@ -172,7 +221,7 @@ public class TransactionDetailActivity extends BaseActivity {
                                   transactions.add(checkingTransactionNull.get(i));
                               }
                           }
-
+                          updateCarLayoutData(transactions.get(0));
                           mTransactionDetailAdapter.updateCarTransactions(transactions);
                           progressView.setVisibility(View.GONE);
                           swipeContainer.setRefreshing(false);
@@ -195,6 +244,40 @@ public class TransactionDetailActivity extends BaseActivity {
                       t.printStackTrace();
                   }
               });
+    }
+
+
+    /**
+     * update the car asset detail
+     *
+     * @param transaction: the detail of the car object.
+     */
+    private void updateCarLayoutData(CarTransactionDTO transaction) {
+        // set the brand of the car in the layout.
+        brand.setText(transaction.getCar().getBrand());
+
+        // Set the model of the car.
+        String carModel = transaction.getCar().getModel();
+        String year = String.valueOf(transaction.getCar().getYearOfManufactured());
+        model.setText(String.format("%s %s", carModel, year));
+
+        // Set the picture of the car in the layout.
+        List<List<String>> pictures = transaction.getCar().getPictures();
+        String[] url = new String[pictures.size()];
+        if (!pictures.isEmpty()) {
+            int i = 0;
+            for (List<String> innerList : pictures) {
+                for (String imageUrl : innerList) {
+                    url[i] = imageUrl;
+                    i++;
+                }
+            }
+            SlidingImageAdapter adapter = new SlidingImageAdapter(getApplicationContext(), url);
+            mViewPager.setAdapter(adapter);
+            indicator.setViewPager(mViewPager);
+            includeCarHisttory.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void loadHouseTransactionDetail() {
@@ -225,6 +308,7 @@ public class TransactionDetailActivity extends BaseActivity {
                               }
                           }
 
+                          updateHouseLayoutData(transactions.get(0));
                           mTransactionDetailAdapter.updaterHouseTransactions(transactions);
                           progressView.setVisibility(View.GONE);
                           swipeContainer.setRefreshing(false);
@@ -245,6 +329,54 @@ public class TransactionDetailActivity extends BaseActivity {
                       t.printStackTrace();
                   }
               });
+    }
+
+    /**
+     * update the car asset detail
+     *
+     * @param transaction: the detail of the car object.
+     */
+    private void updateHouseLayoutData(HouseTransactionDTO transaction) {
+
+        // Setting the picture of the house in the layout.
+        List<List<String>> pictures = transaction.getHouse().getPictures();
+        String[] url = new String[pictures.size()];
+        if (!pictures.isEmpty()) {
+            int i = 0;
+            for (List<String> innerList : pictures) {
+                for (String imageUrl : innerList) {
+                    url[i] = imageUrl;
+                    i++;
+                }
+            }
+            SlidingImageAdapter adapter = new SlidingImageAdapter(getApplicationContext(), url);
+            mHouseViewPager.setAdapter(adapter);
+            houseImageIndicator.setViewPager(mViewPager);
+            includeHouseHistory.setVisibility(View.VISIBLE);
+        }
+
+        // Extracting and setting the coordinate location of the house
+        List<List<Double>> location = transaction.getHouse().getGeoLocation();
+        Double[] coordinates = new Double[location.size()];
+        if (!location.isEmpty()) {
+            int i = 0;
+            for (List<Double> innerList : location) {
+                for (Double coordinate : innerList) {
+                    coordinates[i] = coordinate;
+                    i++;
+                }
+            }
+            mCoordinate1.setText(String.format(Locale.getDefault(), "[%f,", coordinates[0]));
+            mCoordinate2.setText(String.format(Locale.getDefault(), "%f,", coordinates[1]));
+            mCoordinate3.setText(String.format(Locale.getDefault(), "%f,", coordinates[2]));
+            mCoordinate4.setText(String.format(Locale.getDefault(), "%f]", coordinates[3]));
+        }
+
+        // Setting the area of the house.
+        Integer area = transaction.getHouse().getAreaM2();
+        String areaUnit = String.format("%o %s", area, "Square meter.");
+        houseArea.setText(areaUnit);
+
     }
 
     @Override
