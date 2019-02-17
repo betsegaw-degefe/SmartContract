@@ -7,6 +7,8 @@ import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.viewmodel.publicLedger.PublicLedgerViewModel;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,12 +54,11 @@ public class PublicLedgerRepository {
                   @Override
                   public void onResponse(Call<PublicLedgerResponseDTO> call,
                                          Response<PublicLedgerResponseDTO> response) {
-                      if (response.isSuccessful() && response.body().data.size() != (0)) {
+                      if (response.isSuccessful() && Objects.requireNonNull(response.body()).data.size() != (0)) {
                           PublicLedgerViewModel.getPublicLedgerResponseObservable().setValue(response.body());
                       } else {
                           ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
                           PublicLedgerViewModel.getErrorResponseObservable().setValue(errorResponse);
-                         // PublicLedgerViewModel.getPublicLedgerResponseObservable().setValue(null);
                       }
                   }
 

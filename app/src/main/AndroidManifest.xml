@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".myAsset.MakeTransactionActivity"
+            android:name=".view.makeTransaction.MakeTransactionActivity"
             android:label="@string/makeTransaction"
             android:theme="@style/base_theme" />
 
@@ -80,6 +80,7 @@
             android:name=".view.searchUser.SearchUserActivity"
             android:label="@string/searchUser"
             android:theme="@style/searchUserTheme"/>
+        <activity android:name=".view.publicLedger.SignOut" />
 
         <service
             android:name="com.gebeya.framework.utils.FireMsgService"

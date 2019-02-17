@@ -5,6 +5,7 @@ import com.gebeya.smartcontract.model.data.remote.RetrofitClient;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -20,7 +21,7 @@ public class ErrorUtils {
 
         ErrorResponseDTO errorResponse;
         try {
-            errorResponse = converter.convert(response.errorBody());
+            errorResponse = converter.convert(Objects.requireNonNull(response.errorBody()));
         } catch (IOException e) {
             return new ErrorResponseDTO();
         }

@@ -10,17 +10,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gebeya.framework.base.BaseActivity;
-import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.view.changePassword.ChangePasswordActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Objects;
 
@@ -45,10 +42,18 @@ public class MainActivity extends BaseActivity {
     TabLayout mTabLayout;
 
     String titles[];
-    BoxStore userBox;
-    Box<UserLoginData> box;
+    public BoxStore userBox;
+    public Box<UserLoginData> box;
 
     private int mLastDy;
+    private static MainActivity INSTANCE;
+
+    public static MainActivity getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MainActivity();
+        }
+        return INSTANCE;
+    }
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -133,7 +138,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -147,9 +151,7 @@ public class MainActivity extends BaseActivity {
 
         // if Sign out selected
         if (id == R.id.signOutToolBar) {
-            box.removeAll();
-            startActivity(new Intent(this, LoginActivity.class));
-            this.finish();
+            signOut();
             return true;
         }
         // If search option selected
@@ -178,5 +180,11 @@ public class MainActivity extends BaseActivity {
 
     public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
         mLastDy = dy == 0 ? mLastDy : dy;
+    }
+
+    public void signOut() {
+        box.removeAll();
+        startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
     }
 }

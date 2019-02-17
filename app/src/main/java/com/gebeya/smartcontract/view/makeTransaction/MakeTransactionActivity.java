@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.myAsset;
+package com.gebeya.smartcontract.view.makeTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ import com.gebeya.smartcontract.model.data.dto.MakeHouseTransactionBodyDTO;
 import com.gebeya.smartcontract.model.data.model.MakeCarTransactionModel;
 import com.gebeya.smartcontract.model.data.model.MakeHouseTransactionModel;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.myAsset.api.service.MakeCarTransactionService;
-import com.gebeya.smartcontract.myAsset.api.service.MakeHouseTransactionService;
+import com.gebeya.smartcontract.repository.myAsset.service.MakeCarTransactionService;
+import com.gebeya.smartcontract.repository.myAsset.service.MakeHouseTransactionService;
 import com.gebeya.smartcontract.view.searchUser.SearchUserActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 

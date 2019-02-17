@@ -1,14 +1,15 @@
-package com.gebeya.smartcontract.myAsset;
+package com.gebeya.smartcontract.view.myAsset;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.databinding.MyHouseAssetLayoutBinding;
+import com.gebeya.smartcontract.view.slidingImage.SlidingImageAdapter;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.List;
@@ -21,51 +22,24 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener {
 
 
-    /**
-     * Binding with house asset layout components.
-     */
-
-    @BindView(R.id.houseArea)
-    TextView mHouseArea;
-
-    @BindView(R.id.houseRegistered)
-    TextView mHouseRegestered;
-
-    @BindView(R.id.tvLocationx1)
-    TextView mCoordinate1;
-
-    @BindView(R.id.tvLocationx2)
-    TextView mCoordinate2;
-
-    @BindView(R.id.tvLocationx3)
-    TextView mCoordinate3;
-
-    @BindView(R.id.tvLocationx4)
-    TextView mCoordinate4;
-
-    @BindView(R.id.myHouseAssetViewPager)
-    ViewPager mHouseViewPager;
-
-    @BindView(R.id.houseImageIndicator)
-    CirclePageIndicator houseImageIndicator;
-
-    private String mTypeOfAsset;
+    MyHouseAssetLayoutBinding binding;
 
 
     /**
      * Declaring local variables.
      */
-
     private MyAssetCallback mCallback;
+    private String mTypeOfAsset;
     private Context mContext;
     private String assetId;
 
-    public MyAssetHouseViewHolder(@NonNull View itemView, MyAssetCallback callback) {
-        super(itemView);
+    public MyAssetHouseViewHolder(@NonNull View itemView, MyAssetCallback callback,
+                                  MyHouseAssetLayoutBinding myHouseAssetLayoutBinding) {
+        super(myHouseAssetLayoutBinding.getRoot());
 
         this.mCallback = callback;
         mContext = itemView.getContext();
-        ButterKnife.bind(this, itemView);
+        binding = myHouseAssetLayoutBinding;
         itemView.setOnClickListener(this);
     }
 
@@ -89,21 +63,21 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
                     i++;
                 }
             }
-            mCoordinate1.setText(String.format(Locale.getDefault(), "[%f,", coordinates[0]));
-            mCoordinate2.setText(String.format(Locale.getDefault(), "%f,", coordinates[1]));
-            mCoordinate3.setText(String.format(Locale.getDefault(), "%f,", coordinates[2]));
-            mCoordinate4.setText(String.format(Locale.getDefault(), "%f]", coordinates[3]));
+            binding.tvLocationx1.setText(String.format(Locale.getDefault(), "[%f,", coordinates[0]));
+            binding.tvLocationx2.setText(String.format(Locale.getDefault(), "%f,", coordinates[1]));
+            binding.tvLocationx3.setText(String.format(Locale.getDefault(), "%f,", coordinates[2]));
+            binding.tvLocationx4.setText(String.format(Locale.getDefault(), "%f]", coordinates[3]));
         }
     }
 
     public void setArea(String area) {
         if (!area.isEmpty())
-            mHouseArea.setText(area);
+            binding.houseArea.setText(area);
     }
 
     public void setHouseRegistered(String registered) {
         if (!registered.isEmpty())
-            mHouseRegestered.setText(registered);
+            binding.houseRegistered.setText(registered);
     }
 
     public void setTypeOfAsset(String typeOfAsset) {
@@ -126,8 +100,8 @@ public class MyAssetHouseViewHolder extends RecyclerView.ViewHolder
                 }
             }
             SlidingImageAdapter adapter = new SlidingImageAdapter(mContext, url);
-            mHouseViewPager.setAdapter(adapter);
-            houseImageIndicator.setViewPager(mHouseViewPager);
+            binding.myHouseAssetViewPager.setAdapter(adapter);
+            binding.houseImageIndicator.setViewPager(binding.myHouseAssetViewPager);
 
         }
     }

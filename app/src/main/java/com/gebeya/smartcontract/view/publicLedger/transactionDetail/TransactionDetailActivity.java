@@ -27,7 +27,7 @@ import com.gebeya.smartcontract.model.data.dto.HouseHistoryTransactionBodyDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseTransactionDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseTransactionHistoryResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.myAsset.SlidingImageAdapter;
+import com.gebeya.smartcontract.view.slidingImage.SlidingImageAdapter;
 import com.gebeya.smartcontract.view.publicLedger.api.service.CarTransactionHistoryDetailService;
 import com.gebeya.smartcontract.view.publicLedger.api.service.HouseTransactionHistoryDetailService;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;

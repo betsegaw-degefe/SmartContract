@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,7 @@ import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.ActivityAllSearchUserBinding;
 import com.gebeya.smartcontract.model.data.dto.UserDTO;
-import com.gebeya.smartcontract.myAsset.MakeTransactionActivity;
+import com.gebeya.smartcontract.view.makeTransaction.MakeTransactionActivity;
 import com.gebeya.smartcontract.viewmodel.searchUser.SearchUserViewModel;
 
 import java.util.ArrayList;

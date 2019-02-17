@@ -22,10 +22,6 @@ public class PublicLedgerViewModel extends AndroidViewModel {
     private final static MutableLiveData<PublicLedgerResponseDTO> publicLedgerResponseObservable = new MutableLiveData<>();
     private final static MutableLiveData<ErrorResponseDTO> mErrorResponseObservable = new MutableLiveData<>();
 
-
-    BoxStore userBox;
-    Box<UserLoginData> box;
-
     /**
      * Constructor
      *
@@ -34,15 +30,16 @@ public class PublicLedgerViewModel extends AndroidViewModel {
     public PublicLedgerViewModel(@NonNull Application application) {
         super(application);
 
-        userBox = ((App) getApplication().getApplicationContext()).getStore();
-        box = userBox.boxFor(UserLoginData.class);
+        // Object box database.
+        BoxStore userBox = ((App) getApplication().getApplicationContext()).getStore();
+        Box<UserLoginData> box = userBox.boxFor(UserLoginData.class);
 
         // loads User token from objectBox
         List<UserLoginData> users = box.getAll();
         String token = users.get(0).getToken();
         String bearerToken = "Bearer " + token;
 
-
+        // Create an instance of public ledger repository for network request.
         PublicLedgerRepository.getInstance().getPublicLedgerRepository(bearerToken);
     }
 
@@ -63,8 +60,4 @@ public class PublicLedgerViewModel extends AndroidViewModel {
     public static MutableLiveData<ErrorResponseDTO> getErrorResponseObservable() {
         return mErrorResponseObservable;
     }
-
-   /* public LiveData<PublicLedgerResponseDTO> getPublicLedgerResponseObservable() {
-        return publicLedgerResponseObservable;
-    }*/
 }

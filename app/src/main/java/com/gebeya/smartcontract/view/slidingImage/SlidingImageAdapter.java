@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.myAsset;
+package com.gebeya.smartcontract.view.slidingImage;
 
 import android.content.Context;
 import android.os.Parcelable;

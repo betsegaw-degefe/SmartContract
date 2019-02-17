@@ -1,6 +1,7 @@
-package com.gebeya.smartcontract.myAsset;
+package com.gebeya.smartcontract.view.myAsset;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -11,24 +12,24 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.utils.DateFormatter;
 import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.databinding.MyCarAssetLayoutBinding;
+import com.gebeya.smartcontract.databinding.MyHouseAssetLayoutBinding;
 import com.gebeya.smartcontract.model.data.dto.CarDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseDTO;
 import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
+import com.gebeya.smartcontract.view.publicLedger.PublicLedgerViewHolder;
 
 import java.util.List;
 
 public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private LayoutInflater inflater;
     private List<CarDTO> mCars;
     private List<HouseDTO> mHouse;
-    private List<Object> mItems;
 
     private UserLoginResponseDTO mUserResponseDTO;
     private MyAssetCallback mCallback;
     private Context mContext;
     private int counter = 0;
-    private int carPosition = 0;
     private int layoutCounter = 0;
 
 
@@ -47,20 +48,25 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
-        inflater = LayoutInflater.from(context);
-        final View itemView;
 
-        if (!mCars.equals(null) && layoutCounter < mCars.size()) {
-            itemView = inflater.inflate(R.layout.my_car_asset_layout,
+
+        if (mCars != null && layoutCounter < mCars.size()) {
+            MyCarAssetLayoutBinding carBinding = DataBindingUtil.inflate(
+                  LayoutInflater.from(viewGroup.getContext()),
+                  R.layout.my_car_asset_layout,
                   viewGroup, false);
+
             layoutCounter++;
 
-            return new MyAssetCarViewHolder(itemView, mCallback);
+            return new MyAssetCarViewHolder(carBinding.getRoot(), mCallback, carBinding);
         } else {
-            itemView = inflater.inflate(R.layout.my_house_asset_layout,
+
+            MyHouseAssetLayoutBinding houseBinding = DataBindingUtil.inflate(
+                  LayoutInflater.from(viewGroup.getContext()),
+                  R.layout.my_house_asset_layout,
                   viewGroup, false);
-            return new MyAssetHouseViewHolder(itemView, mCallback);
+
+            return new MyAssetHouseViewHolder(houseBinding.getRoot(), mCallback, houseBinding);
         }
     }
 
@@ -68,7 +74,7 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyAssetCarViewHolder) {
             MyAssetCarViewHolder myAssetCarViewHolder = (MyAssetCarViewHolder) holder;
-            int i = layoutCounter-1;
+            int i = layoutCounter - 1;
             CarDTO car = mCars.get(i);
 
             myAssetCarViewHolder.setAssetId(car.getId());
@@ -83,7 +89,6 @@ public class MyAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             myAssetCarViewHolder.setAssetRegistered(dateFormatter
                   .DateFormatter(car.getCreatedAt()));
-            carPosition++;
         } else if (holder instanceof MyAssetHouseViewHolder) {
             MyAssetHouseViewHolder myAssetHouseViewHolder = (MyAssetHouseViewHolder) holder;
             if (counter < mHouse.size()) {

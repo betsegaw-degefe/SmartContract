@@ -1,52 +1,63 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white_background">
+    <data>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/myAssetSwipeContainer"
+        <variable
+            name="myAssetAdapter"
+            type="com.gebeya.smartcontract.view.myAsset.MyAssetAdapter" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/myAssetRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white_background">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvMyAsset"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/myAssetSwipeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_background">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvMyAsset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:scrollbars="vertical"
+                    tools:listitem="@layout/my_car_asset_layout" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/my_car_asset_layout"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-        <com.github.rahatarmanahmed.cpv.CircularProgressView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/pvMyAsset"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            app:cpv_color="@color/colorAccent"
-            app:cpv_animAutostart="true"
-            app:cpv_indeterminate="true" />
-    </LinearLayout>
+            <com.github.rahatarmanahmed.cpv.CircularProgressView
+                android:id="@+id/pvMyAsset"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                app:cpv_animAutostart="true"
+                app:cpv_color="@color/colorAccent"
+                app:cpv_indeterminate="true" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/noAsset"
-        style="@style/label.blue"
-        android:layout_centerInParent="true"
-        android:text="@string/NoMyAssetLabel"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/noAsset"
+            style="@style/label.blue"
+            android:layout_centerInParent="true"
+            android:text="@string/NoMyAssetLabel"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

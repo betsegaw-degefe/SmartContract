@@ -154,8 +154,8 @@ public class LoginActivity extends BaseActivity {
 
                     // Send the user information to the object box to save on the user phone.
                     setUserLogin(user, token);
-                    //int statusCode = response.code();
-                    //String statusMessage = response.message();
+
+                    // Open main Activity
                     openActivity();
                 } else {
                     ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);

@@ -7,36 +7,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.smartcontract.App;
 import com.gebeya.smartcontract.MainActivity;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.databinding.FragmentAboutUsBinding;
 import com.gebeya.smartcontract.databinding.FragmentPublicLedgerBinding;
 import com.gebeya.smartcontract.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
+import com.gebeya.smartcontract.view.myAsset.MyAssetFragment;
 import com.gebeya.smartcontract.view.publicLedger.transactionDetail.TransactionDetailActivity;
-import com.gebeya.smartcontract.viewmodel.changePassword.ChangePasswordViewModel;
 import com.gebeya.smartcontract.viewmodel.publicLedger.PublicLedgerViewModel;
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import butterknife.BindView;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
@@ -83,9 +77,7 @@ public class PublicLedgerFragment extends BaseFragment {
         // No public Ledger message.
         binding.noPublicLedger.setVisibility(View.INVISIBLE);
 
-        // Create a PublicLedgerViewModel the first time the system calls an
-        // fragments.Re-created fragments receive the same PublicLedgerViewModel instance
-        // created by the first fragment.
+        // Providing view model class to PublicLedgerFragment.
         viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()))
               .get(PublicLedgerViewModel.class);
 
@@ -97,39 +89,28 @@ public class PublicLedgerFragment extends BaseFragment {
         observeViewModel(viewModel);
         observeErrorViewModel();
 
-        binding.publicLedgerSwipeContainer.setOnRefreshListener(() -> {
-            // Load assets from the server.
-            if (isConnected()) {
-                // Observe the change in public ledger view model.
-                viewModel = new PublicLedgerViewModel(getActivity().getApplication());
-                observeViewModel(viewModel);
-                observeErrorViewModel();
-            } else {
-                Snackbar.make(binding.publicLedgerRelativeLayout, R.string.NoInternetConnectionLabel, Snackbar.LENGTH_SHORT)
-                      .show();
-                binding.progressViewPublicLedger.setVisibility(View.GONE);
-                binding.publicLedgerSwipeContainer.setRefreshing(false);
-            }
-        });
+        // Swipe down refresh listener.
+        binding.publicLedgerSwipeContainer.setOnRefreshListener(this::refreshPublicLedger);
+    }
+
+    private void refreshPublicLedger() {
+        // Load assets from the server.
+        if (isConnected()) {
+            // Observe the change in public ledger view model.
+            viewModel = new PublicLedgerViewModel(Objects.requireNonNull(getActivity()).getApplication());
+            observeViewModel(viewModel);
+            observeErrorViewModel();
+        } else {
+            Snackbar.make(binding.publicLedgerRelativeLayout, R.string.NoInternetConnectionLabel, Snackbar.LENGTH_SHORT)
+                  .show();
+            binding.progressViewPublicLedger.setVisibility(View.GONE);
+            binding.publicLedgerSwipeContainer.setRefreshing(false);
+        }
 
         binding.publicLedgerSwipeContainer.setColorSchemeResources(
               R.color.colorPrimary,
               R.color.colorPrimaryDark,
               R.color.ruby_dark);
-
-        binding.publicLedgerRecyclerView.addOnScrollListener(new OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                ((MainActivity) getActivity()).onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                ((MainActivity) getActivity()).onScrolled(recyclerView, dx, dy);
-            }
-        });
     }
 
     /**
@@ -142,11 +123,15 @@ public class PublicLedgerFragment extends BaseFragment {
                   errorResponseDTO = PublicLedgerViewModel.getErrorResponseObservable().getValue();
                   String message = Objects.requireNonNull(errorResponseDTO).getMessage();
                   if (message.equals("Authorization Header Token is Invalid")) {
-                     // box.removeAll();
-                      startActivity(new Intent(getActivity(), LoginActivity.class));
-                      Objects.requireNonNull(getActivity()).finish();
+                      signOut();
                   }
               });
+    }
+
+    private void signOut() {
+        box.removeAll();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        Objects.requireNonNull(getActivity()).finish();
     }
 
     /**

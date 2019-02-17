@@ -1,11 +1,11 @@
 package com.gebeya.framework.utils;
 
 import com.gebeya.smartcontract.login.api.LoginService;
-import com.gebeya.smartcontract.myAsset.api.service.MakeCarTransactionService;
-import com.gebeya.smartcontract.myAsset.api.service.MakeHouseTransactionService;
-import com.gebeya.smartcontract.myAsset.api.service.MyAssetCarService;
-import com.gebeya.smartcontract.myAsset.api.service.MyAssetHouseService;
-import com.gebeya.smartcontract.myAsset.api.service.UserService;
+import com.gebeya.smartcontract.repository.myAsset.service.MakeCarTransactionService;
+import com.gebeya.smartcontract.repository.myAsset.service.MakeHouseTransactionService;
+import com.gebeya.smartcontract.repository.myAsset.service.MyAssetCarService;
+import com.gebeya.smartcontract.repository.myAsset.service.MyAssetHouseService;
+import com.gebeya.smartcontract.repository.myAsset.service.UserService;
 import com.gebeya.smartcontract.repository.SearchUser.SearchUserService;
 import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
 import com.gebeya.smartcontract.view.changePassword.api.ChangePasswordService;

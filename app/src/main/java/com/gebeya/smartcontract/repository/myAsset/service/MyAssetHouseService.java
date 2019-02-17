@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.myAsset.api.service;
+package com.gebeya.smartcontract.repository.myAsset.service;
 
 import com.gebeya.smartcontract.model.data.dto.MyAssetHouseResponseDTO;
 

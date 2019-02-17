@@ -1,122 +1,132 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:layout_marginTop="8dp"
-    android:background="@color/white"
-    android:elevation="4dp"
-    android:orientation="vertical"
-    tools:ignore="UnusedAttribute">
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
 
-    <FrameLayout
-        android:id="@+id/myAssetImageContainer"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#f5f5f5">
+    <data>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/myAssetViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <variable
+            name="myCarAsset"
+            type="com.gebeya.smartcontract.model.data.dto.CarDTO" />
+    </data>
 
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
-            android:padding="5dip"
-            app:lineWidth="50dp"
-            app:fillColor="@color/colorAccent"
-            app:strokeWidth="2dp"
-            app:unselectedColor="#cdced2" />
-    </FrameLayout>
-
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:ignore="UnusedAttribute">
 
-        <LinearLayout
-            android:id="@+id/llAssetSpecification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/label.blue.large"
-                android:layout_marginTop="8dp"
-                android:text="Brand" />
-
-            <TextView
-                android:id="@+id/tvAssetSpecification"
-                style="@style/label.black.large"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="4dp"
-                tools:text="Mercedes Benze" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/label.blue.large"
-                android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:text="Model" />
-
-            <TextView
-                android:id="@+id/assetType"
-                style="@style/label.black.large"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="end"
-                tools:text="A 45 AMG, 2012" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llcarRegisteredDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llAssetSpecification"
-            android:gravity="start"
+        <FrameLayout
+            android:id="@+id/myAssetImageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#f5f5f5">
 
-            <TextView
-                style="@style/label.blue.large"
-                android:layout_marginTop="8dp"
-                android:text="Date of Registered" />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/myAssetViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/assetRegistered"
-                style="@style/label.black.large"
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="20dp"
+                android:padding="5dip"
+                app:fillColor="@color/colorAccent"
+                app:lineWidth="50dp"
+                app:strokeWidth="2dp"
+                app:unselectedColor="#cdced2" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llAssetSpecification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/label.blue.large"
+                    android:layout_marginTop="8dp"
+                    android:text="Brand" />
+
+                <TextView
+                    android:id="@+id/tvAssetSpecification"
+                    style="@style/label.black.large"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="4dp"
+                    tools:text="Mercedes Benze" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/label.blue.large"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:text="Model" />
+
+                <TextView
+                    android:id="@+id/assetType"
+                    style="@style/label.black.large"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    tools:text="A 45 AMG, 2012" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llcarRegisteredDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llAssetSpecification"
                 android:layout_marginTop="8dp"
-                tools:text="09-Nov-18 07:25:53" />
-        </LinearLayout>
+                android:gravity="start"
+                android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/assetTransferIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@+id/llcarRegisteredDate"
-            app:srcCompat="@drawable/ic_iconfinder_rounded_06_2024632"/>
-    </RelativeLayout>
+                <TextView
+                    style="@style/label.blue.large"
+                    android:layout_marginTop="8dp"
+                    android:text="Date of Registered" />
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/assetRegistered"
+                    style="@style/label.black.large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="8dp"
+                    tools:text="09-Nov-18 07:25:53" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/assetTransferIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/llcarRegisteredDate"
+                android:layout_alignParentEnd="true"
+                app:srcCompat="@drawable/ic_iconfinder_rounded_06_2024632" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
