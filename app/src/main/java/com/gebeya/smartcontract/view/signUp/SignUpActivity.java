@@ -1,8 +1,9 @@
-package com.gebeya.smartcontract.signUp;
+package com.gebeya.smartcontract.view.signUp;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -10,11 +11,13 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.model.SignUpModel;
-import com.gebeya.smartcontract.login.LoginActivity;
-import com.gebeya.smartcontract.signUp.api.SignUpService;
+import com.gebeya.smartcontract.view.login.LoginActivity;
+import com.gebeya.smartcontract.view.signUp.api.SignUpService;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import customfonts.Button_sfuitext_regular;
 import customfonts.EditText_Roboto_Regular;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +43,12 @@ public class SignUpActivity extends BaseActivity {
 
     @BindView(R.id.confirmPassword)
     EditText_Roboto_Regular mConfirmPassword;
+
+    @BindView(R.id.signUpButton)
+    Button_sfuitext_regular signUpButton;
+
+    @BindView(R.id.progressViewLogin)
+    CircularProgressView mProgressView;
 
     Animation shake;
 
@@ -74,6 +83,8 @@ public class SignUpActivity extends BaseActivity {
 
     @OnClick(R.id.signUpButton)
     public void submitSignUp() {
+        signUpButton.setBackground(this.getResources().getDrawable(R.drawable.button_pressed));
+
         firstName = mFirstName.getText().toString().trim();
         if (TextUtils.isEmpty(firstName)) {
             mFirstName.setError(getString(R.string.sign_up_first_name_hint));
@@ -102,8 +113,8 @@ public class SignUpActivity extends BaseActivity {
             mVerificationCode.startAnimation(shake);
             return;
         }
-        confirmPasswrd = mConfirmPassword.getText().toString().trim();
 
+        confirmPasswrd = mConfirmPassword.getText().toString().trim();
         // Check whether the password match or not
         if (TextUtils.isEmpty(confirmPasswrd)) {
             mConfirmPassword.setError(getString(R.string.sign_up_password_confirm_hint));
@@ -119,7 +130,16 @@ public class SignUpActivity extends BaseActivity {
             return;
         }
 
-        //toast(phoneNo);
+        mProgressView.setVisibility(View.VISIBLE);
+        // disable the login button
+        signUpButton.setEnabled(false);
+        mFirstName.setEnabled(false);
+        mLastName.setEnabled(false);
+        mPassword.setEnabled(false);
+        mVerificationCode.setEnabled(false);
+        mConfirmPassword.setEnabled(false);
+
+
         mSignUpService.SignUp("application/json",
               firstName,
               lastName,

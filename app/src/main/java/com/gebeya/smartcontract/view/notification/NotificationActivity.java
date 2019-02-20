@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.notification;
+package com.gebeya.smartcontract.view.notification;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.login;
+package com.gebeya.smartcontract.view.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,16 +16,16 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.framework.utils.ErrorUtils;
-import com.gebeya.smartcontract.App;
-import com.gebeya.smartcontract.MainActivity;
+import com.gebeya.app.App;
+import com.gebeya.smartcontract.view.mainActivity.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.ActivityLoginBinding;
-import com.gebeya.smartcontract.login.api.LoginService;
+import com.gebeya.smartcontract.view.login.api.LoginService;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.UserDTO;
 import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.sendPhoneNumber.SendPhoneNumberActivity;
+import com.gebeya.smartcontract.view.sendPhoneNumber.SendPhoneNumberActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.Objects;
@@ -129,7 +129,6 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         mProgressView.setVisibility(View.VISIBLE);
-        //toast(deviceId);
 
         // disable the login button
         loginButton.setEnabled(false);

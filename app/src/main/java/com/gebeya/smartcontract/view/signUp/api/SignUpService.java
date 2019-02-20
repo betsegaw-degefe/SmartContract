@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.signUp.api;
+package com.gebeya.smartcontract.view.signUp.api;
 
 import com.gebeya.smartcontract.model.data.model.SignUpModel;
 

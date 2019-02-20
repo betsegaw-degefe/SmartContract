@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.gebeya.smartcontract.App;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.model.data.dto.ChangePasswordModelDTO;
 import com.gebeya.smartcontract.model.data.dto.ChangePasswordResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;

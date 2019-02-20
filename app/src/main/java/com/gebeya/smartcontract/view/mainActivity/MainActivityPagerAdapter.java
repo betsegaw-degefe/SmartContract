@@ -1,11 +1,11 @@
-package com.gebeya.smartcontract;
+package com.gebeya.smartcontract.view.mainActivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.gebeya.smartcontract.view.myAsset.MyAssetFragment;
-import com.gebeya.smartcontract.profile.ProfileFragment;
+import com.gebeya.smartcontract.view.profile.ProfileFragment;
 import com.gebeya.smartcontract.view.aboutUs.AboutUsFragment;
 import com.gebeya.smartcontract.view.publicLedger.PublicLedgerFragment;
 

@@ -17,7 +17,7 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.CheckInternetConnection;
 import com.gebeya.framework.utils.ErrorUtils;
-import com.gebeya.smartcontract.App;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.model.data.dto.CarHistoryTransactionBodyDTO;
 import com.gebeya.smartcontract.model.data.dto.CarTransactionDTO;
@@ -70,7 +70,7 @@ public class TransactionDetailActivity extends BaseActivity {
     ViewPager mHouseViewPager;
 
     @BindView(R.id.includeCarHistory)
-    View includeCarHisttory;
+    View includeCarHistory;
 
     @BindView(R.id.includeHouseHistory)
     View includeHouseHistory;
@@ -275,7 +275,7 @@ public class TransactionDetailActivity extends BaseActivity {
             SlidingImageAdapter adapter = new SlidingImageAdapter(getApplicationContext(), url);
             mViewPager.setAdapter(adapter);
             indicator.setViewPager(mViewPager);
-            includeCarHisttory.setVisibility(View.VISIBLE);
+            includeCarHistory.setVisibility(View.VISIBLE);
         }
 
     }
@@ -351,7 +351,7 @@ public class TransactionDetailActivity extends BaseActivity {
             }
             SlidingImageAdapter adapter = new SlidingImageAdapter(getApplicationContext(), url);
             mHouseViewPager.setAdapter(adapter);
-            houseImageIndicator.setViewPager(mViewPager);
+            houseImageIndicator.setViewPager(mHouseViewPager);
             includeHouseHistory.setVisibility(View.VISIBLE);
         }
 

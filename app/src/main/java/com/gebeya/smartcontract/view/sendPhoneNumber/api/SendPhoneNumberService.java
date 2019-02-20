@@ -1,6 +1,5 @@
-package com.gebeya.smartcontract.sendPhoneNumber.api;
+package com.gebeya.smartcontract.view.sendPhoneNumber.api;
 
-import com.gebeya.smartcontract.model.data.dto.SendPhoneNumberResponseDTO;
 import com.gebeya.smartcontract.model.data.model.SendPhoneNumberModel;
 
 import retrofit2.Call;
@@ -8,10 +7,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface ResetPasswordService {
-    @POST("users/resetPassword")
+public interface SendPhoneNumberService {
+    @POST("users/sendVerificationCode")
     @FormUrlEncoded
-    Call<SendPhoneNumberResponseDTO> resetPassword(
+    Call<SendPhoneNumberModel> sendPhoneNumber(
           @Field("Content-Type") String type,
           @Field("phoneNo") String phoneNo
     );

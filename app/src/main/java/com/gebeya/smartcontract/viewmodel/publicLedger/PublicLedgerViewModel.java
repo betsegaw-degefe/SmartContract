@@ -2,11 +2,10 @@ package com.gebeya.smartcontract.viewmodel.publicLedger;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
-import com.gebeya.smartcontract.App;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;

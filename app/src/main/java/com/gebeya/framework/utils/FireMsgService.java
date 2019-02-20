@@ -13,19 +13,16 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
-import com.gebeya.smartcontract.MainActivity;
+import com.gebeya.smartcontract.view.mainActivity.MainActivity;
 import com.gebeya.smartcontract.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Objects;
-
-import static com.gebeya.framework.utils.Constants.PREFS_NAME;
 
 public class FireMsgService extends FirebaseMessagingService {
 

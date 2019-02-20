@@ -5,7 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
-import com.gebeya.smartcontract.App;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.MyAssetCarResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.MyAssetHouseResponseDTO;

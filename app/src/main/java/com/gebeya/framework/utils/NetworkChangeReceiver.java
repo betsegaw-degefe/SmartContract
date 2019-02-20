@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
-import com.gebeya.smartcontract.MainActivity;
+import com.gebeya.smartcontract.view.mainActivity.MainActivity;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {
     @Override

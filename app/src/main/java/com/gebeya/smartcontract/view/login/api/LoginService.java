@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.login.api;
+package com.gebeya.smartcontract.view.login.api;
 
 import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
 

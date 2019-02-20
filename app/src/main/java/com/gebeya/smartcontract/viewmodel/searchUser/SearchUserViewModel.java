@@ -6,13 +6,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
-import com.gebeya.smartcontract.App;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.model.data.dto.FirstName;
-import com.gebeya.smartcontract.model.data.dto.PublicLedgerResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.SearchUserBodyDTO;
 import com.gebeya.smartcontract.model.data.dto.UserDTO;
-import com.gebeya.smartcontract.model.data.dto.UserResponseDTO;
-import com.gebeya.smartcontract.model.data.model.ChangePassword;
 import com.gebeya.smartcontract.model.data.model.SearchUser;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.repository.SearchUser.SearchUserRepository;

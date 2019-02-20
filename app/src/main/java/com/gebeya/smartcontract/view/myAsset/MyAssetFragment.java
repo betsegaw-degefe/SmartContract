@@ -15,10 +15,10 @@ import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.CheckInternetConnection;
-import com.gebeya.smartcontract.App;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.FragmentMyAssetBinding;
-import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.view.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.dto.CarDTO;
 import com.gebeya.smartcontract.model.data.dto.HouseDTO;
 import com.gebeya.smartcontract.model.data.dto.UserLoginResponseDTO;
@@ -206,6 +206,10 @@ public class MyAssetFragment extends BaseFragment {
                           binding.myAssetSwipeContainer.setRefreshing(false);
                       }
                   });
+            if (isCarNull.get() && isHouseNull.get()) {
+                binding.noAsset.setVisibility(View.VISIBLE);
+                binding.pvMyAsset.setVisibility(View.GONE);
+            }
         } else {
             binding.noAsset.setVisibility(View.VISIBLE);
             Snackbar.make(binding.myAssetRelativeLayout, R.string.NoInternetConnectionLabel, Snackbar.LENGTH_SHORT)

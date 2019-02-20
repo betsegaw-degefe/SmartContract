@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract;
+package com.gebeya.app;
 
 
 import android.app.Application;
@@ -7,8 +7,6 @@ import com.gebeya.framework.utils.Util;
 import com.gebeya.smartcontract.model.data.objectBox.MyObjectBox;
 
 import io.objectbox.BoxStore;
-import io.objectbox.Box;
-import io.objectbox.android.AndroidObjectBrowser;
 
 /**
  * Custom Application implementation in order to use the Application Context for initialization

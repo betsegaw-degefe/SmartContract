@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract;
+package com.gebeya.smartcontract.view.mainActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,8 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gebeya.app.App;
 import com.gebeya.framework.base.BaseActivity;
-import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.R;
+import com.gebeya.smartcontract.view.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 import com.gebeya.smartcontract.view.changePassword.ChangePasswordActivity;
 import com.google.firebase.iid.FirebaseInstanceId;

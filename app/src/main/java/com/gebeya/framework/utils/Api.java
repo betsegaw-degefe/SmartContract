@@ -1,20 +1,20 @@
 package com.gebeya.framework.utils;
 
-import com.gebeya.smartcontract.login.api.LoginService;
+import com.gebeya.smartcontract.view.login.api.LoginService;
 import com.gebeya.smartcontract.repository.myAsset.service.MakeCarTransactionService;
 import com.gebeya.smartcontract.repository.myAsset.service.MakeHouseTransactionService;
 import com.gebeya.smartcontract.repository.myAsset.service.MyAssetCarService;
 import com.gebeya.smartcontract.repository.myAsset.service.MyAssetHouseService;
 import com.gebeya.smartcontract.repository.myAsset.service.UserService;
 import com.gebeya.smartcontract.repository.SearchUser.SearchUserService;
-import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
+import com.gebeya.smartcontract.view.sendPhoneNumber.api.ResetPasswordService;
 import com.gebeya.smartcontract.view.changePassword.api.ChangePasswordService;
 import com.gebeya.smartcontract.view.publicLedger.api.service.HouseTransactionHistoryDetailService;
 import com.gebeya.smartcontract.view.publicLedger.api.service.PublicLedgerService;
 import com.gebeya.smartcontract.model.data.remote.RetrofitClient;
 import com.gebeya.smartcontract.view.publicLedger.api.service.CarTransactionHistoryDetailService;
-import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
-import com.gebeya.smartcontract.signUp.api.SignUpService;
+import com.gebeya.smartcontract.view.sendPhoneNumber.api.SendPhoneNumberService;
+import com.gebeya.smartcontract.view.signUp.api.SignUpService;
 
 public final class Api {
     /**

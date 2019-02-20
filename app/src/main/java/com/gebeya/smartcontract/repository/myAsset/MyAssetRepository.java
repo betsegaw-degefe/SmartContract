@@ -57,9 +57,11 @@ public class MyAssetRepository {
             public void onResponse(Call<MyAssetCarResponseDTO> call, Response<MyAssetCarResponseDTO> response) {
                 if (response.isSuccessful() && Objects.requireNonNull(response.body()).data.size() != (0)) {
                     MyAssetViewModel.getMyAssetCarResponseObservable().setValue(response.body());
-                } else {
+                } else if (response.errorBody() != null) {
                     ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
                     MyAssetViewModel.getErrorResponseObservable().setValue(errorResponse);
+                } else {
+                    MyAssetViewModel.getMyAssetCarResponseObservable().setValue(null);
                 }
             }
 
@@ -77,9 +79,11 @@ public class MyAssetRepository {
             public void onResponse(Call<MyAssetHouseResponseDTO> call, Response<MyAssetHouseResponseDTO> response) {
                 if (response.isSuccessful()) {
                     MyAssetViewModel.getMyAssetHouseResponseObservable().setValue(response.body());
-                } else {
+                } else if (response.errorBody() != null) {
                     ErrorResponseDTO errorResponse = ErrorUtils.parseError(response);
                     MyAssetViewModel.getErrorResponseObservable().setValue(errorResponse);
+                } else {
+                    MyAssetViewModel.getMyAssetHouseResponseObservable().setValue(null);
                 }
             }
 

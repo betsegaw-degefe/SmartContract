@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.sendPhoneNumber;
+package com.gebeya.smartcontract.view.sendPhoneNumber;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,13 @@ import com.gebeya.framework.base.BaseActivity;
 import com.gebeya.framework.utils.Api;
 import com.gebeya.framework.utils.ErrorUtils;
 import com.gebeya.smartcontract.R;
-import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.view.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.dto.ErrorResponseDTO;
 import com.gebeya.smartcontract.model.data.dto.SendPhoneNumberResponseDTO;
 import com.gebeya.smartcontract.model.data.model.SendPhoneNumberModel;
-import com.gebeya.smartcontract.sendPhoneNumber.api.ResetPasswordService;
-import com.gebeya.smartcontract.sendPhoneNumber.api.SendPhoneNumberService;
-import com.gebeya.smartcontract.signUp.SignUpActivity;
+import com.gebeya.smartcontract.view.sendPhoneNumber.api.ResetPasswordService;
+import com.gebeya.smartcontract.view.sendPhoneNumber.api.SendPhoneNumberService;
+import com.gebeya.smartcontract.view.signUp.SignUpActivity;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.hbb20.CountryCodePicker;
 

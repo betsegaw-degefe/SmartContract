@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.gebeya.framework.base.BaseActivity;
-import com.gebeya.smartcontract.App;
-import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.app.App;
+import com.gebeya.smartcontract.view.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
 
 import io.objectbox.Box;

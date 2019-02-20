@@ -1,4 +1,4 @@
-package com.gebeya.smartcontract.search;
+package com.gebeya.smartcontract.view.search;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

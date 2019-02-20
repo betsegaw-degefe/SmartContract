@@ -9,21 +9,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gebeya.framework.base.BaseFragment;
 import com.gebeya.framework.utils.CheckInternetConnection;
-import com.gebeya.smartcontract.App;
-import com.gebeya.smartcontract.MainActivity;
+import com.gebeya.app.App;
 import com.gebeya.smartcontract.R;
 import com.gebeya.smartcontract.databinding.FragmentPublicLedgerBinding;
-import com.gebeya.smartcontract.login.LoginActivity;
+import com.gebeya.smartcontract.view.login.LoginActivity;
 import com.gebeya.smartcontract.model.data.dto.TransactionDTO;
 import com.gebeya.smartcontract.model.data.objectBox.UserLoginData;
-import com.gebeya.smartcontract.view.myAsset.MyAssetFragment;
 import com.gebeya.smartcontract.view.publicLedger.transactionDetail.TransactionDetailActivity;
 import com.gebeya.smartcontract.viewmodel.publicLedger.PublicLedgerViewModel;
 
